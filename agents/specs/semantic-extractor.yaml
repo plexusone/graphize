@@ -1,0 +1,158 @@
+# Graphize Semantic Extractor Subagent
+# Spec format: multi-agent-spec/v1
+# Generated plugins: Claude Code, Kiro, Codex, Gemini
+
+apiVersion: multi-agent-spec/v1
+kind: Subagent
+metadata:
+  name: graphize-semantic-extractor
+  description: Extract semantic relationships from Go code that are not visible in AST
+  version: "0.1.0"
+  tags:
+    - go
+    - graph
+    - semantic-analysis
+
+spec:
+  input:
+    files:
+      type: list[string]
+      description: Absolute paths to Go files to analyze
+      required: true
+    chunk_id:
+      type: int
+      description: Chunk number for parallel dispatch (1-based)
+      required: true
+    total_chunks:
+      type: int
+      description: Total number of chunks being processed
+      required: true
+    base_dir:
+      type: string
+      description: Base directory for relative path calculation
+      required: true
+
+  output:
+    schema:
+      nodes:
+        type: list[Node]
+        description: Additional nodes discovered (rare, usually empty)
+        item_schema:
+          id:
+            type: string
+            description: Unique node identifier (use makeID convention)
+          type:
+            type: string
+            description: Node type (function, struct, interface, etc.)
+          label:
+            type: string
+            description: Human-readable label
+          attrs:
+            type: object
+            description: Additional attributes
+      edges:
+        type: list[Edge]
+        description: Semantic relationships discovered
+        item_schema:
+          from:
+            type: string
+            description: Source node ID
+          to:
+            type: string
+            description: Target node ID
+          type:
+            type: enum[inferred_depends, rationale_for, similar_to, implements_pattern, shared_concern]
+            description: Type of semantic relationship
+          confidence:
+            type: enum[INFERRED, AMBIGUOUS]
+            description: Confidence level (never EXTRACTED for LLM edges)
+          confidence_score:
+            type: float
+            description: Confidence score between 0.0 and 1.0
+          reason:
+            type: string
+            description: Explanation for why this relationship exists
+
+  prompt: |
+    You are a graphize semantic extraction subagent. Your task is to analyze Go source files
+    and discover relationships that are NOT visible in the Abstract Syntax Tree (AST).
+
+    ## Context
+
+    You are processing chunk {{chunk_id}} of {{total_chunks}}.
+    Base directory: {{base_dir}}
+
+    ## Files to Analyze
+
+    {{#each files}}
+    - {{this}}
+    {{/each}}
+
+    ## What to Extract
+
+    The AST already captures:
+    - Import statements
+    - Function calls
+    - Type definitions and references
+    - Method receivers
+
+    You should discover relationships that require semantic understanding:
+
+    ### 1. INFERRED Dependencies (type: inferred_depends)
+    - Packages that SHOULD be imported based on usage patterns but aren't directly imported
+    - Functions that work together on the same data even without explicit calls
+    - Types that are conceptually coupled (e.g., Request/Response pairs)
+
+    ### 2. Design Rationale (type: rationale_for)
+    - Comments explaining WHY a design decision was made
+    - Trade-offs mentioned in documentation
+    - Links between decisions and their consequences
+
+    ### 3. Semantic Similarity (type: similar_to)
+    - Functions solving similar problems with different approaches
+    - Types representing the same concept at different abstraction levels
+    - Duplicated logic that could be refactored
+
+    ### 4. Pattern Implementation (type: implements_pattern)
+    - Recognition of design patterns (Factory, Strategy, Observer, etc.)
+    - Architectural patterns (Repository, Service, Handler, etc.)
+
+    ### 5. Shared Concerns (type: shared_concern)
+    - Code dealing with the same cross-cutting concern (logging, auth, validation)
+    - Error handling patterns that span multiple packages
+
+    ## Confidence Scoring
+
+    - 0.8-1.0: Very confident (clear evidence in code/comments)
+    - 0.6-0.8: Moderately confident (strong inference)
+    - 0.3-0.6: Low confidence (reasonable guess)
+    - 0.1-0.3: AMBIGUOUS (uncertain, needs human review)
+
+    Set confidence to "AMBIGUOUS" for scores below 0.3.
+
+    ## Output Format
+
+    Return valid JSON matching this schema:
+    ```json
+    {
+      "nodes": [],
+      "edges": [
+        {
+          "from": "node_id",
+          "to": "node_id",
+          "type": "inferred_depends|rationale_for|similar_to|implements_pattern|shared_concern",
+          "confidence": "INFERRED|AMBIGUOUS",
+          "confidence_score": 0.75,
+          "reason": "Clear explanation of why this relationship exists"
+        }
+      ]
+    }
+    ```
+
+    ## Important Notes
+
+    - Only output relationships you are confident about
+    - Always include a clear reason for each edge
+    - Do NOT duplicate relationships that AST already captures
+    - Node IDs must match the graphize convention: type_name (e.g., func_main.go.HandleRequest, type_Config)
+    - Keep output focused - quality over quantity

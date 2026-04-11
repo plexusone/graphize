@@ -1,0 +1,149 @@
+{
+  "nodes": [],
+  "edges": [
+    {
+      "from": "type_encoder",
+      "to": "type_decoder",
+      "type": "similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.9,
+      "reason": "Symmetric Encoder/Decoder pattern - encoder marshals Go to YAML, decoder unmarshals YAML to Go"
+    },
+    {
+      "from": "func_yaml.go.Marshal",
+      "to": "func_yaml.go.Unmarshal",
+      "type": "similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "reason": "Public API symmetry - Marshal and Unmarshal are inverse operations"
+    },
+    {
+      "from": "func_yaml.go.fail",
+      "to": "func_yaml.go.handleErr",
+      "type": "shared_concern",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "reason": "Panic-based error handling pattern - fail() panics with yamlError, handleErr() recovers it"
+    },
+    {
+      "from": "func_yaml.go.failf",
+      "to": "func_yaml.go.handleErr",
+      "type": "shared_concern",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "reason": "Panic-based error handling pattern - failf() panics with formatted yamlError, handleErr() recovers it"
+    },
+    {
+      "from": "func_encode.go.newEncoder",
+      "to": "func_encode.go.newEncoderWithWriter",
+      "type": "similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.9,
+      "reason": "Factory function variants - same construction logic, different output targets (buffer vs writer)"
+    },
+    {
+      "from": "func_decode.go.newParser",
+      "to": "func_decode.go.newParserFromReader",
+      "type": "similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.9,
+      "reason": "Factory function variants - same construction logic, different input sources (bytes vs reader)"
+    },
+    {
+      "from": "file_scannerc.go",
+      "to": "file_parserc.go",
+      "type": "inferred_depends",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "reason": "Pipeline stage - scanner tokenizes input, parser consumes tokens to build AST"
+    },
+    {
+      "from": "file_parserc.go",
+      "to": "file_decode.go",
+      "type": "inferred_depends",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "reason": "Pipeline stage - parser builds node tree, decoder walks tree to populate Go values"
+    },
+    {
+      "from": "file_encode.go",
+      "to": "file_emitterc.go",
+      "type": "inferred_depends",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "reason": "Pipeline stage - encoder generates events, emitter outputs YAML text"
+    },
+    {
+      "from": "file_emitterc.go",
+      "to": "file_writerc.go",
+      "type": "inferred_depends",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "reason": "Pipeline stage - emitter formats output, writer handles I/O"
+    },
+    {
+      "from": "file_scannerc.go",
+      "to": "file_readerc.go",
+      "type": "inferred_depends",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "reason": "Pipeline stage - scanner depends on reader for character input"
+    },
+    {
+      "from": "file_scannerc.go",
+      "to": "file_emitterc.go",
+      "type": "shared_concern",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "reason": "libyaml port - both are C-style implementations ported from libyaml library"
+    },
+    {
+      "from": "file_parserc.go",
+      "to": "file_emitterc.go",
+      "type": "shared_concern",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "reason": "libyaml port - both are C-style implementations sharing yaml_event_t types"
+    },
+    {
+      "from": "func_resolve.go.resolve",
+      "to": "func_decode.go.newDecoder",
+      "type": "inferred_depends",
+      "confidence": "INFERRED",
+      "confidence_score": 0.7,
+      "reason": "Type resolution - resolve() determines Go types from YAML scalar values during decoding"
+    },
+    {
+      "from": "type_structInfo",
+      "to": "type_fieldInfo",
+      "type": "implements_pattern",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "reason": "Reflection cache pattern - structInfo caches field metadata to avoid repeated reflection"
+    },
+    {
+      "from": "func_yaml.go.getStructInfo",
+      "to": "func_yaml.go.isZero",
+      "type": "shared_concern",
+      "confidence": "INFERRED",
+      "confidence_score": 0.7,
+      "reason": "Struct introspection - both use reflection to analyze struct fields for serialization"
+    },
+    {
+      "from": "type_Marshaler",
+      "to": "type_Unmarshaler",
+      "type": "similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "reason": "Interface symmetry - custom serialization hooks for marshal and unmarshal operations"
+    },
+    {
+      "from": "type_IsZeroer",
+      "to": "func_yaml.go.isZero",
+      "type": "implements_pattern",
+      "confidence": "INFERRED",
+      "confidence_score": 0.9,
+      "reason": "Strategy pattern - IsZeroer interface allows types to customize zero-value detection for omitempty"
+    }
+  ]
+}
