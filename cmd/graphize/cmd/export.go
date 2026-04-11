@@ -21,11 +21,13 @@ Supported formats:
   json     - Cytoscape.js JSON format
   toon     - TOON format (agent-optimized, token-efficient)
   graphml  - GraphML XML format (for Gephi, yEd, Cytoscape)
+  cypher   - Neo4j Cypher CREATE statements
 
 Examples:
   graphize export html -o graph.html
   graphize export json -o graph.json
   graphize export graphml -o graph.graphml
+  graphize export cypher -o graph.cypher
   graphize export toon -o graph.toon.gz --gzip
   graphize export html --title "My Project" --dark`,
 	Args: cobra.MaximumNArgs(1),
