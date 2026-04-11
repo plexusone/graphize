@@ -32,7 +32,7 @@ Examples:
 func init() {
 	rootCmd.AddCommand(diffCmd)
 	diffCmd.Flags().StringVar(&diffOldGraph, "old", "", "Path to the old graph (required)")
-	diffCmd.MarkFlagRequired("old")
+	_ = diffCmd.MarkFlagRequired("old")
 }
 
 func runDiff(cmd *cobra.Command, args []string) error {

@@ -74,15 +74,15 @@ func runReport(cmd *cobra.Command, args []string) error {
 	edgesByType := analyze.EdgesByType(edges)
 	edgesByConf := analyze.EdgesByConfidence(edges)
 
-	sb.WriteString(fmt.Sprintf("- **Total Nodes:** %d\n", len(nodes)))
-	sb.WriteString(fmt.Sprintf("- **Total Edges:** %d\n", len(edges)))
+	fmt.Fprintf(&sb, "- **Total Nodes:** %d\n", len(nodes))
+	fmt.Fprintf(&sb, "- **Total Edges:** %d\n", len(edges))
 	sb.WriteString("\n")
 
 	sb.WriteString("### Node Types\n\n")
 	sb.WriteString("| Type | Count |\n")
 	sb.WriteString("|------|-------|\n")
 	for t, ns := range nodesByType {
-		sb.WriteString(fmt.Sprintf("| %s | %d |\n", t, len(ns)))
+		fmt.Fprintf(&sb, "| %s | %d |\n", t, len(ns))
 	}
 	sb.WriteString("\n")
 
@@ -90,7 +90,7 @@ func runReport(cmd *cobra.Command, args []string) error {
 	sb.WriteString("| Type | Count |\n")
 	sb.WriteString("|------|-------|\n")
 	for t, es := range edgesByType {
-		sb.WriteString(fmt.Sprintf("| %s | %d |\n", t, len(es)))
+		fmt.Fprintf(&sb, "| %s | %d |\n", t, len(es))
 	}
 	sb.WriteString("\n")
 
@@ -98,7 +98,7 @@ func runReport(cmd *cobra.Command, args []string) error {
 	sb.WriteString("| Confidence | Count |\n")
 	sb.WriteString("|------------|-------|\n")
 	for c, es := range edgesByConf {
-		sb.WriteString(fmt.Sprintf("| %s | %d |\n", c, len(es)))
+		fmt.Fprintf(&sb, "| %s | %d |\n", c, len(es))
 	}
 	sb.WriteString("\n")
 
@@ -109,8 +109,8 @@ func runReport(cmd *cobra.Command, args []string) error {
 	sb.WriteString("| Rank | Label | Type | In | Out | Total |\n")
 	sb.WriteString("|------|-------|------|-----|-----|-------|\n")
 	for i, g := range godNodes {
-		sb.WriteString(fmt.Sprintf("| %d | %s | %s | %d | %d | %d |\n",
-			i+1, g.Label, g.Type, g.InDegree, g.OutDegree, g.Total))
+		fmt.Fprintf(&sb, "| %d | %s | %s | %d | %d | %d |\n",
+			i+1, g.Label, g.Type, g.InDegree, g.OutDegree, g.Total)
 	}
 	sb.WriteString("\n")
 
@@ -121,15 +121,15 @@ func runReport(cmd *cobra.Command, args []string) error {
 	communityLabels := analyze.CommunityLabels(clusterResult.Communities, nodes)
 
 	if clusterResult.Modularity != 0 {
-		sb.WriteString(fmt.Sprintf("**Modularity (Q):** %.4f\n\n", clusterResult.Modularity))
+		fmt.Fprintf(&sb, "**Modularity (Q):** %.4f\n\n", clusterResult.Modularity)
 	}
 
 	sb.WriteString("| ID | Size | Cohesion | Label |\n")
 	sb.WriteString("|----|------|----------|-------|\n")
 	for _, c := range clusterResult.Communities {
 		label := communityLabels[c.ID]
-		sb.WriteString(fmt.Sprintf("| %d | %d | %.2f | %s |\n",
-			c.ID, c.Size, c.Cohesion, label))
+		fmt.Fprintf(&sb, "| %d | %d | %.2f | %s |\n",
+			c.ID, c.Size, c.Cohesion, label)
 	}
 	sb.WriteString("\n")
 
@@ -149,8 +149,8 @@ func runReport(cmd *cobra.Command, args []string) error {
 		sb.WriteString("| From | To | Type | Confidence | Why |\n")
 		sb.WriteString("|------|-----|------|------------|-----|\n")
 		for _, s := range surprises {
-			sb.WriteString(fmt.Sprintf("| %s | %s | %s | %s | %s |\n",
-				s.FromLabel, s.ToLabel, s.Type, s.Confidence, s.Why))
+			fmt.Fprintf(&sb, "| %s | %s | %s | %s | %s |\n",
+				s.FromLabel, s.ToLabel, s.Type, s.Confidence, s.Why)
 		}
 		sb.WriteString("\n")
 	}
@@ -173,10 +173,10 @@ func runReport(cmd *cobra.Command, args []string) error {
 			if label == "" {
 				label = n.ID
 			}
-			sb.WriteString(fmt.Sprintf("| %s | %s |\n", label, n.Type))
+			fmt.Fprintf(&sb, "| %s | %s |\n", label, n.Type)
 		}
 		if len(isolated) > reportTopN {
-			sb.WriteString(fmt.Sprintf("\n*...and %d more isolated nodes*\n", len(isolated)-reportTopN))
+			fmt.Fprintf(&sb, "\n*...and %d more isolated nodes*\n", len(isolated)-reportTopN)
 		}
 		sb.WriteString("\n")
 	}
@@ -187,27 +187,27 @@ func runReport(cmd *cobra.Command, args []string) error {
 	sb.WriteString("| Package | Files | Functions | Types | Imports |\n")
 	sb.WriteString("|---------|-------|-----------|-------|----------|\n")
 	for _, p := range pkgStats {
-		sb.WriteString(fmt.Sprintf("| %s | %d | %d | %d | %d |\n",
-			p.Name, p.Files, p.Functions, p.Types, p.Imports))
+		fmt.Fprintf(&sb, "| %s | %d | %d | %d | %d |\n",
+			p.Name, p.Files, p.Functions, p.Types, p.Imports)
 	}
 	sb.WriteString("\n")
 
 	// Cross-file edges
 	crossFile := analyze.CrossFileEdges(nodes, edges)
 	sb.WriteString("## Cross-File Dependencies\n\n")
-	sb.WriteString(fmt.Sprintf("**%d edges** connect nodes across different source files.\n\n", len(crossFile)))
+	fmt.Fprintf(&sb, "**%d edges** connect nodes across different source files.\n\n", len(crossFile))
 
 	// Suggested Questions
 	sb.WriteString("## Suggested Questions\n\n")
 	sb.WriteString("Questions to explore based on graph analysis.\n\n")
 	questions := analyze.SuggestQuestions(nodes, edges, communityMap, 5)
 	if len(questions) == 1 && questions[0].Type == "no_signal" {
-		sb.WriteString(fmt.Sprintf("*%s*\n\n", questions[0].Why))
+		fmt.Fprintf(&sb, "*%s*\n\n", questions[0].Why)
 	} else {
 		for i, q := range questions {
 			if q.Question != "" {
-				sb.WriteString(fmt.Sprintf("**%d. %s**\n\n", i+1, q.Question))
-				sb.WriteString(fmt.Sprintf("   *%s*\n\n", q.Why))
+				fmt.Fprintf(&sb, "**%d. %s**\n\n", i+1, q.Question)
+				fmt.Fprintf(&sb, "   *%s*\n\n", q.Why)
 			}
 		}
 	}

@@ -86,8 +86,8 @@ func GenerateSummaryMarkdown(nodes []*graph.Node, edges []*graph.Edge, opts Summ
 
 	// Statistics
 	sb.WriteString("## Statistics\n\n")
-	sb.WriteString(fmt.Sprintf("- **Total Nodes:** %d\n", len(nodes)))
-	sb.WriteString(fmt.Sprintf("- **Total Edges:** %d\n", len(edges)))
+	fmt.Fprintf(&sb, "- **Total Nodes:** %d\n", len(nodes))
+	fmt.Fprintf(&sb, "- **Total Edges:** %d\n", len(edges))
 	sb.WriteString("\n")
 
 	// Node types
@@ -95,7 +95,7 @@ func GenerateSummaryMarkdown(nodes []*graph.Node, edges []*graph.Edge, opts Summ
 	sb.WriteString("| Type | Count |\n|------|-------|\n")
 	sortedNodeTypes := sortedKeys(nodesByType)
 	for _, t := range sortedNodeTypes {
-		sb.WriteString(fmt.Sprintf("| %s | %d |\n", t, nodesByType[t]))
+		fmt.Fprintf(&sb, "| %s | %d |\n", t, nodesByType[t])
 	}
 	sb.WriteString("\n")
 
@@ -104,7 +104,7 @@ func GenerateSummaryMarkdown(nodes []*graph.Node, edges []*graph.Edge, opts Summ
 	sb.WriteString("| Type | Count |\n|------|-------|\n")
 	sortedEdgeTypes := sortedKeys(edgesByType)
 	for _, t := range sortedEdgeTypes {
-		sb.WriteString(fmt.Sprintf("| %s | %d |\n", t, edgesByType[t]))
+		fmt.Fprintf(&sb, "| %s | %d |\n", t, edgesByType[t])
 	}
 	sb.WriteString("\n")
 
@@ -122,14 +122,14 @@ func GenerateSummaryMarkdown(nodes []*graph.Node, edges []*graph.Edge, opts Summ
 		if len(label) > 40 {
 			label = label[:37] + "..."
 		}
-		sb.WriteString(fmt.Sprintf("| %s | %s | %d | %d | %d |\n",
-			label, s.nodeType, s.inDeg, s.outDeg, s.total))
+		fmt.Fprintf(&sb, "| %s | %s | %d | %d | %d |\n",
+			label, s.nodeType, s.inDeg, s.outDeg, s.total)
 	}
 	sb.WriteString("\n")
 
 	// Package overview
 	sb.WriteString("## Package Overview\n\n")
-	sb.WriteString(fmt.Sprintf("Found %d packages.\n\n", len(packageNodes)))
+	fmt.Fprintf(&sb, "Found %d packages.\n\n", len(packageNodes))
 
 	// Sort packages by size
 	type pkgSize struct {
@@ -150,10 +150,10 @@ func GenerateSummaryMarkdown(nodes []*graph.Node, edges []*graph.Edge, opts Summ
 		pkgLimit = len(pkgs)
 	}
 	for i := 0; i < pkgLimit; i++ {
-		sb.WriteString(fmt.Sprintf("| %s | %d |\n", pkgs[i].name, pkgs[i].count))
+		fmt.Fprintf(&sb, "| %s | %d |\n", pkgs[i].name, pkgs[i].count)
 	}
 	if len(pkgs) > 20 {
-		sb.WriteString(fmt.Sprintf("| ... | *(%d more)* |\n", len(pkgs)-20))
+		fmt.Fprintf(&sb, "| ... | *(%d more)* |\n", len(pkgs)-20)
 	}
 	sb.WriteString("\n")
 

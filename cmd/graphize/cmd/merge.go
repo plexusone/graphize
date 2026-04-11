@@ -49,7 +49,7 @@ func init() {
 	rootCmd.AddCommand(mergeCmd)
 	mergeCmd.Flags().StringVarP(&mergeInput, "input", "i", "", "Input JSON file with semantic edges (required)")
 	mergeCmd.Flags().BoolVar(&mergeValidate, "validate", false, "Validate input without merging")
-	mergeCmd.MarkFlagRequired("input")
+	_ = mergeCmd.MarkFlagRequired("input")
 }
 
 func runMerge(cmd *cobra.Command, args []string) error {
