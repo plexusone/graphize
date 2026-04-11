@@ -1,440 +1,388 @@
 # Graphize Implementation Plan
 
-## Overview
+## Current Status
 
-This plan details the implementation of LLM semantic extraction for Graphize, bringing feature parity with graphify's semantic analysis capabilities.
+**Version:** v0.1.0 (released 2026-04-11)
 
-## Decision: Implementation Approach
+Phases 1-4 are complete:
+- ✅ Phase 1: MVP (source tracking, AST extraction, query, export)
+- ✅ Phase 2: LLM Semantic Extraction (caching, enhance, merge)
+- ✅ Phase 3: Analysis & Reports (community detection, god nodes, surprises)
+- ✅ Phase 4: Agent Integration (MCP server, AGENTS folder)
 
-| Approach | Description | Pros | Cons |
-|----------|-------------|------|------|
-| **Standalone Skill** | Claude Code skill.md only | Simple | Single platform |
-| **Direct API** | Claude API from Go | CI-friendly | Complex, costly |
-| **multi-agent-spec** ✅ | Spec-driven generation | Multi-platform, reusable | Requires spec ecosystem |
+## Implementation Strategy
 
-**Decision: multi-agent-spec approach**
-- Define subagents in `agents/specs/` using multi-agent-spec format
-- Generate plugins for Claude Code, Kiro, Codex, Gemini via assistantkit
-- Keep AST extraction in Go (fast, standalone, CI-friendly)
-- LLM enhancement via generated plugins (parallel subagents)
+**Decision: Features before Languages**
 
-### PlexusOne Integration
+Quick wins in Phase 5 benefit all users (including future TypeScript/Swift users).
+Multi-language support requires more architectural work and comes after.
 
-| Component | Location | Purpose |
-|-----------|----------|---------|
-| Spec definitions | `agents/specs/` | Subagent definitions (multi-agent-spec YAML) |
-| Generated plugins | `agents/plugins/` | Platform-specific (Claude, Kiro, Codex, Gemini) |
-| Graph output | `agents/graph/` | Checked into git for agent context |
-
-### Reference Projects
-- `github.com/plexusone/multi-agent-spec` - Spec schema and validation
-- `github.com/plexusone/assistantkit` - Plugin generation
-- `github.com/plexusone/agent-team-release` - Reference implementation
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    IMPLEMENTATION ORDER                          │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  Phase 5: Quick Wins (~1-2 days each)                           │
+│  ├── graphize path "A" "B"      ← Use existing FindPath         │
+│  ├── graphize benchmark         ← Token counting                │
+│  ├── --directed flag            ← Minor graph change            │
+│  ├── Git hooks                  ← Shell script generation       │
+│  ├── Watch mode                 ← fsnotify integration          │
+│  └── Obsidian export            ← Markdown file generation      │
+│                                                                  │
+│  Phase 6: Enhanced Analysis                                      │
+│  ├── Betweenness centrality     ← gonum/graph                   │
+│  ├── graphize explain           ← Node context summary          │
+│  └── Platform installers        ← codex, cursor, gemini, etc.   │
+│                                                                  │
+│  Phase 7: Multi-language                                         │
+│  ├── go-tree-sitter setup       ← CGo bindings                  │
+│  ├── TypeScript extractor       ← High demand                   │
+│  ├── Swift extractor            ← iOS/macOS ecosystem           │
+│  └── Additional languages       ← Python, Rust, Java            │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+```
 
 ---
 
-## Implementation Phases
+## Phase 5: Quick Wins
 
-### Phase A: Per-file Caching (Foundation)
+### 5.1 Path Command
 
-**Goal:** Cache extraction results per file to avoid redundant LLM calls.
+**Goal:** Trace exact path between two nodes.
 
-#### A1. Create Cache Package
-
-```
-pkg/cache/
-├── cache.go      # Cache struct and methods
-└── cache_test.go # Unit tests
+```bash
+graphize path "func_main" "pkg_utils"
 ```
 
-**cache.go:**
+**Implementation:**
 ```go
-package cache
+// cmd/graphize/cmd/path.go
 
+var pathCmd = &cobra.Command{
+    Use:   "path <from> <to>",
+    Short: "Find shortest path between two nodes",
+    RunE:  runPath,
+}
+
+func runPath(cmd *cobra.Command, args []string) error {
+    // Load graph
+    // Use query.NewTraverser(g).FindPath(from, to)
+    // Display path with edge types
+}
+```
+
+**Effort:** 1-2 hours
+
+---
+
+### 5.2 Benchmark Command
+
+**Goal:** Show token reduction statistics.
+
+```bash
+graphize benchmark
+# Output:
+# Raw corpus:     1,234,567 tokens
+# TOON export:       12,345 tokens
+# Reduction:            99x
+```
+
+**Implementation:**
+```go
+// cmd/graphize/cmd/benchmark.go
+
+func runBenchmark(cmd *cobra.Command, args []string) error {
+    // Count tokens in source files (rough: words * 1.3)
+    // Count tokens in TOON export
+    // Display reduction ratio
+}
+```
+
+**Effort:** 1-2 hours
+
+---
+
+### 5.3 Directed Graphs
+
+**Goal:** Preserve edge direction for call graph analysis.
+
+```bash
+graphize analyze --directed
+```
+
+**Implementation:**
+- Add `--directed` flag to analyze command
+- Store direction metadata in graph
+- Affects traversal (outgoing vs incoming matters more)
+
+**Effort:** 2-3 hours
+
+---
+
+### 5.4 Git Hooks
+
+**Goal:** Auto-analyze on commit, check staleness on checkout.
+
+```bash
+graphize hook install    # Install post-commit and post-checkout hooks
+graphize hook uninstall  # Remove hooks
+graphize hook status     # Check installation
+```
+
+**Implementation:**
+```go
+// cmd/graphize/cmd/hook.go
+
+func installHooks() error {
+    // Write .git/hooks/post-commit
+    // Write .git/hooks/post-checkout
+    // Make executable
+}
+```
+
+**post-commit hook:**
+```bash
+#!/bin/bash
+graphize analyze --quiet
+```
+
+**post-checkout hook:**
+```bash
+#!/bin/bash
+graphize status --check || echo "Graph may be stale. Run: graphize analyze"
+```
+
+**Effort:** 2-3 hours
+
+---
+
+### 5.5 Watch Mode
+
+**Goal:** Auto-rebuild on file changes.
+
+```bash
+graphize watch           # Watch and rebuild
+graphize watch --html    # Also regenerate HTML
+```
+
+**Implementation:**
+```go
+// cmd/graphize/cmd/watch.go
+
+import "github.com/fsnotify/fsnotify"
+
+func runWatch(cmd *cobra.Command, args []string) error {
+    watcher, _ := fsnotify.NewWatcher()
+    // Add source directories
+    // Debounce events (500ms)
+    // Run analyze on change
+}
+```
+
+**Effort:** 3-4 hours
+
+---
+
+### 5.6 Obsidian Export
+
+**Goal:** Generate wiki-style vault for Obsidian.
+
+```bash
+graphize export obsidian -o ./vault
+```
+
+**Output structure:**
+```
+vault/
+├── index.md              # Entry point with god nodes
+├── communities/
+│   ├── community-1.md    # Community overview + members
+│   └── community-2.md
+└── nodes/
+    ├── func_main.md      # Node details with wikilinks
+    └── pkg_utils.md
+```
+
+**Implementation:**
+```go
+// cmd/graphize/cmd/export_obsidian.go
+
+func exportObsidian(nodes, edges, communities, outputDir) error {
+    // Generate index.md with [[wikilinks]]
+    // Generate community pages
+    // Generate node pages with neighbors
+}
+```
+
+**Effort:** 3-4 hours
+
+---
+
+### 5.7 Neo4j Export
+
+**Goal:** Generate Cypher statements for Neo4j import.
+
+```bash
+graphize export cypher -o graph.cypher
+```
+
+**Output:**
+```cypher
+CREATE (n:Node {id: "func_main", type: "function", label: "main"});
+CREATE (n:Node {id: "pkg_utils", type: "package", label: "utils"});
+CREATE (a)-[:CALLS {confidence: "EXTRACTED"}]->(b)
+  WHERE a.id = "func_main" AND b.id = "func_helper";
+```
+
+**Effort:** 2-3 hours
+
+---
+
+## Phase 6: Enhanced Analysis
+
+### 6.1 Betweenness Centrality
+
+Use gonum/graph to identify bridge nodes.
+
+```go
+import "gonum.org/v1/gonum/graph/network"
+
+func BetweennessCentrality(g graph.Graph) map[string]float64 {
+    // Convert to gonum graph
+    // Calculate betweenness
+    // Return node ID -> centrality score
+}
+```
+
+### 6.2 Explain Command
+
+```bash
+graphize explain "func_main"
+# Output:
+# Node: func_main (function)
+# Community: 3 (cli commands)
+# In-degree: 2, Out-degree: 15
+# Neighbors: func_init, func_run, pkg_cobra...
+# Called by: main
+# Calls: runAnalyze, runExport, runQuery...
+```
+
+### 6.3 Platform Installers
+
+```bash
+graphize install claude   # Already have MCP
+graphize install codex    # hooks.json + AGENTS.md
+graphize install cursor   # .cursor/rules/graphify.mdc
+graphize install gemini   # .gemini/settings.json
+graphize install copilot  # ~/.copilot/skills/graphize/
+```
+
+---
+
+## Phase 7: Multi-language Support
+
+### 7.1 Tree-sitter Setup
+
+```go
+import sitter "github.com/smacker/go-tree-sitter"
+
+// Language grammars
 import (
-    "crypto/sha256"
-    "encoding/json"
-    "os"
-    "path/filepath"
-)
-
-type Cache struct {
-    Dir string // .graphize/cache/
-}
-
-type CachedExtraction struct {
-    FileHash string           `json:"file_hash"`
-    Nodes    []*graph.Node    `json:"nodes"`
-    Edges    []*graph.Edge    `json:"edges"`
-}
-
-func New(graphDir string) *Cache
-func (c *Cache) Hash(path string) (string, error)
-func (c *Cache) Get(path string) (*CachedExtraction, bool)
-func (c *Cache) Set(path string, ext *CachedExtraction) error
-func (c *Cache) CheckMultiple(paths []string) (cached, uncached []string)
-```
-
-#### A2. Integrate Cache with AST Extraction
-
-- Modify `pkg/extract/extract.go` to check cache before parsing
-- Save AST extraction results to cache after parsing
-- Report cache hit/miss stats
-
-**Estimated effort:** 2-3 hours
-
----
-
-### Phase B: Edge Confidence System
-
-**Goal:** Add confidence levels to edges for EXTRACTED vs INFERRED.
-
-#### B1. Update GraphFS Edge Type
-
-```go
-// In graphfs/pkg/graph/edge.go
-type Edge struct {
-    From            string  `json:"from"`
-    To              string  `json:"to"`
-    Type            string  `json:"type"`
-    Confidence      string  `json:"confidence,omitempty"`      // EXTRACTED, INFERRED, AMBIGUOUS
-    ConfidenceScore float64 `json:"confidence_score,omitempty"` // 0.0-1.0
-    Reason          string  `json:"reason,omitempty"`           // Why INFERRED
-}
-
-const (
-    ConfidenceExtracted = "EXTRACTED"
-    ConfidenceInferred  = "INFERRED"
-    ConfidenceAmbiguous = "AMBIGUOUS"
+    "github.com/smacker/go-tree-sitter/typescript"
+    "github.com/smacker/go-tree-sitter/swift"
 )
 ```
 
-#### B2. Update AST Extraction
-
-- Set `Confidence: EXTRACTED` and `ConfidenceScore: 1.0` for all AST edges
-
-#### B3. Update Exports
-
-- Include confidence in TOON export
-- Include confidence in HTML (color-code edges)
-- Include confidence in JSON export
-
-**Estimated effort:** 1-2 hours
-
----
-
-### Phase C: LLM Semantic Extraction (multi-agent-spec)
-
-**Goal:** Define subagent specs and generate plugins for multiple AI agents.
-
-#### C1. Create Subagent Spec
-
-```
-agents/
-├── specs/
-│   └── semantic-extractor.yaml    # multi-agent-spec definition
-└── plugins/                        # Generated by assistantkit
-    ├── claude/
-    ├── kiro/
-    ├── codex/
-    └── gemini/
-```
-
-**semantic-extractor.yaml:**
-```yaml
-apiVersion: multi-agent-spec/v1
-kind: Subagent
-metadata:
-  name: graphize-semantic-extractor
-  description: Extract semantic relationships from Go code
-spec:
-  input:
-    files:
-      type: list[string]
-      description: File paths to analyze
-    chunk_id:
-      type: int
-      description: Chunk number for parallel dispatch
-    total_chunks:
-      type: int
-      description: Total number of chunks
-  output:
-    schema:
-      nodes:
-        type: list[Node]
-      edges:
-        type: list[Edge]
-        properties:
-          from: string
-          to: string
-          type: enum[inferred_depends, rationale_for, similar_to]
-          confidence: enum[INFERRED, AMBIGUOUS]
-          confidence_score: float
-          reason: string
-  prompt: |
-    You are a graphize semantic extraction subagent.
-    Analyze the Go files and extract relationships not visible in AST.
-
-    Files (chunk {{chunk_id}} of {{total_chunks}}):
-    {{#each files}}
-    - {{this}}
-    {{/each}}
-
-    Extract:
-    1. INFERRED edges: dependencies implied but not explicit
-       - Shared data structures
-       - Implicit contracts
-       - Architectural patterns
-
-    2. Rationale: WHY decisions were made (from comments)
-
-    3. Semantic similarity: concepts solving same problem
-
-    Output JSON matching the schema.
-```
-
-#### C2. Generate Plugins
-
-Use assistantkit to generate platform-specific plugins:
-
-```bash
-# Generate for all supported platforms
-assistantkit generate \
-  --spec agents/specs/semantic-extractor.yaml \
-  --out agents/plugins/ \
-  --platforms claude,kiro,codex,gemini
-```
-
-This creates:
-- `agents/plugins/claude/semantic-extractor.md`
-- `agents/plugins/kiro/semantic-extractor.yaml`
-- `agents/plugins/codex/semantic-extractor.json`
-- `agents/plugins/gemini/semantic-extractor.yaml`
-
-#### C3. Parallel Dispatch
-
-Each generated plugin handles parallel dispatch natively:
-
-```
-[Subagent: Chunk 1 - files 1-25]
-[Subagent: Chunk 2 - files 26-50]
-[Subagent: Chunk 3 - files 51-75]
-...
-```
-
-All run in parallel, results merged after completion.
-
-#### C4. Skills Support (Future Enhancement)
-
-Currently multi-agent-spec supports subagents. To support skills:
-
-1. Extend multi-agent-spec schema with `kind: Skill`
-2. Add skill generation to assistantkit
-3. Define graphize-enhance as a skill that orchestrates subagents
-
-**Estimated effort:** 4-6 hours (specs) + 2-3 hours (assistantkit integration)
-
----
-
-### Phase D: Merge and Storage
-
-**Goal:** Merge LLM results with AST results, store in GraphFS.
-
-#### D1. Create Merge Logic
+### 7.2 Language Extractors
 
 ```go
-// pkg/extract/merge.go
+// pkg/extract/typescript.go
+func ExtractTypeScript(path string) (*Extraction, error) {
+    parser := sitter.NewParser()
+    parser.SetLanguage(typescript.GetLanguage())
+    // Parse and extract nodes/edges
+}
 
-func MergeExtractions(ast, semantic *Extraction) *Extraction {
-    // Combine nodes (dedupe by ID)
-    // Combine edges (AST edges take precedence for same relationship)
-    // Keep INFERRED edges that don't duplicate AST edges
+// pkg/extract/swift.go
+func ExtractSwift(path string) (*Extraction, error) {
+    parser := sitter.NewParser()
+    parser.SetLanguage(swift.GetLanguage())
+    // Parse and extract nodes/edges
 }
 ```
 
-#### D2. Update GraphFS Store
-
-- Store edges with confidence metadata
-- Index by confidence level for queries
-
-#### D3. Update CLI
-
-```bash
-# Run AST + LLM extraction
-graphize analyze          # AST only (default)
-graphize analyze --enhance # AST + trigger LLM skill
-
-# Or run separately
-graphize analyze          # AST only
-/graphize enhance         # LLM only (via skill)
-```
-
-**Estimated effort:** 2-3 hours
-
----
-
-### Phase E: Analysis Features
-
-**Goal:** Add community detection and analysis features.
-
-#### E1. Community Detection
-
-```go
-// pkg/analyze/cluster.go
-
-func DetectCommunities(g *graph.Graph) map[int][]string
-func CohesionScore(g *graph.Graph, nodes []string) float64
-func SplitOversized(communities map[int][]string, maxSize int) map[int][]string
-```
-
-#### E2. God Nodes
-
-```go
-// pkg/analyze/gods.go
-
-func GodNodes(g *graph.Graph, topN int) []GodNode
-type GodNode struct {
-    ID       string
-    Label    string
-    InDegree int
-    OutDegree int
-    Total    int
-}
-```
-
-#### E3. Surprising Connections
-
-```go
-// pkg/analyze/surprise.go
-
-func SurprisingConnections(g *graph.Graph, communities map[int][]string) []Surprise
-type Surprise struct {
-    From       string
-    To         string
-    Confidence string
-    Why        string // "crosses community boundary", "inferred with low score"
-}
-```
-
-**Estimated effort:** 4-6 hours
-
----
-
-### Phase F: Report Generation
-
-**Goal:** Generate GRAPH_REPORT.md like graphify.
-
-#### F1. Report Template
-
-```go
-// pkg/report/report.go
-
-func Generate(g *graph.Graph, opts ReportOptions) string
-
-type ReportOptions struct {
-    Communities map[int][]string
-    GodNodes    []GodNode
-    Surprises   []Surprise
-    TokenCost   TokenCost
-}
-```
-
-**GRAPH_REPORT.md sections:**
-1. Summary (nodes, edges, communities)
-2. Extraction stats (EXTRACTED vs INFERRED %)
-3. God Nodes
-4. Surprising Connections
-5. Communities with cohesion scores
-6. Ambiguous Edges (need review)
-7. Suggested Questions
-
-**Estimated effort:** 3-4 hours
-
----
-
-## Implementation Order
+### 7.3 Unified Node ID Scheme
 
 ```
-Week 1:
-├── Day 1-2: Phase A (Caching)
-├── Day 3: Phase B (Confidence system)
-└── Day 4-5: Phase C (Skill - basic version)
-
-Week 2:
-├── Day 1-2: Phase C (Skill - parallel subagents)
-├── Day 3: Phase D (Merge logic)
-└── Day 4-5: Phase E (Analysis)
-
-Week 3:
-├── Day 1-2: Phase F (Reports)
-└── Day 3-5: Testing, refinement, documentation
+go:func_main           # Go function
+ts:class_UserService   # TypeScript class
+swift:struct_User      # Swift struct
 ```
 
 ---
 
-## Testing Strategy
+## Implementation Schedule
 
-### Unit Tests
-- Cache hash consistency
-- Edge confidence validation
-- Merge logic correctness
+### Week 1: Phase 5 Quick Wins
 
-### Integration Tests
-- Full pipeline: analyze → enhance → export
-- Cache hit/miss scenarios
-- Large codebase (coreforge)
+| Day | Task | Effort |
+|-----|------|--------|
+| 1 | `graphize path` command | 2h |
+| 1 | `graphize benchmark` command | 2h |
+| 2 | `--directed` flag | 3h |
+| 2 | `graphize hook` commands | 3h |
+| 3 | `graphize watch` mode | 4h |
+| 4 | `graphize export obsidian` | 4h |
+| 4 | `graphize export cypher` | 3h |
+| 5 | Testing and refinement | 4h |
 
-### Manual Testing
-- Run on real codebases
-- Verify LLM extractions make sense
-- Check HTML visualization with confidence colors
+### Week 2: Phase 6 Enhanced Analysis
+
+| Day | Task | Effort |
+|-----|------|--------|
+| 1 | Betweenness centrality | 3h |
+| 2 | `graphize explain` command | 3h |
+| 3-4 | Platform installers | 6h |
+| 5 | Testing and documentation | 4h |
+
+### Week 3+: Phase 7 Multi-language
+
+| Task | Effort |
+|------|--------|
+| go-tree-sitter setup | 4h |
+| TypeScript extractor | 6h |
+| Swift extractor | 6h |
+| Cross-language testing | 4h |
 
 ---
 
 ## Success Criteria
 
-1. ✅ `graphize analyze` works standalone (AST only)
-2. ✅ `/graphize enhance` skill works in Claude Code
-3. ✅ Cached files skip LLM extraction
-4. ✅ INFERRED edges have reasonable confidence scores
-5. ✅ GRAPH_REPORT.md matches graphify quality
-6. ✅ HTML shows confidence via edge colors
+### Phase 5
+- [ ] `graphize path A B` shows shortest path
+- [ ] `graphize benchmark` shows token reduction
+- [ ] `--directed` preserves edge direction
+- [ ] Git hooks auto-analyze on commit
+- [ ] Watch mode rebuilds on file change
+- [ ] Obsidian vault has working wikilinks
+- [ ] Neo4j Cypher imports successfully
 
----
+### Phase 6
+- [ ] Betweenness identifies bridge nodes
+- [ ] Explain shows useful node context
+- [ ] Platform installers work for top 3 platforms
 
-## Risks and Mitigations
-
-| Risk | Mitigation |
-|------|------------|
-| LLM extractions inconsistent | Detailed prompt, validation, manual review |
-| Cache invalidation bugs | Conservative: re-extract on any doubt |
-| Parallel subagent failures | Retry logic, partial results accepted |
-| Large codebases slow | Chunking, caching, incremental updates |
-
----
-
-## File Changes Summary
-
-### New Files
-- `pkg/cache/cache.go`
-- `pkg/analyze/cluster.go`
-- `pkg/analyze/gods.go`
-- `pkg/analyze/surprise.go`
-- `pkg/report/report.go`
-- `skills/enhance.md`
-- `cmd/graphize/cmd/enhance.go`
-- `cmd/graphize/cmd/report.go`
-
-### Modified Files
-- `graphfs/pkg/graph/edge.go` - Add confidence fields
-- `pkg/extract/extract.go` - Integrate cache
-- `cmd/graphize/cmd/export.go` - Show confidence
-- `templates/graph.html` - Color-code edges by confidence
+### Phase 7
+- [ ] TypeScript extraction matches Go quality
+- [ ] Swift extraction works for iOS projects
+- [ ] Mixed-language repos produce unified graph
 
 ---
 
 ## Next Steps
 
-1. **Approve this plan** - Confirm approach and priorities
-2. **Start Phase A** - Implement caching
-3. **Iterate** - Each phase builds on previous
+1. Start with `graphize path` (uses existing FindPath)
+2. Add `graphize benchmark` (simple token counting)
+3. Continue through Phase 5 in order

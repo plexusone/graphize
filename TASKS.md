@@ -302,10 +302,25 @@ Reviewed against [safishamsi/graphify](https://github.com/safishamsi/graphify):
 
 ## Phase 5 - Export & Automation 🔶 IN PROGRESS
 
+**Implementation Order:** Quick wins first, then multi-language (Phase 7).
+See PLAN.md for detailed schedule.
+
+### Quick Wins (1-2 days each)
+
+- [ ] `graphize path "A" "B"` - Trace exact path between nodes 🎯
+  - [ ] Use graphfs query.FindPath
+  - [ ] Show intermediate nodes and edge types
+- [ ] `graphize benchmark` - Print token reduction stats 🎯
+  - [ ] Compare raw corpus size vs TOON output
+  - [ ] Show compression ratio
+- [ ] `--directed` flag for `graphize analyze` 🎯
+  - [ ] Preserve edge direction in graph
+  - [ ] Affects traversal and analysis
+
 ### Export Formats
 
 - [x] GraphML export (for Gephi/yEd) - `graphize export graphml`
-- [ ] Neo4j Cypher export - `graphize export cypher`
+- [ ] Neo4j Cypher export - `graphize export cypher` 🎯
   - [ ] Generate CREATE statements for nodes
   - [ ] Generate CREATE statements for edges
   - [ ] Include all node/edge attributes
