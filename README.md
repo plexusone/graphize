@@ -1,8 +1,34 @@
 # Graphize
 
-LLM-powered CLI for transforming Go codebases into queryable knowledge graphs.
+[![Go CI][go-ci-svg]][go-ci-url]
+[![Go Lint][go-lint-svg]][go-lint-url]
+[![Go SAST][go-sast-svg]][go-sast-url]
+[![Go Report Card][goreport-svg]][goreport-url]
+[![Docs][docs-pone-svg]][docs-pone-url]
+[![Docs][docs-godoc-svg]][docs-godoc-url]
+[![Visualization][viz-svg]][viz-url]
+[![License][license-svg]][license-url]
 
-[![Documentation](https://img.shields.io/badge/docs-plexusone.github.io%2Fgraphize-blue)](https://plexusone.github.io/graphize)
+ [go-ci-svg]: https://github.com/plexusone/graphfs/actions/workflows/go-ci.yaml/badge.svg?branch=main
+ [go-ci-url]: https://github.com/plexusone/graphfs/actions/workflows/go-ci.yaml
+ [go-lint-svg]: https://github.com/plexusone/graphfs/actions/workflows/go-lint.yaml/badge.svg?branch=main
+ [go-lint-url]: https://github.com/plexusone/graphfs/actions/workflows/go-lint.yaml
+ [go-sast-svg]: https://github.com/plexusone/graphfs/actions/workflows/go-sast-codeql.yaml/badge.svg?branch=main
+ [go-sast-url]: https://github.com/plexusone/graphfs/actions/workflows/go-sast-codeql.yaml
+ [goreport-svg]: https://goreportcard.com/badge/github.com/plexusone/graphfs
+ [goreport-url]: https://goreportcard.com/report/github.com/plexusone/graphfs
+ [docs-pone-svg]: https://img.shields.io/badge/docs-plexusone.github.io%2Fgraphize-blue
+ [docs-pone-url]: https://plexusone.github.io/graphize
+ [docs-godoc-svg]: https://pkg.go.dev/badge/github.com/plexusone/graphfs
+ [docs-godoc-url]: https://pkg.go.dev/github.com/plexusone/graphfs
+ [viz-svg]: https://img.shields.io/badge/visualizaton-Go-blue.svg
+ [viz-url]: https://mango-dune-07a8b7110.1.azurestaticapps.net/?repo=plexusone%2Fgraphfs
+ [loc-svg]: https://tokei.rs/b1/github/plexusone/graphfs
+ [repo-url]: https://github.com/plexusone/graphfs
+ [license-svg]: https://img.shields.io/badge/license-MIT-blue.svg
+ [license-url]: https://github.com/plexusone/graphfs/blob/master/LICENSE
+
+LLM-powered CLI for transforming Go codebases into queryable knowledge graphs.
 
 ## Features
 
