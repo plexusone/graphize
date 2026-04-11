@@ -200,12 +200,12 @@ func BuildSubagentPrompt(files []string, chunkID, totalChunks int, baseDir strin
 	sb.WriteString("You are a graphize semantic extraction subagent. Your task is to analyze Go source files\n")
 	sb.WriteString("and discover relationships that are NOT visible in the Abstract Syntax Tree (AST).\n\n")
 
-	sb.WriteString(fmt.Sprintf("## Context\n\nYou are processing chunk %d of %d.\n", chunkID, totalChunks))
-	sb.WriteString(fmt.Sprintf("Base directory: %s\n\n", baseDir))
+	fmt.Fprintf(&sb, "## Context\n\nYou are processing chunk %d of %d.\n", chunkID, totalChunks)
+	fmt.Fprintf(&sb, "Base directory: %s\n\n", baseDir)
 
 	sb.WriteString("## Files to Analyze\n\n")
 	for _, f := range files {
-		sb.WriteString(fmt.Sprintf("- %s\n", f))
+		fmt.Fprintf(&sb, "- %s\n", f)
 	}
 
 	sb.WriteString("\n## What to Extract\n\n")

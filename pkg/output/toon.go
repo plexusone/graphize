@@ -32,8 +32,8 @@ func GenerateTOON(nodes []*graph.Node, edges []*graph.Edge, opts TOONOptions) st
 
 	// Stats
 	sb.WriteString("stats\n")
-	sb.WriteString(fmt.Sprintf("  nodes: %d\n", len(nodes)))
-	sb.WriteString(fmt.Sprintf("  edges: %d\n", len(edges)))
+	fmt.Fprintf(&sb, "  nodes: %d\n", len(nodes))
+	fmt.Fprintf(&sb, "  edges: %d\n", len(edges))
 	sb.WriteString("\n")
 
 	// Group nodes by type
@@ -53,7 +53,7 @@ func GenerateTOON(nodes []*graph.Node, edges []*graph.Edge, opts TOONOptions) st
 	sb.WriteString("nodes\n")
 	for _, nodeType := range nodeTypes {
 		typeNodes := nodesByType[nodeType]
-		sb.WriteString(fmt.Sprintf("  %s: %d\n", nodeType, len(typeNodes)))
+		fmt.Fprintf(&sb, "  %s: %d\n", nodeType, len(typeNodes))
 
 		// Sort nodes by ID for deterministic output
 		sort.Slice(typeNodes, func(i, j int) bool {
@@ -67,18 +67,18 @@ func GenerateTOON(nodes []*graph.Node, edges []*graph.Edge, opts TOONOptions) st
 			}
 
 			if n.Label != "" && n.Label != n.ID {
-				sb.WriteString(fmt.Sprintf("    - %s | %s\n", id, n.Label))
+				fmt.Fprintf(&sb, "    - %s | %s\n", id, n.Label)
 			} else {
-				sb.WriteString(fmt.Sprintf("    - %s\n", id))
+				fmt.Fprintf(&sb, "    - %s\n", id)
 			}
 
 			// Extra metadata (optional)
 			if !noExtra && n.Attrs != nil {
 				if pkg := n.Attrs["package"]; pkg != "" {
-					sb.WriteString(fmt.Sprintf("      pkg: %s\n", pkg))
+					fmt.Fprintf(&sb, "      pkg: %s\n", pkg)
 				}
 				if file := n.Attrs["source_file"]; file != "" {
-					sb.WriteString(fmt.Sprintf("      file: %s\n", file))
+					fmt.Fprintf(&sb, "      file: %s\n", file)
 				}
 			}
 		}
@@ -102,7 +102,7 @@ func GenerateTOON(nodes []*graph.Node, edges []*graph.Edge, opts TOONOptions) st
 	sb.WriteString("edges\n")
 	for _, edgeType := range edgeTypes {
 		typeEdges := edgesByType[edgeType]
-		sb.WriteString(fmt.Sprintf("  %s: %d\n", edgeType, len(typeEdges)))
+		fmt.Fprintf(&sb, "  %s: %d\n", edgeType, len(typeEdges))
 
 		// Sort edges for deterministic output
 		sort.Slice(typeEdges, func(i, j int) bool {
@@ -121,9 +121,9 @@ func GenerateTOON(nodes []*graph.Node, edges []*graph.Edge, opts TOONOptions) st
 			}
 			// Include confidence for non-EXTRACTED edges (LLM-inferred)
 			if !noExtra && e.Confidence != "" && e.Confidence != graph.ConfidenceExtracted {
-				sb.WriteString(fmt.Sprintf("    - %s -> %s [%s %.2f]\n", from, to, e.Confidence, e.ConfidenceScore))
+				fmt.Fprintf(&sb, "    - %s -> %s [%s %.2f]\n", from, to, e.Confidence, e.ConfidenceScore)
 			} else {
-				sb.WriteString(fmt.Sprintf("    - %s -> %s\n", from, to))
+				fmt.Fprintf(&sb, "    - %s -> %s\n", from, to)
 			}
 		}
 	}
