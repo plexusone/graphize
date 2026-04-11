@@ -17,7 +17,7 @@
  [go-sast-url]: https://github.com/plexusone/graphfs/actions/workflows/go-sast-codeql.yaml
  [goreport-svg]: https://goreportcard.com/badge/github.com/plexusone/graphfs
  [goreport-url]: https://goreportcard.com/report/github.com/plexusone/graphfs
- [docs-pone-svg]: https://img.shields.io/badge/docs-plexusone.github.io%2Fgraphize-blue
+ [docs-pone-svg]: https://img.shields.io/badge/docs-plexusone-blue
  [docs-pone-url]: https://plexusone.github.io/graphize
  [docs-godoc-svg]: https://pkg.go.dev/badge/github.com/plexusone/graphfs
  [docs-godoc-url]: https://pkg.go.dev/github.com/plexusone/graphfs
