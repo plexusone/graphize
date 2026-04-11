@@ -1,0 +1,60 @@
+{
+  "irVersion": "1.0",
+  "project": "graphize",
+  "repository": "https://github.com/plexusone/graphize",
+  "versioning": "semver",
+  "commitConvention": "conventional",
+  "releases": [
+    {
+      "version": "v0.1.0",
+      "date": "2026-04-09",
+      "highlights": [
+        { "description": "LLM-powered tool to turn Go codebases into queryable knowledge graphs" },
+        { "description": "Two-step extraction: deterministic AST + optional LLM semantic analysis" },
+        { "description": "TOON export format with 98% token reduction vs JSON for AI agents" },
+        { "description": "MCP server for AI agent integration with 5 graph query tools" }
+      ],
+      "added": [
+        { "description": "`graphize init` command to create graph database directory structure" },
+        { "description": "`graphize add <repo>` command to track repositories with git commit hashes" },
+        { "description": "`graphize status` command to show sources with staleness detection" },
+        { "description": "`graphize analyze` command to extract AST graph from Go sources" },
+        { "description": "`graphize query` command with BFS/DFS traversal, depth control, and edge filters" },
+        { "description": "`graphize export html` command with Cytoscape.js interactive visualization" },
+        { "description": "`graphize export json` command in Cytoscape JSON format" },
+        { "description": "`graphize export toon` command for token-efficient agent output" },
+        { "description": "`graphize summary` command for Markdown summary in AGENTS folder" },
+        { "description": "`graphize report` command with god nodes, communities, surprises analysis" },
+        { "description": "`graphize enhance` command to prepare files for LLM semantic extraction" },
+        { "description": "`graphize merge` command to merge LLM-extracted semantic edges into graph" },
+        { "description": "Go AST extraction: packages, files, functions, methods, types, imports, calls" },
+        { "description": "SHA256-based per-file caching in `pkg/cache/cache.go`" },
+        { "description": "`--no-cache` flag for analyze command to bypass cache" },
+        { "description": "Cache hit/miss statistics reporting" },
+        { "description": "God nodes analysis: most connected entities excluding file-level hubs" },
+        { "description": "Community detection: package-based grouping with cohesion scores" },
+        { "description": "Surprising connections: cross-file, cross-community edge detection" },
+        { "description": "Isolated nodes detection for potential documentation gaps" },
+        { "description": "Package statistics: files, functions, types, imports per package" },
+        { "description": "Edge confidence breakdown: EXTRACTED vs INFERRED vs AMBIGUOUS" },
+        { "description": "Semantic edge types: inferred_depends, rationale_for, similar_to, implements_pattern, shared_concern" },
+        { "description": "`pkg/extract/merge.go` for parsing and validating LLM semantic JSON output" },
+        { "description": "`skills/enhance.md` Claude Code skill for semantic extraction workflow" },
+        { "description": "`agents/specs/semantic-extractor.yaml` multi-agent-spec definition" },
+        { "description": "`graphize serve` MCP server using official Go SDK (github.com/modelcontextprotocol/go-sdk)" },
+        { "description": "MCP tool: `query_graph` for BFS/DFS graph traversal from search terms" },
+        { "description": "MCP tool: `get_node` for node details by ID or label" },
+        { "description": "MCP tool: `get_neighbors` for adjacent nodes with edge info" },
+        { "description": "MCP tool: `get_community` for listing community members" },
+        { "description": "MCP tool: `graph_summary` for stats, god nodes, and suggested questions" },
+        { "description": "Suggested questions generation: ambiguous edges, bridges, inferred verification, isolated nodes, low cohesion" }
+      ],
+      "documentation": [
+        { "description": "PRD.md: Product requirements document" },
+        { "description": "TRD.md: Technical requirements document" },
+        { "description": "TASKS.md: Implementation task tracking" },
+        { "description": "PLAN.md: Architecture and design decisions" }
+      ]
+    }
+  ]
+}
