@@ -2,6 +2,15 @@
 
 LLM-powered tool to turn Go codebases into queryable knowledge graphs.
 
+## Feature Parity Reference
+
+Reviewed against [safishamsi/graphify](https://github.com/safishamsi/graphify):
+
+- **Branch:** `v3`
+- **Commit:** `699e9960ce7b88076db33a4da3adbd53fb410c7c`
+- **Version:** v0.3.28+5 (2026-04-10)
+- **Review Date:** 2026-04-11
+
 ## Architecture Overview
 
 ```
@@ -36,35 +45,86 @@ LLM-powered tool to turn Go codebases into queryable knowledge graphs.
 
 ## Feature Comparison: Graphize vs Graphify
 
+### Core Features
+
 | Feature | Graphify | Graphize | Status |
 |---------|----------|----------|--------|
 | **Source Tracking** | Single directory | Multi-repo with commit hashes | ✅ Better |
 | **Git Currency** | None | Tracks commit/branch per repo | ✅ Better |
 | **Storage** | Single graph.json | One file per entity (GraphFS) | ✅ Better |
 | **AST Extraction** | tree-sitter (20 langs) | Go only (go/ast) | ✅ Done |
-| **Per-file Caching** | ✅ SHA256 | ✅ SHA256 | ✅ Done |
+| **Per-file Caching** | ✅ SHA256 + MD5 | ✅ SHA256 | ✅ Done |
 | **Edge Confidence** | ✅ | ✅ EXTRACTED/INFERRED/AMBIGUOUS | ✅ Done |
 | **LLM Semantic Extraction** | ✅ Subagents | ✅ Skill + merge workflow | ✅ Done |
 | **Multi-agent-spec** | ❌ | ✅ agents/specs/ | ✅ Better |
-| **Community Detection** | ✅ Leiden/Louvain | ✅ Louvain (gonum) + package-based | ✅ Done |
+
+### Analysis Features
+
+| Feature | Graphify | Graphize | Status |
+|---------|----------|----------|--------|
+| **Community Detection** | ✅ Leiden/Louvain | ✅ Louvain (gonum) | ✅ Done |
 | **God Nodes Analysis** | ✅ Full | ✅ Full (report cmd) | ✅ Done |
-| **Surprising Connections** | ✅ | ✅ Cross-file, cross-community | ✅ Done |
+| **Surprising Connections** | ✅ Betweenness centrality | ✅ Cross-file, cross-community | ✅ Done |
 | **Cohesion Scores** | ✅ | ✅ | ✅ Done |
 | **Isolated Nodes** | ✅ | ✅ | ✅ Done |
 | **Package Statistics** | ❌ | ✅ | ✅ Better |
 | **Suggested Questions** | ✅ | ✅ | ✅ Done |
-| **Hyperedges** | ✅ | ❌ | ⬜ Low |
+| **Hyperedges** | ✅ 3+ node groups | ❌ | ⬜ Phase 7 |
+| **Betweenness Centrality** | ✅ For bridges | ❌ | 🔶 Phase 6 |
+| **Corpus Health Check** | ✅ Word count, verdict | ❌ | ⬜ Phase 6 |
+
+### Export Formats
+
+| Feature | Graphify | Graphize | Status |
+|---------|----------|----------|--------|
 | **HTML Visualization** | ✅ vis.js | ✅ cytoscape.js | ✅ Done |
 | **TOON Export** | ❌ | ✅ (with confidence) | ✅ Better |
-| **JSON Export** | ✅ | ✅ Cytoscape format | ✅ Done |
+| **JSON Export** | ✅ NetworkX | ✅ Cytoscape format | ✅ Done |
 | **GRAPH_REPORT.md** | ✅ | ✅ (report cmd) | ✅ Done |
-| **Obsidian Export** | ✅ | ❌ | ⬜ Low |
-| **Neo4j Export** | ✅ | ❌ | ⬜ Low |
-| **Watch Mode** | ✅ | ❌ | ⬜ Low |
+| **GraphML Export** | ✅ | ✅ | ✅ Done |
+| **Obsidian Export** | ✅ Wiki-style vault | ❌ | 🔶 Phase 5 |
+| **Neo4j Cypher Export** | ✅ cypher.txt | ❌ | 🔶 Phase 5 |
+| **Neo4j Push** | ✅ Direct bolt connection | ❌ | ⬜ Phase 5 |
+| **SVG Export** | ✅ | ❌ | ⬜ Phase 5 |
+
+### CLI Features
+
+| Feature | Graphify | Graphize | Status |
+|---------|----------|----------|--------|
 | **MCP Server** | ✅ | ✅ | ✅ Done |
-| **Git Hooks** | ✅ | ❌ | ⬜ Low |
+| **Watch Mode** | ✅ fsnotify | ❌ | 🔶 Phase 5 |
+| **Git Hooks** | ✅ post-commit/checkout | ❌ | 🔶 Phase 5 |
+| **Directed Graphs** | ✅ `--directed` flag | ❌ | 🔶 Phase 5 |
+| **Path Command** | ✅ `path "A" "B"` | ❌ | 🔶 Phase 5 |
+| **Explain Command** | ✅ `explain "Node"` | ❌ | ⬜ Phase 6 |
+| **Token Benchmark** | ✅ `benchmark` | ❌ | 🔶 Phase 5 |
+| **URL Ingestion** | ✅ `add <url>` | ❌ | ⬜ Phase 7 |
+
+### Content Types
+
+| Feature | Graphify | Graphize | Status |
+|---------|----------|----------|--------|
+| **Go Code** | ✅ tree-sitter | ✅ go/ast | ✅ Done |
+| **Multi-language** | ✅ 20 langs | ❌ Go only | ⬜ Phase 7 |
+| **Markdown/Text** | ✅ Claude extraction | ❌ | ⬜ Phase 6 |
+| **PDF Papers** | ✅ Citation mining | ❌ | ⬜ Phase 7 |
+| **Images** | ✅ Claude vision | ❌ | ⬜ Phase 7 |
+| **Video/Audio** | ✅ Whisper transcription | ❌ | ⬜ Phase 7 |
+| **Office Docs** | ✅ DOCX/XLSX conversion | ❌ | ⬜ Phase 7 |
+
+### Platform Integration
+
+| Feature | Graphify | Graphize | Status |
+|---------|----------|----------|--------|
+| **Claude Code** | ✅ PreToolUse hook | ✅ MCP server | ✅ Done |
+| **Codex** | ✅ hooks.json | ❌ | ⬜ Phase 6 |
+| **Cursor** | ✅ .cursor/rules | ❌ | ⬜ Phase 6 |
+| **Gemini CLI** | ✅ BeforeTool hook | ❌ | ⬜ Phase 6 |
+| **GitHub Copilot** | ✅ skills/ folder | ❌ | ⬜ Phase 6 |
+| **Aider/OpenClaw** | ✅ AGENTS.md | ❌ | ⬜ Phase 6 |
 
 ### Graphize Advantages
+
 - **Multi-repo support**: Track multiple repositories with independent git commit tracking
 - **GraphFS storage**: Git-friendly one-file-per-entity storage
 - **TOON format**: Token-efficient output for AI agents (98% smaller than JSON)
@@ -72,10 +132,12 @@ LLM-powered tool to turn Go codebases into queryable knowledge graphs.
 - **Edge confidence metadata**: Full support for EXTRACTED/INFERRED/AMBIGUOUS with scores
 
 ### Graphify Advantages
+
 - **20 language support**: tree-sitter parsers for many languages
-- **Community detection**: Leiden/Louvain algorithms built-in
-- **Full analysis suite**: God nodes, surprises, questions
-- **More export formats**: Obsidian, Neo4j, GraphML
+- **Multimodal extraction**: Code, docs, papers, images, video, audio, office docs
+- **Platform hooks**: 10 AI assistant integrations with always-on hooks
+- **URL ingestion**: Fetch and extract papers, tweets, videos
+- **Watch mode**: Auto-rebuild on file changes
 
 ---
 
@@ -238,18 +300,151 @@ LLM-powered tool to turn Go codebases into queryable knowledge graphs.
 
 ---
 
-## Phase 5 - Additional Exports 🔶 IN PROGRESS
+## Phase 5 - Export & Automation 🔶 IN PROGRESS
 
 ### Export Formats
-- [x] GraphML export (for Gephi/yEd) - `graphize export graphml`
-- [ ] Neo4j Cypher export
-- [ ] SVG export
-- [ ] Obsidian vault export
 
-### Watch & Hooks
+- [x] GraphML export (for Gephi/yEd) - `graphize export graphml`
+- [ ] Neo4j Cypher export - `graphize export cypher`
+  - [ ] Generate CREATE statements for nodes
+  - [ ] Generate CREATE statements for edges
+  - [ ] Include all node/edge attributes
+- [ ] Neo4j Push - `graphize export cypher --push bolt://localhost:7687`
+  - [ ] Direct bolt connection to Neo4j instance
+  - [ ] Authentication support (user/password)
+- [ ] SVG export - `graphize export svg`
+  - [ ] Use gonum/plot or similar for layout
+  - [ ] Static vector graph output
+- [ ] Obsidian vault export - `graphize export obsidian`
+  - [ ] Generate `index.md` entry point
+  - [ ] One article per community with wikilinks
+  - [ ] One article per god node
+  - [ ] Cohesion scores and navigation footers
+
+### CLI Enhancements
+
+- [ ] `graphize path "NodeA" "NodeB"` - Trace exact path between two nodes
+  - [ ] Use graphfs query.FindPath
+  - [ ] Show intermediate nodes and edge types
+- [ ] `graphize benchmark` - Print token reduction stats
+  - [ ] Compare raw corpus size vs TOON output
+  - [ ] Show compression ratio
+- [ ] `--directed` flag for `graphize analyze`
+  - [ ] Preserve edge direction in graph
+  - [ ] Affects traversal and analysis
+
+### Watch Mode
+
 - [ ] `graphize watch` - Monitor files, rebuild on change
-- [ ] `graphize hook install` - Git post-commit hook
+  - [ ] Use fsnotify for file system events
+  - [ ] Debounce rapid changes (500ms)
+  - [ ] Incremental rebuild (only changed files)
+  - [ ] Optional: auto-regenerate HTML/report
+
+### Git Hooks
+
+- [ ] `graphize hook install` - Install git hooks
+  - [ ] post-commit hook: auto-analyze on commit
+  - [ ] post-checkout hook: check if graph is stale
 - [ ] `graphize hook uninstall` - Remove hooks
+- [ ] `graphize hook status` - Check hook installation
+
+---
+
+## Phase 6 - Enhanced Analysis 🔶 PLANNED
+
+### Analysis Improvements
+
+- [ ] Betweenness centrality for bridge detection
+  - [ ] Identify critical path nodes
+  - [ ] Use in surprising connections scoring
+- [ ] Composite surprise scoring
+  - [ ] Weight cross-file > cross-community
+  - [ ] Weight code-doc edges higher
+- [ ] Corpus health check
+  - [ ] File count, word count statistics
+  - [ ] Verdict on whether graph adds value
+  - [ ] Token reduction percentage
+
+### New Commands
+
+- [ ] `graphize explain "NodeName"` - Explain a node in context
+  - [ ] Show node attributes
+  - [ ] Show immediate neighbors
+  - [ ] Show community membership
+  - [ ] Summarize relationships
+
+### Documentation Extraction
+
+- [ ] Markdown/text extraction via LLM
+  - [ ] Extract concepts and relationships
+  - [ ] Link to code nodes
+  - [ ] Support for README, docs/ folders
+
+### Platform Installers
+
+- [ ] `graphize install claude` - Install Claude Code integration
+  - [ ] Add PreToolUse hook to settings.json
+  - [ ] Add graphize section to CLAUDE.md
+- [ ] `graphize install codex` - Codex hooks.json
+- [ ] `graphize install cursor` - .cursor/rules/graphize.mdc
+- [ ] `graphize install gemini` - Gemini CLI BeforeTool hook
+- [ ] `graphize install copilot` - GitHub Copilot skills folder
+- [ ] `graphize install aider` - AGENTS.md section
+
+---
+
+## Phase 7 - Multimodal & Multi-language ⬜ FUTURE
+
+### Multi-language Support
+
+- [ ] Tree-sitter integration via go-tree-sitter
+  - [ ] Python extraction
+  - [ ] TypeScript/JavaScript extraction
+  - [ ] Rust extraction
+  - [ ] Java extraction
+- [ ] Language detection heuristics
+- [ ] Unified node ID scheme across languages
+
+### Hyperedges
+
+- [ ] Support for 3+ node group relationships
+  - [ ] "All classes implementing interface X"
+  - [ ] "All functions in auth flow"
+- [ ] Hyperedge visualization in HTML export
+- [ ] Hyperedge queries
+
+### URL Ingestion
+
+- [ ] `graphize add <url>` - Fetch and extract external content
+  - [ ] Papers (PDF): citation mining + concept extraction
+  - [ ] Web pages: content extraction
+  - [ ] Videos (YouTube): transcript extraction
+- [ ] `--author` and `--contributor` tags
+- [ ] URL caching by hash
+
+### Multimodal Extraction
+
+- [ ] PDF extraction
+  - [ ] Text extraction via pdftotext or similar
+  - [ ] LLM concept extraction
+  - [ ] Citation relationship mining
+- [ ] Image extraction
+  - [ ] Claude vision for diagrams, screenshots, charts
+  - [ ] Node creation for visual concepts
+- [ ] Video/Audio transcription
+  - [ ] Whisper integration for local transcription
+  - [ ] God-node-aware prompts for domain vocabulary
+  - [ ] Transcript caching
+
+### Office Documents
+
+- [ ] DOCX extraction
+  - [ ] Convert to markdown
+  - [ ] LLM concept extraction
+- [ ] XLSX extraction
+  - [ ] Convert to markdown tables
+  - [ ] Extract data relationships
 
 ---
 
@@ -330,6 +525,7 @@ open graph.html
 
 - [x] Implemented
 - [ ] Not started
+- ✅ Complete / Better than graphify
 - 🎯 **HIGH** priority
-- 🔶 Medium priority
-- ⬜ Low priority
+- 🔶 Medium priority (Phase 5-6)
+- ⬜ Low priority / Future (Phase 7)
