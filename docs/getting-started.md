@@ -141,6 +141,22 @@ graphize serve
 
 See the [MCP Server](mcp-server.md) guide for configuration.
 
+### Enable Watch Mode
+
+Auto-rebuild the graph when files change:
+
+```bash
+graphize watch
+```
+
+### Install Git Hooks
+
+Automatically analyze on commits:
+
+```bash
+graphize hook install
+```
+
 ## Directory Structure
 
 After initialization and analysis:

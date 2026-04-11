@@ -60,8 +60,15 @@ graphize status
 Extract graph from tracked sources using AST parsing.
 
 ```bash
-graphize analyze
+graphize analyze [flags]
 ```
+
+**Flags:**
+
+| Flag | Description | Default |
+|------|-------------|---------|
+| `--no-cache` | Disable caching, re-extract all files | false |
+| `--directed` | Treat graph as directed (edges flow from→to) | true |
 
 **Output:**
 
@@ -69,6 +76,7 @@ graphize analyze
 - Number of edges extracted
 - Node types breakdown
 - Edge types breakdown
+- Cache hit/miss statistics
 
 All edges have `EXTRACTED` confidence level.
 
@@ -289,13 +297,16 @@ graphize export <format> [flags]
 |--------|-------------|
 | `html` | Interactive Cytoscape.js visualization |
 | `toon` | Token-optimized notation |
-| `json` | Full JSON export |
+| `json` | Cytoscape.js JSON format |
+| `graphml` | GraphML XML (for Gephi, yEd) |
+| `cypher` | Neo4j Cypher CREATE statements |
+| `obsidian` | Wiki-style Obsidian vault |
 
-**Flags:**
+**Common Flags:**
 
 | Flag | Description | Default |
 |------|-------------|---------|
-| `-o, --output` | Output file | stdout |
+| `-o, --output` | Output file or directory | stdout |
 
 **Examples:**
 
@@ -303,7 +314,61 @@ graphize export <format> [flags]
 graphize export html -o graph.html
 graphize export toon -o GRAPH.toon
 graphize export json -o graph.json
+graphize export graphml -o graph.graphml
+graphize export cypher -o graph.cypher
+graphize export obsidian -o ./vault
 ```
+
+### graphize export cypher
+
+Export graph as Neo4j Cypher CREATE statements.
+
+```bash
+graphize export cypher [flags]
+```
+
+**Flags:**
+
+| Flag | Description | Default |
+|------|-------------|---------|
+| `-o, --output` | Output file | stdout |
+
+Generates CREATE statements for all nodes and edges, including:
+
+- Node labels and properties
+- Edge types and properties
+- Confidence metadata for semantic edges
+
+### graphize export obsidian
+
+Export graph as an Obsidian vault with wikilinks.
+
+```bash
+graphize export obsidian [flags]
+```
+
+**Flags:**
+
+| Flag | Description | Default |
+|------|-------------|---------|
+| `-o, --output` | Output directory | required |
+| `--top` | Number of top nodes to include | 20 |
+| `--min-degree` | Minimum degree for node pages | 3 |
+
+**Output Structure:**
+
+```
+vault/
+├── index.md           # Entry point with god nodes
+├── communities/       # One page per community
+│   ├── community-0.md
+│   └── community-1.md
+└── nodes/             # One page per significant node
+    ├── func_main.md
+    └── type_Config.md
+```
+
+Pages are interconnected with `[[wikilinks]]` for Obsidian navigation.
 
 ## graphize serve
 
@@ -326,6 +391,124 @@ Starts a Model Context Protocol server over stdio.
 | `graph_summary` | Get overall graph statistics |
 
 See [MCP Server](../mcp-server.md) for integration details.
+
+## graphize path
+
+Find the shortest path between two nodes.
+
+```bash
+graphize path <from> <to> [flags]
+```
+
+**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `from` | Starting node ID |
+| `to` | Target node ID |
+
+**Flags:**
+
+| Flag | Description | Default |
+|------|-------------|---------|
+| `--max-depth` | Maximum search depth | 10 |
+
+**Examples:**
+
+```bash
+graphize path func_main func_handleRequest
+graphize path type_Config type_Options --max-depth 5
+```
+
+**Output:**
+
+Shows the path with intermediate nodes and edge types:
+
+```
+func_main
+  --[calls]--> func_init
+  --[calls]--> func_handleRequest
+```
+
+## graphize benchmark
+
+Show token reduction statistics comparing raw corpus to TOON output.
+
+```bash
+graphize benchmark
+```
+
+**Output:**
+
+- Raw corpus size (total bytes of source files)
+- TOON output size (compressed graph representation)
+- Compression ratio
+- Token estimates (raw vs TOON)
+
+## graphize watch
+
+Monitor tracked sources for changes and auto-rebuild the graph.
+
+```bash
+graphize watch [flags]
+```
+
+**Flags:**
+
+| Flag | Description | Default |
+|------|-------------|---------|
+| `--debounce` | Debounce delay for rapid changes | 500ms |
+| `--html` | Regenerate HTML visualization on changes | false |
+| `--report` | Regenerate analysis report on changes | false |
+| `--verbose` | Show detailed file change events | false |
+
+**Examples:**
+
+```bash
+# Basic watch mode
+graphize watch
+
+# Also regenerate HTML and report
+graphize watch --html --report
+
+# Increase debounce for slower systems
+graphize watch --debounce 1s
+```
+
+Press `Ctrl+C` to stop watching.
+
+## graphize hook
+
+Manage git hooks for automatic graph updates.
+
+### graphize hook install
+
+Install git hooks in the repository.
+
+```bash
+graphize hook install
+```
+
+Installs:
+
+- `post-commit`: Auto-run `graphize analyze` after commits
+- `post-checkout`: Check if graph is stale after checkout
+
+### graphize hook uninstall
+
+Remove graphize git hooks.
+
+```bash
+graphize hook uninstall
+```
+
+### graphize hook status
+
+Check git hook installation status.
+
+```bash
+graphize hook status
+```
 
 ## graphize init-agents
 

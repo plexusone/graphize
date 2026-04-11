@@ -26,6 +26,7 @@ Graphize provides a comprehensive CLI for extracting, querying, and exporting kn
 | Command | Description |
 |---------|-------------|
 | `graphize query` | Query the knowledge graph |
+| `graphize path <A> <B>` | Find shortest path between nodes |
 | `graphize diff` | Compare two graph snapshots |
 
 ### Analysis Commands
@@ -34,6 +35,7 @@ Graphize provides a comprehensive CLI for extracting, querying, and exporting kn
 |---------|-------------|
 | `graphize report` | Generate analysis report |
 | `graphize summary` | Generate markdown summary |
+| `graphize benchmark` | Show token reduction statistics |
 
 ### Export Commands
 
@@ -42,6 +44,18 @@ Graphize provides a comprehensive CLI for extracting, querying, and exporting kn
 | `graphize export html` | Export to interactive HTML (Cytoscape.js) |
 | `graphize export toon` | Export to TOON format |
 | `graphize export json` | Export to JSON |
+| `graphize export graphml` | Export to GraphML (Gephi, yEd) |
+| `graphize export cypher` | Export to Neo4j Cypher |
+| `graphize export obsidian` | Export to Obsidian vault |
+
+### Automation Commands
+
+| Command | Description |
+|---------|-------------|
+| `graphize watch` | Auto-rebuild on file changes |
+| `graphize hook install` | Install git hooks |
+| `graphize hook uninstall` | Remove git hooks |
+| `graphize hook status` | Check hook status |
 
 ### Server Commands
 

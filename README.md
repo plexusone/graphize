@@ -11,7 +11,9 @@ LLM-powered CLI for transforming Go codebases into queryable knowledge graphs.
 - 🔍 **Graph Queries** - BFS/DFS traversal, path finding, community detection
 - 📈 **Analysis Reports** - God nodes, surprising connections, suggested questions
 - 🌐 **MCP Server** - Integrate with Claude Desktop and Claude Code
-- 📤 **Multiple Exports** - HTML visualization, TOON format, JSON, YAML
+- 📤 **Multiple Exports** - HTML, TOON, JSON, GraphML, Neo4j Cypher, Obsidian vault
+- 👁️ **Watch Mode** - Auto-rebuild graph on file changes
+- 🔗 **Git Hooks** - Automatic analysis on commit/checkout
 
 ## Quick Start
 
@@ -64,8 +66,14 @@ graphize merge -i agents/graph/semantic-edges.json
 | `graphize enhance` | Prepare for LLM extraction |
 | `graphize merge` | Merge semantic edges |
 | `graphize query` | Query the graph |
+| `graphize path <A> <B>` | Find shortest path between nodes |
 | `graphize report` | Generate analysis report |
+| `graphize benchmark` | Show token reduction statistics |
+| `graphize watch` | Auto-rebuild on file changes |
+| `graphize hook install` | Install git hooks |
 | `graphize export html` | Cytoscape.js visualization |
+| `graphize export obsidian` | Obsidian vault with wikilinks |
+| `graphize export cypher` | Neo4j Cypher statements |
 | `graphize serve` | Start MCP server |
 
 ## MCP Server Integration
@@ -89,8 +97,10 @@ Integrate with Claude Desktop or Claude Code:
 |--------|----------|
 | **TOON** | Agent-friendly, token-efficient (default) |
 | **JSON** | Machine-readable, full fidelity |
-| **YAML** | Human-readable configuration |
 | **HTML** | Interactive Cytoscape.js visualization |
+| **GraphML** | Import into Gephi, yEd, Cytoscape desktop |
+| **Cypher** | Neo4j CREATE statements |
+| **Obsidian** | Wiki-style vault with wikilinks |
 
 ## Storage
 
