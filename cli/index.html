@@ -460,6 +460,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#automation-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Automation Commands
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#server-commands" class="md-nav__link">
     <span class="md-ellipsis">
       Server Commands
@@ -845,6 +854,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#automation-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Automation Commands
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#server-commands" class="md-nav__link">
     <span class="md-ellipsis">
       Server Commands
@@ -1031,6 +1049,10 @@
 <td>Query the knowledge graph</td>
 </tr>
 <tr>
+<td><code>graphize path &lt;A&gt; &lt;B&gt;</code></td>
+<td>Find shortest path between nodes</td>
+</tr>
+<tr>
 <td><code>graphize diff</code></td>
 <td>Compare two graph snapshots</td>
 </tr>
@@ -1052,6 +1074,10 @@
 <tr>
 <td><code>graphize summary</code></td>
 <td>Generate markdown summary</td>
+</tr>
+<tr>
+<td><code>graphize benchmark</code></td>
+<td>Show token reduction statistics</td>
 </tr>
 </tbody>
 </table>
@@ -1075,6 +1101,45 @@
 <tr>
 <td><code>graphize export json</code></td>
 <td>Export to JSON</td>
+</tr>
+<tr>
+<td><code>graphize export graphml</code></td>
+<td>Export to GraphML (Gephi, yEd)</td>
+</tr>
+<tr>
+<td><code>graphize export cypher</code></td>
+<td>Export to Neo4j Cypher</td>
+</tr>
+<tr>
+<td><code>graphize export obsidian</code></td>
+<td>Export to Obsidian vault</td>
+</tr>
+</tbody>
+</table>
+<h3 id="automation-commands">Automation Commands<a class="headerlink" href="#automation-commands" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>graphize watch</code></td>
+<td>Auto-rebuild on file changes</td>
+</tr>
+<tr>
+<td><code>graphize hook install</code></td>
+<td>Install git hooks</td>
+</tr>
+<tr>
+<td><code>graphize hook uninstall</code></td>
+<td>Remove git hooks</td>
+</tr>
+<tr>
+<td><code>graphize hook status</code></td>
+<td>Check hook status</td>
 </tr>
 </tbody>
 </table>
