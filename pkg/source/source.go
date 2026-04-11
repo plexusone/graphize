@@ -29,6 +29,10 @@ type Manifest struct {
 	// Sources is the list of tracked repositories.
 	Sources []*Source `json:"sources"`
 
+	// Directed indicates whether the graph should be treated as directed.
+	// Default is true (edges have direction from->to).
+	Directed bool `json:"directed"`
+
 	// CreatedAt is when the manifest was created.
 	CreatedAt time.Time `json:"created_at"`
 
@@ -41,6 +45,7 @@ func NewManifest() *Manifest {
 	now := time.Now().UTC()
 	return &Manifest{
 		Sources:   make([]*Source, 0),
+		Directed:  true, // Default to directed graph
 		CreatedAt: now,
 		UpdatedAt: now,
 	}

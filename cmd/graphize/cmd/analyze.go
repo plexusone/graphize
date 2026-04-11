@@ -13,7 +13,8 @@ import (
 )
 
 var (
-	analyzeNoCache bool
+	analyzeNoCache  bool
+	analyzeDirected bool
 )
 
 var analyzeCmd = &cobra.Command{
@@ -23,7 +24,11 @@ var analyzeCmd = &cobra.Command{
 The graph is stored in GraphFS format (one file per node/edge).
 
 Per-file caching is used by default to skip unchanged files.
-Use --no-cache to force re-extraction of all files.`,
+Use --no-cache to force re-extraction of all files.
+
+Use --directed to treat edges as directed (default). This affects how
+traversal and analysis interpret edges. In directed mode, 'calls' edges
+flow from caller to callee. In undirected mode, edges are bidirectional.`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		startTime := time.Now()
 
@@ -101,6 +106,9 @@ Use --no-cache to force re-extraction of all files.`,
 			totalCacheMisses += stats.CacheMisses
 		}
 
+		// Update directed flag in manifest
+		manifest.Directed = analyzeDirected
+
 		// Save updated manifest
 		if err := source.SaveManifest(absGraphPath, manifest); err != nil {
 			return fmt.Errorf("saving manifest: %w", err)
@@ -121,6 +129,7 @@ Use --no-cache to force re-extraction of all files.`,
 			"total_files":  totalFiles,
 			"cache_hits":   totalCacheHits,
 			"cache_misses": totalCacheMisses,
+			"directed":     analyzeDirected,
 			"sources":      extractedSources,
 			"duration":     time.Since(startTime).String(),
 			"message":      msg,
@@ -132,4 +141,5 @@ Use --no-cache to force re-extraction of all files.`,
 func init() {
 	rootCmd.AddCommand(analyzeCmd)
 	analyzeCmd.Flags().BoolVar(&analyzeNoCache, "no-cache", false, "Disable caching, re-extract all files")
+	analyzeCmd.Flags().BoolVar(&analyzeDirected, "directed", true, "Treat graph as directed (edges flow from->to)")
 }
