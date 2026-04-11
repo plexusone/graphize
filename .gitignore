@@ -1,8 +1,11 @@
 # Graph database
 .graphize/
 
+# MkDocs generated site
+site/
+
 # Go binaries
-graphize
+/graphize
 *.exe
 
 # IDE
