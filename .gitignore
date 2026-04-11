@@ -1,0 +1,14 @@
+# Graph database
+.graphize/
+
+# Go binaries
+graphize
+*.exe
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
