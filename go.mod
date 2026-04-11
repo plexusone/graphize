@@ -3,11 +3,13 @@ module github.com/plexusone/graphize
 go 1.25.0
 
 require (
+	github.com/fsnotify/fsnotify v1.9.0
 	github.com/grokify/cytoscape-go v0.0.0
 	github.com/modelcontextprotocol/go-sdk v1.5.0
 	github.com/plexusone/graphfs v0.1.0
 	github.com/spf13/cobra v1.10.2
 	github.com/yaricom/goGraphML v1.4.3
+	golang.org/x/text v0.23.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 
