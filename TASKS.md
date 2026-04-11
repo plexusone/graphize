@@ -82,8 +82,8 @@ Reviewed against [safishamsi/graphify](https://github.com/safishamsi/graphify):
 | **JSON Export** | ✅ NetworkX | ✅ Cytoscape format | ✅ Done |
 | **GRAPH_REPORT.md** | ✅ | ✅ (report cmd) | ✅ Done |
 | **GraphML Export** | ✅ | ✅ | ✅ Done |
-| **Obsidian Export** | ✅ Wiki-style vault | ❌ | 🔶 Phase 5 |
-| **Neo4j Cypher Export** | ✅ cypher.txt | ❌ | 🔶 Phase 5 |
+| **Obsidian Export** | ✅ Wiki-style vault | ✅ | ✅ Done |
+| **Neo4j Cypher Export** | ✅ cypher.txt | ✅ | ✅ Done |
 | **Neo4j Push** | ✅ Direct bolt connection | ❌ | ⬜ Phase 5 |
 | **SVG Export** | ✅ | ❌ | ⬜ Phase 5 |
 
@@ -92,12 +92,12 @@ Reviewed against [safishamsi/graphify](https://github.com/safishamsi/graphify):
 | Feature | Graphify | Graphize | Status |
 |---------|----------|----------|--------|
 | **MCP Server** | ✅ | ✅ | ✅ Done |
-| **Watch Mode** | ✅ fsnotify | ❌ | 🔶 Phase 5 |
-| **Git Hooks** | ✅ post-commit/checkout | ❌ | 🔶 Phase 5 |
-| **Directed Graphs** | ✅ `--directed` flag | ❌ | 🔶 Phase 5 |
-| **Path Command** | ✅ `path "A" "B"` | ❌ | 🔶 Phase 5 |
+| **Watch Mode** | ✅ fsnotify | ✅ | ✅ Done |
+| **Git Hooks** | ✅ post-commit/checkout | ✅ | ✅ Done |
+| **Directed Graphs** | ✅ `--directed` flag | ✅ | ✅ Done |
+| **Path Command** | ✅ `path "A" "B"` | ✅ | ✅ Done |
 | **Explain Command** | ✅ `explain "Node"` | ❌ | ⬜ Phase 6 |
-| **Token Benchmark** | ✅ `benchmark` | ❌ | 🔶 Phase 5 |
+| **Token Benchmark** | ✅ `benchmark` | ✅ | ✅ Done |
 | **URL Ingestion** | ✅ `add <url>` | ❌ | ⬜ Phase 7 |
 
 ### Content Types
@@ -137,7 +137,6 @@ Reviewed against [safishamsi/graphify](https://github.com/safishamsi/graphify):
 - **Multimodal extraction**: Code, docs, papers, images, video, audio, office docs
 - **Platform hooks**: 10 AI assistant integrations with always-on hooks
 - **URL ingestion**: Fetch and extract papers, tweets, videos
-- **Watch mode**: Auto-rebuild on file changes
 
 ---
 
@@ -300,69 +299,57 @@ Reviewed against [safishamsi/graphify](https://github.com/safishamsi/graphify):
 
 ---
 
-## Phase 5 - Export & Automation 🔶 IN PROGRESS
+## Phase 5 - Export & Automation ✅ COMPLETE
 
 **Implementation Order:** Quick wins first, then multi-language (Phase 7).
 See PLAN.md for detailed schedule.
 
-### Quick Wins (1-2 days each)
+### Quick Wins ✅
 
-- [ ] `graphize path "A" "B"` - Trace exact path between nodes 🎯
-  - [ ] Use graphfs query.FindPath
-  - [ ] Show intermediate nodes and edge types
-- [ ] `graphize benchmark` - Print token reduction stats 🎯
-  - [ ] Compare raw corpus size vs TOON output
-  - [ ] Show compression ratio
-- [ ] `--directed` flag for `graphize analyze` 🎯
-  - [ ] Preserve edge direction in graph
-  - [ ] Affects traversal and analysis
+- [x] `graphize path "A" "B"` - Trace exact path between nodes ✅
+  - [x] Use graphfs query.FindPath
+  - [x] Show intermediate nodes and edge types
+- [x] `graphize benchmark` - Print token reduction stats ✅
+  - [x] Compare raw corpus size vs TOON output
+  - [x] Show compression ratio
+- [x] `--directed` flag for `graphize analyze` ✅
+  - [x] Preserve edge direction in graph (stored in manifest)
+  - [x] Affects traversal and analysis
 
-### Export Formats
+### Export Formats ✅
 
 - [x] GraphML export (for Gephi/yEd) - `graphize export graphml`
-- [ ] Neo4j Cypher export - `graphize export cypher` 🎯
-  - [ ] Generate CREATE statements for nodes
-  - [ ] Generate CREATE statements for edges
-  - [ ] Include all node/edge attributes
+- [x] Neo4j Cypher export - `graphize export cypher` ✅
+  - [x] Generate CREATE statements for nodes
+  - [x] Generate CREATE statements for edges
+  - [x] Include all node/edge attributes
 - [ ] Neo4j Push - `graphize export cypher --push bolt://localhost:7687`
   - [ ] Direct bolt connection to Neo4j instance
   - [ ] Authentication support (user/password)
 - [ ] SVG export - `graphize export svg`
   - [ ] Use gonum/plot or similar for layout
   - [ ] Static vector graph output
-- [ ] Obsidian vault export - `graphize export obsidian`
-  - [ ] Generate `index.md` entry point
-  - [ ] One article per community with wikilinks
-  - [ ] One article per god node
-  - [ ] Cohesion scores and navigation footers
+- [x] Obsidian vault export - `graphize export obsidian` ✅
+  - [x] Generate `index.md` entry point
+  - [x] One article per community with wikilinks
+  - [x] One article per god node
+  - [x] Cohesion scores and navigation footers
 
-### CLI Enhancements
+### Watch Mode ✅
 
-- [ ] `graphize path "NodeA" "NodeB"` - Trace exact path between two nodes
-  - [ ] Use graphfs query.FindPath
-  - [ ] Show intermediate nodes and edge types
-- [ ] `graphize benchmark` - Print token reduction stats
-  - [ ] Compare raw corpus size vs TOON output
-  - [ ] Show compression ratio
-- [ ] `--directed` flag for `graphize analyze`
-  - [ ] Preserve edge direction in graph
-  - [ ] Affects traversal and analysis
+- [x] `graphize watch` - Monitor files, rebuild on change ✅
+  - [x] Use fsnotify for file system events
+  - [x] Debounce rapid changes (500ms)
+  - [x] Incremental rebuild (only changed files)
+  - [x] Optional: auto-regenerate HTML/report
 
-### Watch Mode
+### Git Hooks ✅
 
-- [ ] `graphize watch` - Monitor files, rebuild on change
-  - [ ] Use fsnotify for file system events
-  - [ ] Debounce rapid changes (500ms)
-  - [ ] Incremental rebuild (only changed files)
-  - [ ] Optional: auto-regenerate HTML/report
-
-### Git Hooks
-
-- [ ] `graphize hook install` - Install git hooks
-  - [ ] post-commit hook: auto-analyze on commit
-  - [ ] post-checkout hook: check if graph is stale
-- [ ] `graphize hook uninstall` - Remove hooks
-- [ ] `graphize hook status` - Check hook installation
+- [x] `graphize hook install` - Install git hooks ✅
+  - [x] post-commit hook: auto-analyze on commit
+  - [x] post-checkout hook: check if graph is stale
+- [x] `graphize hook uninstall` - Remove hooks ✅
+- [x] `graphize hook status` - Check hook installation ✅
 
 ---
 
