@@ -4,7 +4,7 @@ go 1.25.0
 
 require (
 	github.com/fsnotify/fsnotify v1.9.0
-	github.com/grokify/cytoscape-go v0.0.0
+	github.com/grokify/cytoscape-go v0.1.1
 	github.com/modelcontextprotocol/go-sdk v1.5.0
 	github.com/plexusone/graphfs v0.1.0
 	github.com/spf13/cobra v1.10.2
@@ -24,6 +24,5 @@ require (
 	golang.org/x/sys v0.41.0 // indirect
 	gonum.org/v1/gonum v0.17.0 // indirect
 )
-
 
 // TODO: Add github.com/toon-format/toon-go when it has a release tag
