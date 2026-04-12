@@ -6,6 +6,34 @@
   "commitConvention": "conventional",
   "releases": [
     {
+      "version": "v0.2.0",
+      "date": "2026-04-12",
+      "highlights": [
+        { "description": "Watch mode for auto-rebuild on file changes" },
+        { "description": "Git hooks for automatic analysis on commit/checkout" },
+        { "description": "Neo4j Cypher and Obsidian vault export formats" },
+        { "description": "Path finding and token benchmark commands" }
+      ],
+      "added": [
+        { "description": "`graphize path <from> <to>` command to find shortest path between nodes using BFS" },
+        { "description": "`graphize benchmark` command showing token reduction statistics (raw vs TOON)" },
+        { "description": "`graphize watch` command for auto-rebuild on file changes with debouncing" },
+        { "description": "`graphize hook install/uninstall/status` commands for git hook management" },
+        { "description": "`graphize export cypher` command for Neo4j CREATE statements" },
+        { "description": "`graphize export obsidian` command for wiki-style vault with wikilinks" },
+        { "description": "`--directed` flag for `graphize analyze` to control edge directionality" },
+        { "description": "`--html` and `--report` flags for watch mode to auto-regenerate outputs" },
+        { "description": "`--debounce` flag for watch mode to configure delay (default 500ms)" },
+        { "description": "post-commit hook: auto-run `graphize analyze` after commits" },
+        { "description": "post-checkout hook: check if graph is stale after checkout" }
+      ],
+      "documentation": [
+        { "description": "CLI reference updated with all new commands" },
+        { "description": "Getting started guide with watch mode and git hooks" },
+        { "description": "Export formats table updated with Cypher and Obsidian" }
+      ]
+    },
+    {
       "version": "v0.1.0",
       "date": "2026-04-09",
       "highlights": [
