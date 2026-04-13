@@ -51,6 +51,7 @@ nav:
       - Workflow: cli/workflow.md
       - Command Reference: cli/reference.md
   - MCP Server: mcp-server.md
+  - Team Workflow: team-workflow.md
   - Semantic Extraction: semantic-extraction.md
   - Architecture: architecture.md
   - Releases:
