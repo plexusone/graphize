@@ -437,7 +437,7 @@ func (e *Extractor) extractMethod(node *sitter.Node, content []byte, file, class
 }
 
 // extractField extracts a field declaration and detects injection.
-func (e *Extractor) extractField(node *sitter.Node, content []byte, file, classID string, nodes *[]*graph.Node, edges *[]*graph.Edge) {
+func (e *Extractor) extractField(node *sitter.Node, content []byte, _, classID string, _ *[]*graph.Node, edges *[]*graph.Edge) {
 	annotations := e.extractAnnotations(node, content)
 
 	// Check for dependency injection
@@ -526,7 +526,7 @@ func (e *Extractor) extractEnum(node *sitter.Node, content []byte, file, fileID 
 }
 
 // extractImport extracts an import declaration.
-func (e *Extractor) extractImport(node *sitter.Node, content []byte, file, fileID string, nodes *[]*graph.Node, edges *[]*graph.Edge) {
+func (e *Extractor) extractImport(node *sitter.Node, content []byte, _, fileID string, nodes *[]*graph.Node, edges *[]*graph.Edge) {
 	for i := 0; i < int(node.ChildCount()); i++ {
 		child := node.Child(i)
 		if child != nil && (child.Type() == "scoped_identifier" || child.Type() == "identifier") {

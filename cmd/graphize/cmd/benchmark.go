@@ -183,7 +183,7 @@ func countSourceTokens(root string) (tokens, bytes, files int, err error) {
 			return nil
 		}
 
-		content, err := os.ReadFile(path)
+		content, err := os.ReadFile(path) //nolint:gosec // G122: path is from filepath.Walk, not user input
 		if err != nil {
 			return nil // Skip unreadable files
 		}

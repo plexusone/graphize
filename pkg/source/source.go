@@ -166,7 +166,7 @@ func getGitBranch(repoPath string) (string, error) {
 
 // countCommitsBehind counts commits between old and new.
 func countCommitsBehind(repoPath, oldCommit, newCommit string) (int, error) {
-	cmd := exec.Command("git", "rev-list", "--count", oldCommit+".."+newCommit)
+	cmd := exec.Command("git", "rev-list", "--count", oldCommit+".."+newCommit) //nolint:gosec // G204: arguments are commit hashes, not user input
 	cmd.Dir = repoPath
 	out, err := cmd.Output()
 	if err != nil {

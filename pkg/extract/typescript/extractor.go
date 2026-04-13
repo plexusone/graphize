@@ -185,7 +185,7 @@ func (e *Extractor) extractClass(node *sitter.Node, content []byte, file, fileID
 }
 
 // extractHeritage extracts extends/implements relationships.
-func (e *Extractor) extractHeritage(node *sitter.Node, content []byte, classID string, nodes *[]*graph.Node, edges *[]*graph.Edge) {
+func (e *Extractor) extractHeritage(node *sitter.Node, content []byte, classID string, _ *[]*graph.Node, edges *[]*graph.Edge) {
 	for i := 0; i < int(node.ChildCount()); i++ {
 		child := node.Child(i)
 		if child == nil {
@@ -369,7 +369,7 @@ func (e *Extractor) extractTypeAlias(node *sitter.Node, content []byte, file, fi
 }
 
 // extractImport extracts an import statement.
-func (e *Extractor) extractImport(node *sitter.Node, content []byte, file, fileID string, nodes *[]*graph.Node, edges *[]*graph.Edge) {
+func (e *Extractor) extractImport(node *sitter.Node, content []byte, _, fileID string, nodes *[]*graph.Node, edges *[]*graph.Edge) {
 	sourceNode := node.ChildByFieldName("source")
 	if sourceNode == nil {
 		return

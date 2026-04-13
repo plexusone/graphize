@@ -172,7 +172,7 @@ func SaveSemanticEdges(edges []extract.SemanticEdge, path string) error {
 		}
 	}
 
-	if err := os.WriteFile(path, jsonData, 0644); err != nil {
+	if err := os.WriteFile(path, jsonData, 0600); err != nil {
 		return fmt.Errorf("writing file: %w", err)
 	}
 

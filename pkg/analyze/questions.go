@@ -185,7 +185,7 @@ func questionPriority(qtype string) int {
 	}
 }
 
-func findAmbiguousEdges(edges []*graph.Edge, nodeMap map[string]*graph.Node) []*graph.Edge {
+func findAmbiguousEdges(edges []*graph.Edge, _ map[string]*graph.Node) []*graph.Edge {
 	var result []*graph.Edge
 	for _, e := range edges {
 		if e.Confidence == graph.ConfidenceAmbiguous {
@@ -200,7 +200,7 @@ type bridgeNode struct {
 	Communities map[int]bool
 }
 
-func findBridgeNodes(nodes []*graph.Node, edges []*graph.Edge, nodeToCommunity map[string]int, nodeMap map[string]*graph.Node) []bridgeNode {
+func findBridgeNodes(_ []*graph.Node, edges []*graph.Edge, nodeToCommunity map[string]int, nodeMap map[string]*graph.Node) []bridgeNode {
 	// Find nodes that connect to multiple communities
 	nodeConnections := make(map[string]map[int]bool)
 
@@ -240,7 +240,7 @@ func findBridgeNodes(nodes []*graph.Node, edges []*graph.Edge, nodeToCommunity m
 	return bridges
 }
 
-func findInferredEdgesByNode(edges []*graph.Edge, nodeMap map[string]*graph.Node) map[string][]*graph.Edge {
+func findInferredEdgesByNode(edges []*graph.Edge, _ map[string]*graph.Node) map[string][]*graph.Edge {
 	result := make(map[string][]*graph.Edge)
 	for _, e := range edges {
 		if e.Confidence == graph.ConfidenceInferred {
@@ -251,7 +251,7 @@ func findInferredEdgesByNode(edges []*graph.Edge, nodeMap map[string]*graph.Node
 	return result
 }
 
-func findIsolatedNodes(nodes []*graph.Node, edges []*graph.Edge, nodeMap map[string]*graph.Node) []*graph.Node {
+func findIsolatedNodes(nodes []*graph.Node, edges []*graph.Edge, _ map[string]*graph.Node) []*graph.Node {
 	degree := make(map[string]int)
 	for _, e := range edges {
 		degree[e.From]++

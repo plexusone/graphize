@@ -194,16 +194,16 @@ func installHook(path, content string) error {
 		// Check if it contains our marker
 		if containsGraphizeMarker(string(existing)) {
 			// Replace our hook
-			return os.WriteFile(path, []byte(content), 0755)
+			return os.WriteFile(path, []byte(content), 0755) //nolint:gosec // G306: git hooks must be executable
 		}
 
 		// Append to existing hook
 		combined := string(existing) + "\n" + content
-		return os.WriteFile(path, []byte(combined), 0755)
+		return os.WriteFile(path, []byte(combined), 0755) //nolint:gosec // G306: git hooks must be executable
 	}
 
 	// Create new hook
-	return os.WriteFile(path, []byte(content), 0755)
+	return os.WriteFile(path, []byte(content), 0755) //nolint:gosec // G306: git hooks must be executable
 }
 
 func removeHookIfOurs(path string) (bool, error) {

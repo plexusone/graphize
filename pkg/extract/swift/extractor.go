@@ -480,7 +480,7 @@ func (e *Extractor) extractFunction(node *sitter.Node, content []byte, file, fil
 }
 
 // extractImport extracts an import declaration.
-func (e *Extractor) extractImport(node *sitter.Node, content []byte, file, fileID string, nodes *[]*graph.Node, edges *[]*graph.Edge) {
+func (e *Extractor) extractImport(node *sitter.Node, content []byte, _, fileID string, nodes *[]*graph.Node, edges *[]*graph.Edge) {
 	// Find the module name
 	for i := 0; i < int(node.ChildCount()); i++ {
 		child := node.Child(i)

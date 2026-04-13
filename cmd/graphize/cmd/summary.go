@@ -76,7 +76,7 @@ func runSummary(cmd *cobra.Command, args []string) error {
 				return fmt.Errorf("creating output directory: %w", err)
 			}
 		}
-		if err := os.WriteFile(summaryOutput, []byte(markdown), 0644); err != nil {
+		if err := os.WriteFile(summaryOutput, []byte(markdown), 0600); err != nil {
 			return fmt.Errorf("writing summary: %w", err)
 		}
 		fmt.Printf("Generated summary: %s\n", summaryOutput)

@@ -252,7 +252,7 @@ func TestCache_Clear(t *testing.T) {
 
 	// Add an entry
 	testFile := filepath.Join(tmpDir, "test.go")
-	if err := os.WriteFile(testFile, []byte("package main"), 0644); err != nil {
+	if err := os.WriteFile(testFile, []byte("package main"), 0600); err != nil {
 		t.Fatalf("creating test file: %v", err)
 	}
 	if err := cache.Set(testFile, "test.go", nil, nil); err != nil {

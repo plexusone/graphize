@@ -109,7 +109,7 @@ func runInitAgents(cmd *cobra.Command, args []string) error {
 	for _, dir := range gitkeepDirs {
 		gitkeepPath := filepath.Join(dir, ".gitkeep")
 		if _, err := os.Stat(gitkeepPath); os.IsNotExist(err) {
-			if err := os.WriteFile(gitkeepPath, []byte{}, 0644); err != nil {
+			if err := os.WriteFile(gitkeepPath, []byte{}, 0600); err != nil {
 				return fmt.Errorf("creating .gitkeep in %s: %w", dir, err)
 			}
 		}
@@ -151,7 +151,7 @@ func generateAgentExports(nodeList []*graph.Node, edgeList []*graph.Edge, force 
 		markdown := output.GenerateSummaryMarkdown(nodeList, edgeList, output.SummaryOptions{
 			TopN: 10,
 		})
-		if err := os.WriteFile(summaryPath, []byte(markdown), 0644); err != nil {
+		if err := os.WriteFile(summaryPath, []byte(markdown), 0600); err != nil {
 			return fmt.Errorf("writing GRAPH_SUMMARY.md: %w", err)
 		}
 	}
@@ -189,7 +189,7 @@ plugins/**/dist/
 !.gitkeep
 `
 
-	if err := os.WriteFile(gitignorePath, []byte(content), 0644); err != nil {
+	if err := os.WriteFile(gitignorePath, []byte(content), 0600); err != nil {
 		return fmt.Errorf("writing .gitignore: %w", err)
 	}
 
