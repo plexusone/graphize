@@ -9,24 +9,24 @@
 [![Visualization][viz-svg]][viz-url]
 [![License][license-svg]][license-url]
 
- [go-ci-svg]: https://github.com/plexusone/graphfs/actions/workflows/go-ci.yaml/badge.svg?branch=main
- [go-ci-url]: https://github.com/plexusone/graphfs/actions/workflows/go-ci.yaml
- [go-lint-svg]: https://github.com/plexusone/graphfs/actions/workflows/go-lint.yaml/badge.svg?branch=main
- [go-lint-url]: https://github.com/plexusone/graphfs/actions/workflows/go-lint.yaml
- [go-sast-svg]: https://github.com/plexusone/graphfs/actions/workflows/go-sast-codeql.yaml/badge.svg?branch=main
- [go-sast-url]: https://github.com/plexusone/graphfs/actions/workflows/go-sast-codeql.yaml
- [goreport-svg]: https://goreportcard.com/badge/github.com/plexusone/graphfs
- [goreport-url]: https://goreportcard.com/report/github.com/plexusone/graphfs
+ [go-ci-svg]: https://github.com/plexusone/graphize/actions/workflows/go-ci.yaml/badge.svg?branch=main
+ [go-ci-url]: https://github.com/plexusone/graphize/actions/workflows/go-ci.yaml
+ [go-lint-svg]: https://github.com/plexusone/graphize/actions/workflows/go-lint.yaml/badge.svg?branch=main
+ [go-lint-url]: https://github.com/plexusone/graphize/actions/workflows/go-lint.yaml
+ [go-sast-svg]: https://github.com/plexusone/graphize/actions/workflows/go-sast-codeql.yaml/badge.svg?branch=main
+ [go-sast-url]: https://github.com/plexusone/graphize/actions/workflows/go-sast-codeql.yaml
+ [goreport-svg]: https://goreportcard.com/badge/github.com/plexusone/graphize
+ [goreport-url]: https://goreportcard.com/report/github.com/plexusone/graphize
  [docs-pone-svg]: https://img.shields.io/badge/docs-plexusone-blue
  [docs-pone-url]: https://plexusone.github.io/graphize
- [docs-godoc-svg]: https://pkg.go.dev/badge/github.com/plexusone/graphfs
- [docs-godoc-url]: https://pkg.go.dev/github.com/plexusone/graphfs
+ [docs-godoc-svg]: https://pkg.go.dev/badge/github.com/plexusone/graphize
+ [docs-godoc-url]: https://pkg.go.dev/github.com/plexusone/graphize
  [viz-svg]: https://img.shields.io/badge/visualizaton-Go-blue.svg
- [viz-url]: https://mango-dune-07a8b7110.1.azurestaticapps.net/?repo=plexusone%2Fgraphfs
- [loc-svg]: https://tokei.rs/b1/github/plexusone/graphfs
- [repo-url]: https://github.com/plexusone/graphfs
+ [viz-url]: https://mango-dune-07a8b7110.1.azurestaticapps.net/?repo=plexusone%2Fgraphize
+ [loc-svg]: https://tokei.rs/b1/github/plexusone/graphize
+ [repo-url]: https://github.com/plexusone/graphize
  [license-svg]: https://img.shields.io/badge/license-MIT-blue.svg
- [license-url]: https://github.com/plexusone/graphfs/blob/master/LICENSE
+ [license-url]: https://github.com/plexusone/graphize/blob/master/LICENSE
 
 LLM-powered CLI for transforming polyglot codebases into queryable knowledge graphs.
 
