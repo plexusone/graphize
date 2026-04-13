@@ -541,10 +541,10 @@ Move business logic from cmd/ to library packages for better unit testability.
 
 ### High Priority Extractions
 
-- [ ] `pkg/exporters/cypher/` - Cypher generation from export_cypher.go
-  - CypherGenerator type
-  - escapeCypher(), toNeoLabel(), toNeoRelType()
-  - Node/edge serialization
+- [x] `pkg/exporters/cypher/` - Cypher generation from export_cypher.go
+  - Generator type with Generate(), NodeToCreate(), EdgeToCreate()
+  - EscapeString(), EscapeKey(), ToNeoLabel(), ToNeoRelType()
+  - Comprehensive unit tests (8 test functions)
 - [ ] `pkg/exporters/obsidian/` - Vault generation from export_obsidian.go
   - VaultGenerator orchestrator
   - Page builders (index, community, node)
