@@ -7,14 +7,22 @@
   "releases": [
     {
       "version": "v0.2.0",
-      "date": "2026-04-12",
+      "date": "2026-04-13",
       "highlights": [
+        { "description": "Multi-language extraction: Go, Java, TypeScript, Swift" },
+        { "description": "External provider interface for adding language support" },
         { "description": "Watch mode for auto-rebuild on file changes" },
         { "description": "Git hooks for automatic analysis on commit/checkout" },
-        { "description": "Neo4j Cypher and Obsidian vault export formats" },
-        { "description": "Path finding and token benchmark commands" }
+        { "description": "Neo4j Cypher and Obsidian vault export formats" }
       ],
       "added": [
+        { "description": "`provider` package with `LanguageExtractor` interface for external language support", "commit": "aea79bf" },
+        { "description": "Priority-based provider registry (Default, Thick, Custom levels)", "commit": "aea79bf" },
+        { "description": "Go language extractor using native `go/ast` parser", "commit": "7aa3e69" },
+        { "description": "Java language extractor with Spring framework detection", "commit": "7aa3e69" },
+        { "description": "TypeScript/JavaScript extractor using tree-sitter", "commit": "7aa3e69" },
+        { "description": "Swift extractor with protocol and extension support", "commit": "7aa3e69" },
+        { "description": "`WithCustomExtractor` option for direct extractor injection", "commit": "12d8c52" },
         { "description": "`graphize path <from> <to>` command to find shortest path between nodes using BFS" },
         { "description": "`graphize benchmark` command showing token reduction statistics (raw vs TOON)" },
         { "description": "`graphize watch` command for auto-rebuild on file changes with debouncing" },
@@ -26,6 +34,10 @@
         { "description": "`--debounce` flag for watch mode to configure delay (default 500ms)" },
         { "description": "post-commit hook: auto-run `graphize analyze` after commits" },
         { "description": "post-checkout hook: check if graph is stale after checkout" }
+      ],
+      "changed": [
+        { "description": "`extract` package now uses `provider` types with backward compatibility aliases", "commit": "12d8c52" },
+        { "description": "CLI commands use `NewMultiExtractor(DefaultRegistry)` pattern", "commit": "38f92f6" }
       ],
       "documentation": [
         { "description": "CLI reference updated with all new commands" },
