@@ -3,7 +3,6 @@ package cmd
 import (
 	"fmt"
 	"path/filepath"
-	"unicode"
 
 	"github.com/plexusone/graphfs/pkg/store"
 	"github.com/plexusone/graphize/pkg/metrics"
@@ -104,7 +103,7 @@ func runBenchmark(cmd *cobra.Command, args []string) error {
 		Compact: true,
 		NoExtra: true,
 	})
-	toonTokens := estimateTokens(toonOutput)
+	toonTokens := metrics.EstimateTokens(toonOutput)
 	toonBytes := len(toonOutput)
 
 	// Calculate reduction
@@ -168,39 +167,10 @@ func countSourceTokens(root string) (tokens, bytes, files int, err error) {
 
 	err = metrics.WalkSourceFilesWithContent(root, opts, func(path string, content []byte) error {
 		bytes += len(content)
-		tokens += estimateTokens(string(content))
+		tokens += metrics.EstimateTokensInFile(content)
 		files++
 		return nil
 	})
 
 	return tokens, bytes, files, err
-}
-
-// estimateTokens estimates token count using ~4 characters per token
-func estimateTokens(text string) int {
-	// More accurate estimation: count words and multiply by average tokens per word
-	// GPT models average ~1.3 tokens per word for code
-	words := 0
-	inWord := false
-
-	for _, r := range text {
-		isWordChar := unicode.IsLetter(r) || unicode.IsDigit(r) || r == '_'
-		if isWordChar && !inWord {
-			words++
-			inWord = true
-		} else if !isWordChar {
-			inWord = false
-		}
-	}
-
-	// Code typically has more tokens per word due to punctuation
-	// Estimate: words * 1.5 + punctuation
-	punctuation := 0
-	for _, r := range text {
-		if unicode.IsPunct(r) || r == '{' || r == '}' || r == '(' || r == ')' {
-			punctuation++
-		}
-	}
-
-	return int(float64(words)*1.5) + punctuation/2
 }
