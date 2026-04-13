@@ -128,7 +128,7 @@ func runWatch(cmd *cobra.Command, args []string) error {
 		}
 
 		// Create extractor with cache
-		extractor := extract.NewExtractor()
+		extractor := extract.NewMultiExtractor(extract.DefaultRegistry)
 		c := cache.New(absGraphPath)
 		extractor.WithCache(c)
 

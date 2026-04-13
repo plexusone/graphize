@@ -89,7 +89,7 @@ func runRebuild(cmd *cobra.Command, args []string) error {
 		return fmt.Errorf("creating graph store: %w", err)
 	}
 
-	extractor := extract.NewExtractor()
+	extractor := extract.NewMultiExtractor(extract.DefaultRegistry)
 	c := cache.New(absGraphPath)
 	extractor.WithCache(c)
 

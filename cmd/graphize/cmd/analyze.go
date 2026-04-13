@@ -10,6 +10,12 @@ import (
 	"github.com/plexusone/graphize/pkg/extract"
 	"github.com/plexusone/graphize/pkg/source"
 	"github.com/spf13/cobra"
+
+	// Import language extractors to register them with the provider registry.
+	_ "github.com/plexusone/graphize/pkg/extract/golang"
+	_ "github.com/plexusone/graphize/pkg/extract/java"
+	_ "github.com/plexusone/graphize/pkg/extract/swift"
+	_ "github.com/plexusone/graphize/pkg/extract/typescript"
 )
 
 var (
@@ -59,7 +65,7 @@ flow from caller to callee. In undirected mode, edges are bidirectional.`,
 		}
 
 		// Create extractor with optional cache
-		extractor := extract.NewExtractor()
+		extractor := extract.NewMultiExtractor(extract.DefaultRegistry)
 		if !analyzeNoCache {
 			c := cache.New(absGraphPath)
 			extractor.WithCache(c)
