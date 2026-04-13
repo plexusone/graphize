@@ -19,7 +19,7 @@ func TestCache_HashConsistency(t *testing.T) {
 	// Create a test file
 	testFile := filepath.Join(tmpDir, "test.go")
 	content := []byte("package main\n\nfunc main() {}\n")
-	if err := os.WriteFile(testFile, content, 0644); err != nil {
+	if err := os.WriteFile(testFile, content, 0600); err != nil {
 		t.Fatalf("writing test file: %v", err)
 	}
 
@@ -42,7 +42,7 @@ func TestCache_HashConsistency(t *testing.T) {
 
 	// Hash should change when file content changes
 	newContent := []byte("package main\n\nfunc main() { println(\"hello\") }\n")
-	if err := os.WriteFile(testFile, newContent, 0644); err != nil {
+	if err := os.WriteFile(testFile, newContent, 0600); err != nil {
 		t.Fatalf("updating test file: %v", err)
 	}
 
@@ -67,7 +67,7 @@ func TestCache_GetSet(t *testing.T) {
 	// Create a test file
 	testFile := filepath.Join(tmpDir, "test.go")
 	content := []byte("package main\n\nfunc main() {}\n")
-	if err := os.WriteFile(testFile, content, 0644); err != nil {
+	if err := os.WriteFile(testFile, content, 0600); err != nil {
 		t.Fatalf("writing test file: %v", err)
 	}
 
@@ -121,7 +121,7 @@ func TestCache_Invalidation(t *testing.T) {
 	// Create a test file
 	testFile := filepath.Join(tmpDir, "test.go")
 	content := []byte("package main\n\nfunc main() {}\n")
-	if err := os.WriteFile(testFile, content, 0644); err != nil {
+	if err := os.WriteFile(testFile, content, 0600); err != nil {
 		t.Fatalf("writing test file: %v", err)
 	}
 
@@ -143,7 +143,7 @@ func TestCache_Invalidation(t *testing.T) {
 
 	// Modify the file
 	newContent := []byte("package main\n\nfunc main() { println(\"hello\") }\n")
-	if err := os.WriteFile(testFile, newContent, 0644); err != nil {
+	if err := os.WriteFile(testFile, newContent, 0600); err != nil {
 		t.Fatalf("updating test file: %v", err)
 	}
 
@@ -168,7 +168,7 @@ func TestCache_CheckMultiple(t *testing.T) {
 	file3 := filepath.Join(tmpDir, "file3.go")
 
 	for _, f := range []string{file1, file2, file3} {
-		if err := os.WriteFile(f, []byte("package main"), 0644); err != nil {
+		if err := os.WriteFile(f, []byte("package main"), 0600); err != nil {
 			t.Fatalf("creating test file: %v", err)
 		}
 	}
@@ -223,7 +223,7 @@ func TestCache_Size(t *testing.T) {
 	// Add entries
 	for i := 0; i < 3; i++ {
 		testFile := filepath.Join(tmpDir, "file"+string(rune('1'+i))+".go")
-		if err := os.WriteFile(testFile, []byte("package main"), 0644); err != nil {
+		if err := os.WriteFile(testFile, []byte("package main"), 0600); err != nil {
 			t.Fatalf("creating test file: %v", err)
 		}
 		if err := cache.Set(testFile, filepath.Base(testFile), nil, nil); err != nil {

@@ -137,7 +137,7 @@ func (c *Cache) Set(path, relPath string, nodes []*graph.Node, edges []*graph.Ed
 
 	// Write cache file
 	cacheFile := filepath.Join(c.Dir, c.cacheKey(relPath))
-	if err := os.WriteFile(cacheFile, data, 0644); err != nil {
+	if err := os.WriteFile(cacheFile, data, 0600); err != nil {
 		return fmt.Errorf("writing cache file: %w", err)
 	}
 

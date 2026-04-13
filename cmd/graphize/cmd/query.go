@@ -310,7 +310,7 @@ func showSummary(graphStore *store.FSStore) error {
 
 	edgeTypes := make(map[string]int)
 	for _, e := range edges {
-		edgeTypes[string(e.Type)]++
+		edgeTypes[e.Type]++
 	}
 
 	// Find top nodes by edge count

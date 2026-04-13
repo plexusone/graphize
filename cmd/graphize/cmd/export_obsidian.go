@@ -34,9 +34,9 @@ Examples:
 }
 
 var (
-	obsidianOutput  string
-	obsidianTopN    int
-	obsidianMinDeg  int
+	obsidianOutput string
+	obsidianTopN   int
+	obsidianMinDeg int
 )
 
 func init() {
@@ -188,7 +188,7 @@ func generateObsidianIndex(outputDir string, nodes []*graph.Node, edges []*graph
 	sb.WriteString("- Browse [[communities/]] for code clusters\n")
 	sb.WriteString("- Browse [[nodes/]] for individual entities\n")
 
-	return os.WriteFile(filepath.Join(outputDir, "index.md"), []byte(sb.String()), 0644)
+	return os.WriteFile(filepath.Join(outputDir, "index.md"), []byte(sb.String()), 0600)
 }
 
 func generateObsidianCommunity(outputDir string, comm analyze.Community, nodeMap map[string]*graph.Node, degrees map[string]int) error {
@@ -245,7 +245,7 @@ func generateObsidianCommunity(outputDir string, comm analyze.Community, nodeMap
 	sb.WriteString("[[../index|← Back to Index]]\n")
 
 	filename := fmt.Sprintf("community-%d.md", comm.ID)
-	return os.WriteFile(filepath.Join(outputDir, "communities", filename), []byte(sb.String()), 0644)
+	return os.WriteFile(filepath.Join(outputDir, "communities", filename), []byte(sb.String()), 0600)
 }
 
 func generateObsidianNode(outputDir string, node *graph.Node, outgoing, incoming map[string][]*graph.Edge, nodeMap map[string]*graph.Node) error {
@@ -333,7 +333,7 @@ func generateObsidianNode(outputDir string, node *graph.Node, outgoing, incoming
 	sb.WriteString("[[../index|← Back to Index]]\n")
 
 	filename := sanitizeObsidianName(node.ID) + ".md"
-	return os.WriteFile(filepath.Join(outputDir, "nodes", filename), []byte(sb.String()), 0644)
+	return os.WriteFile(filepath.Join(outputDir, "nodes", filename), []byte(sb.String()), 0600)
 }
 
 // sanitizeObsidianName creates a safe filename for Obsidian

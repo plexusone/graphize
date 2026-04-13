@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"path/filepath"
 
-	"github.com/plexusone/graphize/pkg/source"
 	"github.com/spf13/cobra"
+
+	"github.com/plexusone/graphize/pkg/source"
 )
 
 var statusCmd = &cobra.Command{
@@ -46,14 +47,14 @@ Compares recorded commit hashes with current HEAD to detect staleness.`,
 		staleCount := 0
 		for _, status := range statuses {
 			s := map[string]any{
-				"path":            status.Source.Path,
-				"tracked_commit":  status.Source.Commit,
-				"tracked_branch":  status.Source.Branch,
-				"analyzed_at":     status.Source.AnalyzedAt.Format("2006-01-02T15:04:05Z"),
-				"current_commit":  status.CurrentCommit,
-				"current_branch":  status.CurrentBranch,
-				"is_stale":        status.IsStale,
-				"commits_behind":  status.CommitsBehind,
+				"path":           status.Source.Path,
+				"tracked_commit": status.Source.Commit,
+				"tracked_branch": status.Source.Branch,
+				"analyzed_at":    status.Source.AnalyzedAt.Format("2006-01-02T15:04:05Z"),
+				"current_commit": status.CurrentCommit,
+				"current_branch": status.CurrentBranch,
+				"is_stale":       status.IsStale,
+				"commits_behind": status.CommitsBehind,
 			}
 			sourcesOut = append(sourcesOut, s)
 			if status.IsStale {
@@ -67,11 +68,11 @@ Compares recorded commit hashes with current HEAD to detect staleness.`,
 		}
 
 		result := map[string]any{
-			"graph_path":   absGraphPath,
-			"total":        len(manifest.Sources),
-			"stale":        staleCount,
-			"sources":      sourcesOut,
-			"message":      message,
+			"graph_path": absGraphPath,
+			"total":      len(manifest.Sources),
+			"stale":      staleCount,
+			"sources":    sourcesOut,
+			"message":    message,
 		}
 		return printOutput(result)
 	},

@@ -12,8 +12,8 @@ type mockExtractor struct {
 	extensions []string
 }
 
-func (m *mockExtractor) Language() string         { return m.language }
-func (m *mockExtractor) Extensions() []string     { return m.extensions }
+func (m *mockExtractor) Language() string            { return m.language }
+func (m *mockExtractor) Extensions() []string        { return m.extensions }
 func (m *mockExtractor) CanExtract(path string) bool { return true }
 func (m *mockExtractor) ExtractFile(path, baseDir string) ([]*graph.Node, []*graph.Edge, error) {
 	return nil, nil, nil

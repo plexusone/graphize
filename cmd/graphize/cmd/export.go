@@ -189,7 +189,7 @@ func exportHTML(g *cytoscape.Graph) error {
 		}
 	}
 
-	if err := os.WriteFile(output, html, 0644); err != nil {
+	if err := os.WriteFile(output, html, 0600); err != nil {
 		return fmt.Errorf("writing HTML file: %w", err)
 	}
 
@@ -219,7 +219,7 @@ func exportJSON(g *cytoscape.Graph) error {
 		}
 	}
 
-	if err := os.WriteFile(output, data, 0644); err != nil {
+	if err := os.WriteFile(output, data, 0600); err != nil {
 		return fmt.Errorf("writing JSON file: %w", err)
 	}
 

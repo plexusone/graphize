@@ -8,16 +8,16 @@ import (
 
 // Surprise represents a surprising connection in the graph.
 type Surprise struct {
-	From           string  `json:"from"`
-	FromLabel      string  `json:"from_label"`
-	To             string  `json:"to"`
-	ToLabel        string  `json:"to_label"`
-	Type           string  `json:"type"`
-	Confidence     string  `json:"confidence"`
-	Score          float64 `json:"score"`
-	ConfidenceScore float64 `json:"confidence_score,omitempty"`
-	Why            string  `json:"why"`
-	SourceFiles    []string `json:"source_files,omitempty"`
+	From            string   `json:"from"`
+	FromLabel       string   `json:"from_label"`
+	To              string   `json:"to"`
+	ToLabel         string   `json:"to_label"`
+	Type            string   `json:"type"`
+	Confidence      string   `json:"confidence"`
+	Score           float64  `json:"score"`
+	ConfidenceScore float64  `json:"confidence_score,omitempty"`
+	Why             string   `json:"why"`
+	SourceFiles     []string `json:"source_files,omitempty"`
 }
 
 // SurprisingConnections finds edges that are unexpected or non-obvious.
@@ -77,16 +77,16 @@ func SurprisingConnections(nodes []*graph.Node, edges []*graph.Edge, communities
 		}
 
 		candidates = append(candidates, Surprise{
-			From:           e.From,
-			FromLabel:      fromLabel,
-			To:             e.To,
-			ToLabel:        toLabel,
-			Type:           e.Type,
-			Confidence:     string(e.Confidence),
-			Score:          score,
+			From:            e.From,
+			FromLabel:       fromLabel,
+			To:              e.To,
+			ToLabel:         toLabel,
+			Type:            e.Type,
+			Confidence:      string(e.Confidence),
+			Score:           score,
 			ConfidenceScore: e.ConfidenceScore,
-			Why:            why,
-			SourceFiles:    []string{nodeFile[e.From], nodeFile[e.To]},
+			Why:             why,
+			SourceFiles:     []string{nodeFile[e.From], nodeFile[e.To]},
 		})
 	}
 

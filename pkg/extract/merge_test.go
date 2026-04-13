@@ -103,15 +103,15 @@ func TestParseSemanticJSON(t *testing.T) {
 			wantErr:   false,
 		},
 		{
-			name: "JSON in markdown code block",
-			input: "```json\n{\"nodes\": [], \"edges\": []}\n```",
+			name:      "JSON in markdown code block",
+			input:     "```json\n{\"nodes\": [], \"edges\": []}\n```",
 			wantNodes: 0,
 			wantEdges: 0,
 			wantErr:   false,
 		},
 		{
-			name: "JSON in plain code block",
-			input: "```\n{\"nodes\": [], \"edges\": []}\n```",
+			name:      "JSON in plain code block",
+			input:     "```\n{\"nodes\": [], \"edges\": []}\n```",
 			wantNodes: 0,
 			wantEdges: 0,
 			wantErr:   false,
@@ -282,14 +282,14 @@ func TestValidateSemanticExtraction(t *testing.T) {
 
 func TestMergeExtractions(t *testing.T) {
 	tests := []struct {
-		name           string
-		astNodes       []*graph.Node
-		astEdges       []*graph.Edge
-		semantic       *SemanticExtraction
-		wantNodes      int
-		wantEdges      int
-		wantNewNodes   int
-		wantNewEdges   int
+		name         string
+		astNodes     []*graph.Node
+		astEdges     []*graph.Edge
+		semantic     *SemanticExtraction
+		wantNodes    int
+		wantEdges    int
+		wantNewNodes int
+		wantNewEdges int
 	}{
 		{
 			name: "merge with no duplicates",

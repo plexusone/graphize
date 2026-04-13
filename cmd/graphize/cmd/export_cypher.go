@@ -76,7 +76,7 @@ func runExportCypher(cmd *cobra.Command, args []string) error {
 		}
 	}
 
-	if err := os.WriteFile(cypherOutput, []byte(cypher), 0644); err != nil {
+	if err := os.WriteFile(cypherOutput, []byte(cypher), 0600); err != nil {
 		return fmt.Errorf("writing output file: %w", err)
 	}
 

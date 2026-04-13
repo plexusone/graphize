@@ -99,7 +99,7 @@ func runExportToon(cmd *cobra.Command, args []string) error {
 			return err
 		}
 	} else {
-		if err := os.WriteFile(outputPath, []byte(content), 0644); err != nil {
+		if err := os.WriteFile(outputPath, []byte(content), 0600); err != nil {
 			return fmt.Errorf("writing TOON file: %w", err)
 		}
 	}
