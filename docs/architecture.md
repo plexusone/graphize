@@ -85,6 +85,93 @@ graphize/
         └── GRAPH_SUMMARY.md
 ```
 
+## Provider Interface
+
+Graphize uses a pluggable provider architecture for language extractors. This allows external packages to add support for new languages without modifying the core graphize codebase.
+
+### LanguageExtractor Interface
+
+```go
+package provider
+
+import "github.com/plexusone/graphfs/pkg/graph"
+
+type LanguageExtractor interface {
+    // Language returns the canonical language name (e.g., "go", "java")
+    Language() string
+
+    // Extensions returns file extensions this extractor handles (e.g., ".go", ".java")
+    Extensions() []string
+
+    // CanExtract returns true if this extractor can handle the given file path
+    CanExtract(path string) bool
+
+    // ExtractFile extracts nodes and edges from a source file
+    ExtractFile(path, baseDir string) ([]*graph.Node, []*graph.Edge, error)
+
+    // DetectFramework returns detected framework info, or nil if none detected
+    DetectFramework(path string) *FrameworkInfo
+}
+```
+
+### Priority-Based Registration
+
+Extractors are registered with a priority level. Higher priority extractors override lower priority ones for the same file extension:
+
+| Priority | Constant | Use Case |
+|----------|----------|----------|
+| 0 | `PriorityDefault` | Built-in extractors |
+| 10 | `PriorityThick` | SDK-based extractors (override default) |
+| 100 | `PriorityCustom` | User-provided custom extractors |
+
+```go
+func init() {
+    provider.Register(func() provider.LanguageExtractor {
+        return &MyExtractor{}
+    }, provider.PriorityCustom)
+}
+```
+
+### Built-in Extractors
+
+| Language | Package | Parser |
+|----------|---------|--------|
+| Go | `pkg/extract/golang` | Native `go/ast` |
+| Java | `pkg/extract/java` | Tree-sitter |
+| TypeScript | `pkg/extract/typescript` | Tree-sitter |
+| Swift | `pkg/extract/swift` | Tree-sitter |
+
+### Custom Extractors
+
+External packages can implement the `LanguageExtractor` interface and register with the global provider registry:
+
+```go
+package myextractor
+
+import (
+    "github.com/plexusone/graphize/provider"
+    "github.com/plexusone/graphfs/pkg/graph"
+)
+
+type Extractor struct{}
+
+func New() provider.LanguageExtractor { return &Extractor{} }
+
+func (e *Extractor) Language() string { return "mylang" }
+func (e *Extractor) Extensions() []string { return []string{".ml"} }
+// ... implement remaining interface methods
+
+func init() {
+    provider.Register(New, provider.PriorityCustom)
+}
+```
+
+Import the extractor in your main package to register it:
+
+```go
+import _ "github.com/example/graphize-mylang"
+```
+
 ## Storage Layer
 
 Graphize uses [GraphFS](https://plexusone.github.io/graphfs) for storage:
