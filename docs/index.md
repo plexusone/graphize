@@ -1,13 +1,25 @@
 # Graphize
 
-LLM-powered CLI for transforming Go codebases into queryable knowledge graphs.
+LLM-powered CLI for transforming polyglot codebases into queryable knowledge graphs.
 
 ## Overview
 
-Graphize extracts structure from Go codebases and builds queryable knowledge graphs stored in [GraphFS](https://plexusone.github.io/graphfs) format. It combines deterministic AST extraction with optional LLM semantic analysis to create rich, navigable representations of code architecture.
+Graphize extracts structure from polyglot codebases and builds queryable knowledge graphs stored in [GraphFS](https://plexusone.github.io/graphfs) format. It combines deterministic AST extraction with optional LLM semantic analysis to create rich, navigable representations of code architecture.
+
+## Supported Languages
+
+| Language | Parser | Framework Detection |
+|----------|--------|---------------------|
+| Go | Native `go/ast` | - |
+| Java | Tree-sitter | Spring (Controller, Service, Repository) |
+| TypeScript/JavaScript | Tree-sitter | - |
+| Swift | Tree-sitter | - |
+
+External extractors can be added via the [provider interface](architecture.md#provider-interface).
 
 ## Features
 
+- **🌍 Multi-Language** - Go, Java, TypeScript, Swift with extensible provider interface
 - **📊 AST Extraction** - Fast, deterministic extraction of functions, types, and relationships
 - **🤖 LLM Enhancement** - Optional semantic analysis to discover implicit dependencies
 - **🔍 Graph Queries** - BFS/DFS traversal, path finding, community detection
@@ -23,7 +35,7 @@ Graphize extracts structure from Go codebases and builds queryable knowledge gra
 # Initialize a new graph database
 graphize init
 
-# Add your Go repository
+# Add your repository (Go, Java, TypeScript, Swift)
 graphize add .
 
 # Extract the graph (AST-based)

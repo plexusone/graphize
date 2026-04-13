@@ -28,10 +28,11 @@
  [license-svg]: https://img.shields.io/badge/license-MIT-blue.svg
  [license-url]: https://github.com/plexusone/graphfs/blob/master/LICENSE
 
-LLM-powered CLI for transforming Go codebases into queryable knowledge graphs.
+LLM-powered CLI for transforming polyglot codebases into queryable knowledge graphs.
 
 ## Features
 
+- 🌍 **Multi-Language Support** - Go, Java, TypeScript, and Swift with extensible provider interface
 - 📊 **AST Extraction** - Fast, deterministic extraction of functions, types, and relationships
 - 🤖 **LLM Enhancement** - Optional semantic analysis to discover implicit dependencies
 - 🔍 **Graph Queries** - BFS/DFS traversal, path finding, community detection
@@ -50,7 +51,7 @@ go build -o graphize ./cmd/graphize
 # Initialize a new graph database
 graphize init
 
-# Add your Go repository
+# Add your repository (Go, Java, TypeScript, Swift)
 graphize add .
 
 # Extract the graph (AST-based)
