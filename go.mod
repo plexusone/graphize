@@ -6,7 +6,7 @@ require (
 	github.com/fsnotify/fsnotify v1.9.0
 	github.com/grokify/cytoscape-go v0.1.1
 	github.com/modelcontextprotocol/go-sdk v1.5.0
-	github.com/plexusone/graphfs v0.1.0
+	github.com/plexusone/graphfs v0.2.0
 	github.com/smacker/go-tree-sitter v0.0.0-20240827094217-dd81d9e9be82
 	github.com/spf13/cobra v1.10.2
 	github.com/yaricom/goGraphML v1.4.3
