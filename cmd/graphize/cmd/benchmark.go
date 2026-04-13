@@ -2,9 +2,7 @@ package cmd
 
 import (
 	"fmt"
-	"os"
 	"path/filepath"
-	"strings"
 	"unicode"
 
 	"github.com/plexusone/graphfs/pkg/store"
@@ -161,38 +159,17 @@ func runBenchmark(cmd *cobra.Command, args []string) error {
 
 // countSourceTokens recursively counts tokens in Go source files
 func countSourceTokens(root string) (tokens, bytes, files int, err error) {
-	err = filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
-		if err != nil {
-			return nil // Skip errors
-		}
-		if info.IsDir() {
-			// Skip hidden and vendor directories
-			name := info.Name()
-			if strings.HasPrefix(name, ".") || name == "vendor" || name == "node_modules" {
-				return filepath.SkipDir
-			}
-			return nil
-		}
+	opts := metrics.WalkOptions{
+		Extensions: []string{".go"},
+		SkipDirs:   []string{"vendor", "node_modules"},
+		SkipHidden: true,
+		SkipTests:  true,
+	}
 
-		// Only count Go files
-		if !strings.HasSuffix(path, ".go") {
-			return nil
-		}
-
-		// Skip test files for cleaner comparison
-		if strings.HasSuffix(path, "_test.go") {
-			return nil
-		}
-
-		content, err := os.ReadFile(path) //nolint:gosec // G122: path is from filepath.Walk, not user input
-		if err != nil {
-			return nil // Skip unreadable files
-		}
-
+	err = metrics.WalkSourceFilesWithContent(root, opts, func(path string, content []byte) error {
 		bytes += len(content)
 		tokens += estimateTokens(string(content))
 		files++
-
 		return nil
 	})
 

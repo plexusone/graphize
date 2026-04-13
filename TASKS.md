@@ -535,8 +535,9 @@ Move business logic from cmd/ to library packages for better unit testability.
 - [x] Extract edge grouping helpers to `pkg/analyze/group.go`
   - `groupEdgesByType()` duplicated in: export_obsidian.go, report.go
   - Added: `GroupEdgesByType()`, `CountEdgesByType()`, `GroupEdgesByConfidence()`, `CountEdgesByConfidence()` with tests
-- [ ] Extract directory walking to `pkg/metrics/walker.go`
+- [x] Extract directory walking to `pkg/metrics/walker.go`
   - File collection duplicated in: benchmark.go, enhance.go
+  - Added: `WalkSourceFiles()`, `WalkSourceFilesWithContent()`, `WalkOptions` with tests
 
 ### High Priority Extractions
 

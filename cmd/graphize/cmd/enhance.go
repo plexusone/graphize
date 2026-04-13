@@ -3,12 +3,12 @@ package cmd
 import (
 	"encoding/json"
 	"fmt"
-	"os"
 	"path/filepath"
 	"strings"
 
 	"github.com/plexusone/graphize/pkg/cache"
 	"github.com/plexusone/graphize/pkg/extract"
+	"github.com/plexusone/graphize/pkg/metrics"
 	"github.com/plexusone/graphize/pkg/source"
 	"github.com/spf13/cobra"
 )
@@ -246,29 +246,11 @@ func outputEnhancePrompts(chunks [][]string, baseDir string) error {
 
 // collectGoFiles walks a directory and returns all .go files (excluding tests, vendor, etc.)
 func collectGoFiles(dir string) ([]string, error) {
-	var files []string
-
-	err := filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
-		if err != nil {
-			return err
-		}
-
-		// Skip hidden directories, vendor, testdata
-		if info.IsDir() {
-			name := info.Name()
-			if strings.HasPrefix(name, ".") || name == "vendor" || name == "testdata" {
-				return filepath.SkipDir
-			}
-			return nil
-		}
-
-		// Only .go files, exclude tests
-		if strings.HasSuffix(path, ".go") && !strings.HasSuffix(path, "_test.go") {
-			files = append(files, path)
-		}
-
-		return nil
-	})
-
-	return files, err
+	opts := metrics.WalkOptions{
+		Extensions: []string{".go"},
+		SkipDirs:   []string{"vendor", "testdata"},
+		SkipHidden: true,
+		SkipTests:  true,
+	}
+	return metrics.WalkSourceFiles(dir, opts)
 }
