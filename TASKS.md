@@ -545,17 +545,18 @@ Move business logic from cmd/ to library packages for better unit testability.
   - Generator type with Generate(), NodeToCreate(), EdgeToCreate()
   - EscapeString(), EscapeKey(), ToNeoLabel(), ToNeoRelType()
   - Comprehensive unit tests (8 test functions)
-- [ ] `pkg/exporters/obsidian/` - Vault generation from export_obsidian.go
-  - VaultGenerator orchestrator
-  - Page builders (index, community, node)
-  - sanitizeObsidianName()
+- [x] `pkg/metrics/tokens.go` - Token estimation from benchmark.go
+  - EstimateTokens(), EstimateTokensInFile()
+  - Word counting + punctuation heuristics for LLM token estimation
+- [x] `pkg/exporters/obsidian/` - Vault generation from export_obsidian.go
+  - Generator type with Generate(), VaultContent result type
+  - GenerateIndex(), GenerateCommunity(), GenerateNode()
+  - SanitizeName() for safe filenames
+  - Comprehensive unit tests (6 test functions)
 - [ ] `pkg/query/` - Query formatting from query.go
   - TraversalFormatter for depth-layered output
   - NodeSummaryCalculator for stat aggregation
   - EdgeFilter for conditional filtering
-- [ ] `pkg/metrics/tokens.go` - Token estimation from benchmark.go
-  - TokenEstimator with configurable weights
-  - estimateTokens() algorithm
 
 ### Medium Priority Extractions
 
