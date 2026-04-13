@@ -523,6 +523,48 @@ open graph.html
 
 ---
 
+## Code Quality & Refactoring 🔧 IN PROGRESS
+
+Move business logic from cmd/ to library packages for better unit testability.
+
+### DRY Fixes (Quick Wins)
+
+- [x] Extract `formatBytes()` to `pkg/metrics/formatter.go`
+  - Duplicated in: benchmark.go, export_cypher.go, export_graphml.go
+  - Added: `FormatBytes()`, `FormatNumber()` with tests
+- [x] Extract edge grouping helpers to `pkg/analyze/group.go`
+  - `groupEdgesByType()` duplicated in: export_obsidian.go, report.go
+  - Added: `GroupEdgesByType()`, `CountEdgesByType()`, `GroupEdgesByConfidence()`, `CountEdgesByConfidence()` with tests
+- [ ] Extract directory walking to `pkg/metrics/walker.go`
+  - File collection duplicated in: benchmark.go, enhance.go
+
+### High Priority Extractions
+
+- [ ] `pkg/exporters/cypher/` - Cypher generation from export_cypher.go
+  - CypherGenerator type
+  - escapeCypher(), toNeoLabel(), toNeoRelType()
+  - Node/edge serialization
+- [ ] `pkg/exporters/obsidian/` - Vault generation from export_obsidian.go
+  - VaultGenerator orchestrator
+  - Page builders (index, community, node)
+  - sanitizeObsidianName()
+- [ ] `pkg/query/` - Query formatting from query.go
+  - TraversalFormatter for depth-layered output
+  - NodeSummaryCalculator for stat aggregation
+  - EdgeFilter for conditional filtering
+- [ ] `pkg/metrics/tokens.go` - Token estimation from benchmark.go
+  - TokenEstimator with configurable weights
+  - estimateTokens() algorithm
+
+### Medium Priority Extractions
+
+- [ ] `pkg/analyze/report.go` - Report orchestration from report.go
+  - ReportBuilder type
+  - Structured report object (not strings)
+- [ ] `pkg/exporters/graphml/` - GraphML generation from export_graphml.go
+
+---
+
 ## Legend
 
 - [x] Implemented

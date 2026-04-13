@@ -8,6 +8,7 @@ import (
 
 	"github.com/plexusone/graphfs/pkg/graph"
 	"github.com/plexusone/graphfs/pkg/store"
+	"github.com/plexusone/graphize/pkg/metrics"
 	"github.com/spf13/cobra"
 )
 
@@ -86,23 +87,10 @@ func runExportCypher(cmd *cobra.Command, args []string) error {
 	fmt.Fprintf(os.Stderr, "  Nodes: %d\n", len(nodes))
 	fmt.Fprintf(os.Stderr, "  Edges: %d\n", len(edges))
 	if fi != nil {
-		fmt.Fprintf(os.Stderr, "  Size: %s\n", formatCypherSize(fi.Size()))
+		fmt.Fprintf(os.Stderr, "  Size: %s\n", metrics.FormatBytes(fi.Size()))
 	}
 
 	return nil
-}
-
-func formatCypherSize(bytes int64) string {
-	const unit = 1024
-	if bytes < unit {
-		return fmt.Sprintf("%d B", bytes)
-	}
-	div, exp := int64(unit), 0
-	for n := bytes / unit; n >= unit; n /= unit {
-		div *= unit
-		exp++
-	}
-	return fmt.Sprintf("%.1f %cB", float64(bytes)/float64(div), "KMGTPE"[exp])
 }
 
 // generateCypher generates Neo4j Cypher CREATE statements for the graph.

@@ -8,6 +8,7 @@ import (
 
 	"github.com/plexusone/graphfs/pkg/graph"
 	"github.com/plexusone/graphfs/pkg/store"
+	"github.com/plexusone/graphize/pkg/metrics"
 	"github.com/spf13/cobra"
 	"github.com/yaricom/goGraphML/graphml"
 )
@@ -201,23 +202,10 @@ func runExportGraphML(cmd *cobra.Command, args []string) error {
 	fmt.Printf("  Nodes: %d\n", len(nodes))
 	fmt.Printf("  Edges: %d\n", len(edges))
 	if fi != nil {
-		fmt.Printf("  Size: %s\n", formatGraphMLSize(fi.Size()))
+		fmt.Printf("  Size: %s\n", metrics.FormatBytes(fi.Size()))
 	}
 
 	return nil
-}
-
-func formatGraphMLSize(bytes int64) string {
-	const unit = 1024
-	if bytes < unit {
-		return fmt.Sprintf("%d B", bytes)
-	}
-	div, exp := int64(unit), 0
-	for n := bytes / unit; n >= unit; n /= unit {
-		div *= unit
-		exp++
-	}
-	return fmt.Sprintf("%.1f %cB", float64(bytes)/float64(div), "KMGTPE"[exp])
 }
 
 // Ensure we're using the graph package (for documentation)

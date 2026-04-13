@@ -8,6 +8,7 @@ import (
 	"unicode"
 
 	"github.com/plexusone/graphfs/pkg/store"
+	"github.com/plexusone/graphize/pkg/metrics"
 	"github.com/plexusone/graphize/pkg/output"
 	"github.com/plexusone/graphize/pkg/source"
 	"github.com/spf13/cobra"
@@ -141,12 +142,12 @@ func runBenchmark(cmd *cobra.Command, args []string) error {
 	fmt.Println()
 	fmt.Println("Source Files:")
 	fmt.Printf("  Files:  %d\n", fileCount)
-	fmt.Printf("  Bytes:  %s\n", formatBytes(totalSourceBytes))
-	fmt.Printf("  Tokens: %s\n", formatNumber(totalSourceTokens))
+	fmt.Printf("  Bytes:  %s\n", metrics.FormatBytes(int64(totalSourceBytes)))
+	fmt.Printf("  Tokens: %s\n", metrics.FormatNumber(totalSourceTokens))
 	fmt.Println()
 	fmt.Println("TOON Export:")
-	fmt.Printf("  Bytes:  %s\n", formatBytes(toonBytes))
-	fmt.Printf("  Tokens: %s\n", formatNumber(toonTokens))
+	fmt.Printf("  Bytes:  %s\n", metrics.FormatBytes(int64(toonBytes)))
+	fmt.Printf("  Tokens: %s\n", metrics.FormatNumber(toonTokens))
 	fmt.Println()
 	fmt.Println("Graph Statistics:")
 	fmt.Printf("  Nodes:  %d\n", len(nodes))
@@ -225,27 +226,4 @@ func estimateTokens(text string) int {
 	}
 
 	return int(float64(words)*1.5) + punctuation/2
-}
-
-func formatBytes(b int) string {
-	const unit = 1024
-	if b < unit {
-		return fmt.Sprintf("%d B", b)
-	}
-	div, exp := int64(unit), 0
-	for n := b / unit; n >= unit; n /= unit {
-		div *= unit
-		exp++
-	}
-	return fmt.Sprintf("%.1f %cB", float64(b)/float64(div), "KMGTPE"[exp])
-}
-
-func formatNumber(n int) string {
-	if n < 1000 {
-		return fmt.Sprintf("%d", n)
-	}
-	if n < 1000000 {
-		return fmt.Sprintf("%.1fK", float64(n)/1000)
-	}
-	return fmt.Sprintf("%.1fM", float64(n)/1000000)
 }

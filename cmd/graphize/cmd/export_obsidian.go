@@ -7,9 +7,10 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/plexusone/graphfs/pkg/analyze"
+	fsanalyze "github.com/plexusone/graphfs/pkg/analyze"
 	"github.com/plexusone/graphfs/pkg/graph"
 	"github.com/plexusone/graphfs/pkg/store"
+	"github.com/plexusone/graphize/pkg/analyze"
 	"github.com/spf13/cobra"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
@@ -91,10 +92,10 @@ func runExportObsidian(cmd *cobra.Command, args []string) error {
 	}
 
 	// Find god nodes
-	godNodes := analyze.FindHubs(nodes, edges, obsidianTopN, nil)
+	godNodes := fsanalyze.FindHubs(nodes, edges, obsidianTopN, nil)
 
 	// Detect communities
-	communities := analyze.DetectCommunities(nodes, edges)
+	communities := fsanalyze.DetectCommunities(nodes, edges)
 
 	// Build node map
 	nodeMap := make(map[string]*graph.Node)
@@ -145,7 +146,7 @@ func runExportObsidian(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
-func generateObsidianIndex(outputDir string, nodes []*graph.Node, edges []*graph.Edge, godNodes []analyze.HubNode, communities *analyze.ClusterResult) error {
+func generateObsidianIndex(outputDir string, nodes []*graph.Node, edges []*graph.Edge, godNodes []fsanalyze.HubNode, communities *fsanalyze.ClusterResult) error {
 	var sb strings.Builder
 
 	sb.WriteString("# Code Knowledge Graph\n\n")
@@ -191,7 +192,7 @@ func generateObsidianIndex(outputDir string, nodes []*graph.Node, edges []*graph
 	return os.WriteFile(filepath.Join(outputDir, "index.md"), []byte(sb.String()), 0600)
 }
 
-func generateObsidianCommunity(outputDir string, comm analyze.Community, nodeMap map[string]*graph.Node, degrees map[string]int) error {
+func generateObsidianCommunity(outputDir string, comm fsanalyze.Community, nodeMap map[string]*graph.Node, degrees map[string]int) error {
 	var sb strings.Builder
 
 	fmt.Fprintf(&sb, "# Community %d\n\n", comm.ID)
@@ -277,10 +278,7 @@ func generateObsidianNode(outputDir string, node *graph.Node, outgoing, incoming
 		sb.WriteString("What this node references:\n\n")
 
 		// Group by edge type
-		byType := make(map[string][]*graph.Edge)
-		for _, e := range outEdges {
-			byType[e.Type] = append(byType[e.Type], e)
-		}
+		byType := analyze.GroupEdgesByType(outEdges)
 
 		for edgeType, typeEdges := range byType {
 			fmt.Fprintf(&sb, "### %s\n\n", edgeType)
@@ -306,10 +304,7 @@ func generateObsidianNode(outputDir string, node *graph.Node, outgoing, incoming
 		sb.WriteString("What references this node:\n\n")
 
 		// Group by edge type
-		byType := make(map[string][]*graph.Edge)
-		for _, e := range inEdges {
-			byType[e.Type] = append(byType[e.Type], e)
-		}
+		byType := analyze.GroupEdgesByType(inEdges)
 
 		for edgeType, typeEdges := range byType {
 			fmt.Fprintf(&sb, "### %s\n\n", edgeType)
