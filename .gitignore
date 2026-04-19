@@ -6,6 +6,7 @@ site/
 
 # Go binaries
 /graphize
+cmd/graphize/graphize
 *.exe
 
 # IDE
