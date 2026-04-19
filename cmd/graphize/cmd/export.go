@@ -18,6 +18,7 @@ var exportCmd = &cobra.Command{
 
 Supported formats:
   html     - Interactive Cytoscape.js visualization (default)
+  htmlsite - Multi-page HTML documentation site
   json     - Cytoscape.js JSON format
   toon     - TOON format (agent-optimized, token-efficient)
   graphml  - GraphML XML format (for Gephi, yEd, Cytoscape)
@@ -25,6 +26,7 @@ Supported formats:
 
 Examples:
   graphize export html -o graph.html
+  graphize export htmlsite -o ./site
   graphize export json -o graph.json
   graphize export graphml -o graph.graphml
   graphize export cypher -o graph.cypher
@@ -100,7 +102,11 @@ func runExport(cmd *cobra.Command, args []string) error {
 	// Build cytoscape graph
 	g := cytoscape.NewGraph()
 	g.SetTitle(exportTitle)
-	g.SetStyle(cytoscape.CodeGraphStyle())
+
+	// Start with default code graph style and add edge type coloring
+	styles := cytoscape.CodeGraphStyle()
+	styles = append(styles, edgeTypeStyles()...)
+	g.SetStyle(styles)
 
 	// Set layout
 	switch exportLayout {
@@ -120,9 +126,28 @@ func runExport(cmd *cobra.Command, args []string) error {
 
 	// Convert nodes
 	for _, n := range nodes {
-		node := cytoscape.NodeWithType(n.ID, n.Label, n.Type)
+		// Determine label: prefer n.Label, fallback to Attrs["label"], then derive from ID
+		label := n.Label
+		if label == "" && n.Attrs != nil {
+			if attrLabel, ok := n.Attrs["label"]; ok {
+				label = attrLabel
+			}
+		}
+		if label == "" {
+			// Derive from ID by stripping prefix (e.g., "svc:foo" -> "foo")
+			label = n.ID
+			if idx := strings.Index(label, ":"); idx != -1 {
+				label = label[idx+1:]
+			}
+		}
+
+		node := cytoscape.NodeWithType(n.ID, label, n.Type)
 		if n.Attrs != nil {
 			for k, v := range n.Attrs {
+				// Skip label since we already handled it at the top level
+				if k == "label" {
+					continue
+				}
 				node.SetExtra(k, v)
 			}
 		}
@@ -228,4 +253,66 @@ func exportJSON(g *cytoscape.Graph) error {
 	fmt.Printf("  Edges: %d\n", g.Metadata.EdgeCount)
 
 	return nil
+}
+
+// edgeTypeStyles returns Cytoscape style rules for differentiating edge types.
+// Traffic edges (connects_to, calls, uses) are blue/teal.
+// IaC edges (deploys, manages) are orange with dashed lines.
+func edgeTypeStyles() []cytoscape.StyleRule {
+	return []cytoscape.StyleRule{
+		// IaC deployment edges - orange, dashed
+		{
+			Selector: `edge[type="deploys"]`,
+			Style: map[string]any{
+				"line-color":         "#f59e0b", // amber-500
+				"target-arrow-color": "#f59e0b",
+				"line-style":         "dashed",
+				"line-dash-pattern":  []int{6, 3},
+			},
+		},
+		{
+			Selector: `edge[type="manages"]`,
+			Style: map[string]any{
+				"line-color":         "#d97706", // amber-600
+				"target-arrow-color": "#d97706",
+				"line-style":         "dashed",
+				"line-dash-pattern":  []int{6, 3},
+			},
+		},
+		// Service connection edges - blue
+		{
+			Selector: `edge[type="connects_to"]`,
+			Style: map[string]any{
+				"line-color":         "#3b82f6", // blue-500
+				"target-arrow-color": "#3b82f6",
+			},
+		},
+		// Resource usage edges - teal
+		{
+			Selector: `edge[type="uses"]`,
+			Style: map[string]any{
+				"line-color":         "#14b8a6", // teal-500
+				"target-arrow-color": "#14b8a6",
+			},
+		},
+		// Containment edges - gray, dotted
+		{
+			Selector: `edge[type="contains"]`,
+			Style: map[string]any{
+				"line-color":         "#9ca3af", // gray-400
+				"target-arrow-color": "#9ca3af",
+				"line-style":         "dotted",
+			},
+		},
+		// Links to repo - purple, dashed
+		{
+			Selector: `edge[type="links_to"]`,
+			Style: map[string]any{
+				"line-color":         "#8b5cf6", // violet-500
+				"target-arrow-color": "#8b5cf6",
+				"line-style":         "dashed",
+				"line-dash-pattern":  []int{4, 2},
+			},
+		},
+	}
 }
