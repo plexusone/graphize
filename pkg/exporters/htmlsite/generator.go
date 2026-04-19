@@ -41,10 +41,10 @@ func NewGenerator() *Generator {
 
 // iacNodeTypes are node types to filter when ExcludeIaC is true.
 var iacNodeTypes = map[string]bool{
-	"helm_chart":        true,
-	"terraform_module":  true,
-	"helm":              true,
-	"terraform":         true,
+	"helm_chart":       true,
+	"terraform_module": true,
+	"helm":             true,
+	"terraform":        true,
 }
 
 // iacEdgeTypes are edge types to filter when ExcludeIaC is true.
