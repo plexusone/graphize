@@ -28,7 +28,7 @@ Technical architecture of Graphize.
 │       ▼                                                                  │
 │  Step 6: Output                                                          │
 │  ┌─────────────────────────────────────────────────────────────────┐    │
-│  │ HTML │ TOON │ JSON │ GRAPH_REPORT.md │                          │    │
+│  │ HTML │ TOON │ JSON │ Neo4j │ Obsidian │ GraphML │ Report       │    │
 │  └─────────────────────────────────────────────────────────────────┘    │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
@@ -60,7 +60,11 @@ graphize/
 │   │   └── manifest.go     # Manifest persistence
 │   │
 │   ├── extract/            # Extraction engines
-│   │   └── ast.go          # Go AST extraction (deterministic)
+│   │   ├── multi.go        # Multi-language orchestrator
+│   │   ├── golang/         # Go extractor (go/ast)
+│   │   ├── java/           # Java extractor (tree-sitter)
+│   │   ├── typescript/     # TypeScript extractor (tree-sitter)
+│   │   └── swift/          # Swift extractor (tree-sitter)
 │   │
 │   ├── cache/              # Extraction caching
 │   │   └── cache.go        # SHA256-based per-file cache
@@ -70,7 +74,17 @@ graphize/
 │   │   ├── cluster.go      # Community detection wrapper
 │   │   ├── surprise.go     # Surprising connections
 │   │   ├── questions.go    # Suggested questions
+│   │   ├── group.go        # Edge grouping utilities
 │   │   └── diff.go         # Graph comparison wrapper
+│   │
+│   ├── metrics/            # Measurement utilities
+│   │   ├── formatter.go    # FormatBytes, FormatNumber
+│   │   ├── walker.go       # Source file walking
+│   │   └── tokens.go       # LLM token estimation
+│   │
+│   ├── exporters/          # Export format generators
+│   │   ├── cypher/         # Neo4j Cypher statements
+│   │   └── obsidian/       # Obsidian vault with wikilinks
 │   │
 │   └── output/             # Output formatters
 │       ├── output.go       # TOON, JSON, YAML

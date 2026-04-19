@@ -99,6 +99,7 @@ graphize merge -i agents/graph/semantic-edges.json
 | `graphize watch` | Auto-rebuild on file changes |
 | `graphize hook install` | Install git hooks |
 | `graphize export html` | Cytoscape.js visualization |
+| `graphize export htmlsite` | Multi-page documentation site |
 | `graphize export obsidian` | Obsidian vault with wikilinks |
 | `graphize export cypher` | Neo4j Cypher statements |
 | `graphize serve` | Start MCP server |
@@ -125,6 +126,7 @@ Integrate with Claude Desktop or Claude Code:
 | **TOON** | Agent-friendly, token-efficient (default) |
 | **JSON** | Machine-readable, full fidelity |
 | **HTML** | Interactive Cytoscape.js visualization |
+| **HTML Site** | Multi-page documentation site with per-service graphs |
 | **GraphML** | Import into Gephi, yEd, Cytoscape desktop |
 | **Cypher** | Neo4j CREATE statements |
 | **Obsidian** | Wiki-style vault with wikilinks |

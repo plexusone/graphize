@@ -296,6 +296,7 @@ graphize export <format> [flags]
 | Format | Description |
 |--------|-------------|
 | `html` | Interactive Cytoscape.js visualization |
+| `htmlsite` | Multi-page HTML documentation site |
 | `toon` | Token-optimized notation |
 | `json` | Cytoscape.js JSON format |
 | `graphml` | GraphML XML (for Gephi, yEd) |
@@ -312,6 +313,7 @@ graphize export <format> [flags]
 
 ```bash
 graphize export html -o graph.html
+graphize export htmlsite -o ./site
 graphize export toon -o GRAPH.toon
 graphize export json -o graph.json
 graphize export graphml -o graph.graphml
@@ -338,6 +340,53 @@ Generates CREATE statements for all nodes and edges, including:
 - Node labels and properties
 - Edge types and properties
 - Confidence metadata for semantic edges
+
+### graphize export htmlsite
+
+Export graph as a multi-page HTML documentation site.
+
+```bash
+graphize export htmlsite [flags]
+```
+
+**Flags:**
+
+| Flag | Description | Default |
+|------|-------------|---------|
+| `-o, --output` | Output directory | required |
+| `-t, --title` | Site title | "Code Graph" |
+| `--dark` | Use dark mode theme | false |
+| `--no-communities` | Skip community pages | false |
+
+**Output Structure:**
+
+```
+site/
+├── index.html           # System overview with topology
+├── services/            # Per-service subgraphs (multi-service mode)
+│   ├── api/index.html
+│   └── payments/index.html
+└── communities/         # Optional community groupings
+    └── 1.html
+```
+
+**Modes:**
+
+- **Multi-service mode** (system-spec present): Index shows system topology, service pages show per-repo code graphs
+- **Single-repo mode** (no system-spec): Index shows full graph, optional community pages
+
+**Examples:**
+
+```bash
+# Basic usage
+graphize export htmlsite -o ./site
+
+# Dark mode with custom title
+graphize export htmlsite -o ./docs --dark --title "Platform Architecture"
+
+# Skip community detection
+graphize export htmlsite -o ./site --no-communities
+```
 
 ### graphize export obsidian
 

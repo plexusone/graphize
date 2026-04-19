@@ -70,7 +70,7 @@ Reviewed against [safishamsi/graphify](https://github.com/safishamsi/graphify):
 | **Package Statistics** | ❌ | ✅ | ✅ Better |
 | **Suggested Questions** | ✅ | ✅ | ✅ Done |
 | **Hyperedges** | ✅ 3+ node groups | ❌ | ⬜ Phase 7 |
-| **Betweenness Centrality** | ✅ For bridges | ❌ | 🔶 Phase 6 |
+| **Betweenness Centrality** | ✅ For bridges | ✅ Bridges in report | ✅ Done |
 | **Corpus Health Check** | ✅ Word count, verdict | ❌ | ⬜ Phase 6 |
 
 ### Export Formats
@@ -553,17 +553,46 @@ Move business logic from cmd/ to library packages for better unit testability.
   - GenerateIndex(), GenerateCommunity(), GenerateNode()
   - SanitizeName() for safe filenames
   - Comprehensive unit tests (6 test functions)
-- [ ] `pkg/query/` - Query formatting from query.go
-  - TraversalFormatter for depth-layered output
-  - NodeSummaryCalculator for stat aggregation
-  - EdgeFilter for conditional filtering
+- [x] `pkg/query/` - Query formatting from query.go ✅
+  - [x] `summary.go` - ComputeSummary, SummaryOptions, GodNode detection
+  - [x] `format.go` - FormatTraversal, FormatPath for output formatting
+  - [x] `filter.go` - EdgeFilter, FilterEdges, FindPartialMatches
+  - [x] Unit tests for all functions
 
 ### Medium Priority Extractions
 
-- [ ] `pkg/analyze/report.go` - Report orchestration from report.go
-  - ReportBuilder type
-  - Structured report object (not strings)
-- [ ] `pkg/exporters/graphml/` - GraphML generation from export_graphml.go
+- [x] `pkg/analyze/report.go` - Report orchestration from report.go ✅
+  - [x] Report struct with all analysis sections
+  - [x] GenerateReport() function
+  - [x] FormatMarkdown() method
+  - [x] Unit tests for report generation
+- [x] `pkg/exporters/graphml/` - GraphML generation from export_graphml.go ✅
+  - [x] Generator type with Generate(), WriteTo()
+  - [x] Result type with NodeCount, EdgeCount, SkippedEdges
+  - [x] Configurable: Directed, GraphID, Description
+  - [x] Unit tests (9 test functions)
+
+---
+
+## Provider Integrations 🔶 IN PROGRESS
+
+### system-spec Provider ✅
+- [x] Register system-spec provider in graphize
+  - [x] Import `github.com/plexusone/system-spec/graphize` package
+  - [x] Add to provider registry in `pkg/extract/systemspec/extractor.go`
+  - [x] Auto-detect system-spec JSON files (has `name` + `services` fields)
+  - [x] Extract infrastructure topology nodes alongside code graph
+  - [x] Link service nodes to repo paths via `links_to` edges
+
+### Service-Based Filtering
+- [ ] Add `--service` flag to query command
+  - [ ] Map service name → repo URL via `links_to` edges
+  - [ ] Resolve repo URL → local path via manifest
+  - [ ] Filter query results to nodes from that repo
+  - [ ] Example: `graphize query --service payments` returns all code from payments repo
+- [ ] Add `--service` flag to export commands
+  - [ ] Export subgraph for a specific service
+  - [ ] Useful for service-specific documentation
 
 ---
 
