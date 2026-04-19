@@ -8,23 +8,26 @@ import (
 
 	"github.com/plexusone/graphize/pkg/cache"
 	"github.com/plexusone/graphize/pkg/extract"
+	"github.com/plexusone/graphize/pkg/extract/markdown"
 	"github.com/plexusone/graphize/pkg/metrics"
 	"github.com/plexusone/graphize/pkg/source"
 	"github.com/spf13/cobra"
 )
 
 var (
-	enhanceForce     bool
-	enhanceChunkSize int
-	enhanceSource    string
-	enhancePrompt    bool
-	enhanceJSON      bool
+	enhanceForce       bool
+	enhanceChunkSize   int
+	enhanceSource      string
+	enhancePrompt      bool
+	enhanceJSON        bool
+	enhanceIncludeDocs bool
+	enhanceDocsOnly    bool
 )
 
 var enhanceCmd = &cobra.Command{
 	Use:   "enhance",
 	Short: "Prepare files for LLM semantic extraction",
-	Long: `Prepare Go source files for LLM semantic extraction.
+	Long: `Prepare source files for LLM semantic extraction.
 
 This command identifies files that need semantic analysis and outputs them
 in a format suitable for the /graphize enhance skill or multi-agent-spec subagents.
@@ -33,10 +36,14 @@ The actual LLM extraction should be performed by an AI agent using the
 semantic-extractor subagent spec in agents/specs/.
 
 Use --force to ignore cache and re-analyze all files.
+Use --include-docs to include markdown/text documentation files.
+Use --docs-only to only analyze documentation files (skip code).
 
 Examples:
-  graphize enhance              # List uncached files
-  graphize enhance --force      # List all files (ignore cache)
+  graphize enhance                  # List uncached Go files
+  graphize enhance --force          # List all files (ignore cache)
+  graphize enhance --include-docs   # Include markdown/text files
+  graphize enhance --docs-only      # Only documentation files
   graphize enhance --chunk-size 30  # Use larger chunks`,
 	RunE: runEnhance,
 }
@@ -48,6 +55,8 @@ func init() {
 	enhanceCmd.Flags().StringVar(&enhanceSource, "source", "", "Only analyze specific source path")
 	enhanceCmd.Flags().BoolVar(&enhancePrompt, "prompt", false, "Output subagent prompts for each chunk")
 	enhanceCmd.Flags().BoolVar(&enhanceJSON, "json", false, "Output in JSON format for automation")
+	enhanceCmd.Flags().BoolVar(&enhanceIncludeDocs, "include-docs", false, "Include markdown/text documentation files")
+	enhanceCmd.Flags().BoolVar(&enhanceDocsOnly, "docs-only", false, "Only analyze documentation files (skip code)")
 }
 
 func runEnhance(cmd *cobra.Command, args []string) error {
@@ -85,18 +94,39 @@ func runEnhance(cmd *cobra.Command, args []string) error {
 	// Create cache for checking
 	c := cache.New(absGraphPath)
 
-	// Collect all Go files
+	// Collect files based on flags
 	var allFiles []string
+	var docFiles []string
+
 	for _, src := range sources {
-		files, err := collectGoFiles(src.Path)
-		if err != nil {
-			return fmt.Errorf("collecting files from %s: %w", src.Path, err)
+		// Collect code files unless --docs-only
+		if !enhanceDocsOnly {
+			files, err := collectGoFiles(src.Path)
+			if err != nil {
+				return fmt.Errorf("collecting files from %s: %w", src.Path, err)
+			}
+			allFiles = append(allFiles, files...)
 		}
-		allFiles = append(allFiles, files...)
+
+		// Collect doc files if --include-docs or --docs-only
+		if enhanceIncludeDocs || enhanceDocsOnly {
+			docs, err := markdown.CollectDocFiles(src.Path, []string{"vendor", "testdata", "node_modules"})
+			if err != nil {
+				return fmt.Errorf("collecting docs from %s: %w", src.Path, err)
+			}
+			docFiles = append(docFiles, docs...)
+		}
 	}
 
+	// Combine files
+	allFiles = append(allFiles, docFiles...)
+
 	if len(allFiles) == 0 {
-		fmt.Println("No Go files found to analyze.")
+		if enhanceDocsOnly {
+			fmt.Println("No documentation files found to analyze.")
+		} else {
+			fmt.Println("No files found to analyze.")
+		}
 		return nil
 	}
 
@@ -141,7 +171,20 @@ func runEnhance(cmd *cobra.Command, args []string) error {
 	fmt.Printf("Graphize Enhance - Semantic Extraction Prep\n")
 	fmt.Printf("============================================\n\n")
 	fmt.Printf("Sources: %d\n", len(sources))
-	fmt.Printf("Total Go files: %d\n", len(allFiles))
+	var fileTypeLabel string
+	switch {
+	case enhanceDocsOnly:
+		fileTypeLabel = "Documentation files"
+	case enhanceIncludeDocs:
+		fileTypeLabel = "Total files (code + docs)"
+	default:
+		fileTypeLabel = "Total Go files"
+	}
+	fmt.Printf("%s: %d\n", fileTypeLabel, len(allFiles))
+	if len(docFiles) > 0 {
+		fmt.Printf("  - Code files: %d\n", len(allFiles)-len(docFiles))
+		fmt.Printf("  - Doc files: %d\n", len(docFiles))
+	}
 	fmt.Printf("Cached (unchanged): %d\n", cachedCount)
 	fmt.Printf("Need extraction: %d\n", len(uncachedFiles))
 	fmt.Printf("Chunk size: %d\n", enhanceChunkSize)
