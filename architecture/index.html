@@ -1226,7 +1226,7 @@
 <a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>│       ▼                                                                  │
 <a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>│  Step 6: Output                                                          │
 <a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>│  ┌─────────────────────────────────────────────────────────────────┐    │
-<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>│  │ HTML │ TOON │ JSON │ GRAPH_REPORT.md │                          │    │
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>│  │ HTML │ TOON │ JSON │ Neo4j │ Obsidian │ GraphML │ Report       │    │
 <a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>│  └─────────────────────────────────────────────────────────────────┘    │
 <a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>└─────────────────────────────────────────────────────────────────────────┘
 </code></pre></div>
@@ -1255,29 +1255,43 @@
 <a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>│   │   └── manifest.go     # Manifest persistence
 <a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>│   │
 <a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>│   ├── extract/            # Extraction engines
-<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>│   │   └── ast.go          # Go AST extraction (deterministic)
-<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>│   │
-<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>│   ├── cache/              # Extraction caching
-<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>│   │   └── cache.go        # SHA256-based per-file cache
-<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>│   │
-<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>│   ├── analyze/            # Graph analysis
-<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>│   │   ├── gods.go         # God nodes, isolated nodes
-<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>│   │   ├── cluster.go      # Community detection wrapper
-<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>│   │   ├── surprise.go     # Surprising connections
-<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>│   │   ├── questions.go    # Suggested questions
-<a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>│   │   └── diff.go         # Graph comparison wrapper
-<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a>│   │
-<a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a>│   └── output/             # Output formatters
-<a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a>│       ├── output.go       # TOON, JSON, YAML
-<a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a>│       ├── html.go         # Cytoscape.js export
-<a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a>│       └── summary.go      # Markdown summary
-<a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a>│
-<a id="__codelineno-1-42" name="__codelineno-1-42" href="#__codelineno-1-42"></a>└── agents/                 # Agent infrastructure
-<a id="__codelineno-1-43" name="__codelineno-1-43" href="#__codelineno-1-43"></a>    ├── specs/              # multi-agent-spec definitions
-<a id="__codelineno-1-44" name="__codelineno-1-44" href="#__codelineno-1-44"></a>    ├── plugins/            # assistantkit-generated plugins
-<a id="__codelineno-1-45" name="__codelineno-1-45" href="#__codelineno-1-45"></a>    └── graph/              # Graph artifacts
-<a id="__codelineno-1-46" name="__codelineno-1-46" href="#__codelineno-1-46"></a>        ├── semantic-edges.json
-<a id="__codelineno-1-47" name="__codelineno-1-47" href="#__codelineno-1-47"></a>        └── GRAPH_SUMMARY.md
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>│   │   ├── multi.go        # Multi-language orchestrator
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>│   │   ├── golang/         # Go extractor (go/ast)
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>│   │   ├── java/           # Java extractor (tree-sitter)
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>│   │   ├── typescript/     # TypeScript extractor (tree-sitter)
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>│   │   └── swift/          # Swift extractor (tree-sitter)
+<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>│   │
+<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>│   ├── cache/              # Extraction caching
+<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>│   │   └── cache.go        # SHA256-based per-file cache
+<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>│   │
+<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>│   ├── analyze/            # Graph analysis
+<a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>│   │   ├── gods.go         # God nodes, isolated nodes
+<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a>│   │   ├── cluster.go      # Community detection wrapper
+<a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a>│   │   ├── surprise.go     # Surprising connections
+<a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a>│   │   ├── questions.go    # Suggested questions
+<a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a>│   │   ├── group.go        # Edge grouping utilities
+<a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a>│   │   └── diff.go         # Graph comparison wrapper
+<a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a>│   │
+<a id="__codelineno-1-42" name="__codelineno-1-42" href="#__codelineno-1-42"></a>│   ├── metrics/            # Measurement utilities
+<a id="__codelineno-1-43" name="__codelineno-1-43" href="#__codelineno-1-43"></a>│   │   ├── formatter.go    # FormatBytes, FormatNumber
+<a id="__codelineno-1-44" name="__codelineno-1-44" href="#__codelineno-1-44"></a>│   │   ├── walker.go       # Source file walking
+<a id="__codelineno-1-45" name="__codelineno-1-45" href="#__codelineno-1-45"></a>│   │   └── tokens.go       # LLM token estimation
+<a id="__codelineno-1-46" name="__codelineno-1-46" href="#__codelineno-1-46"></a>│   │
+<a id="__codelineno-1-47" name="__codelineno-1-47" href="#__codelineno-1-47"></a>│   ├── exporters/          # Export format generators
+<a id="__codelineno-1-48" name="__codelineno-1-48" href="#__codelineno-1-48"></a>│   │   ├── cypher/         # Neo4j Cypher statements
+<a id="__codelineno-1-49" name="__codelineno-1-49" href="#__codelineno-1-49"></a>│   │   └── obsidian/       # Obsidian vault with wikilinks
+<a id="__codelineno-1-50" name="__codelineno-1-50" href="#__codelineno-1-50"></a>│   │
+<a id="__codelineno-1-51" name="__codelineno-1-51" href="#__codelineno-1-51"></a>│   └── output/             # Output formatters
+<a id="__codelineno-1-52" name="__codelineno-1-52" href="#__codelineno-1-52"></a>│       ├── output.go       # TOON, JSON, YAML
+<a id="__codelineno-1-53" name="__codelineno-1-53" href="#__codelineno-1-53"></a>│       ├── html.go         # Cytoscape.js export
+<a id="__codelineno-1-54" name="__codelineno-1-54" href="#__codelineno-1-54"></a>│       └── summary.go      # Markdown summary
+<a id="__codelineno-1-55" name="__codelineno-1-55" href="#__codelineno-1-55"></a>│
+<a id="__codelineno-1-56" name="__codelineno-1-56" href="#__codelineno-1-56"></a>└── agents/                 # Agent infrastructure
+<a id="__codelineno-1-57" name="__codelineno-1-57" href="#__codelineno-1-57"></a>    ├── specs/              # multi-agent-spec definitions
+<a id="__codelineno-1-58" name="__codelineno-1-58" href="#__codelineno-1-58"></a>    ├── plugins/            # assistantkit-generated plugins
+<a id="__codelineno-1-59" name="__codelineno-1-59" href="#__codelineno-1-59"></a>    └── graph/              # Graph artifacts
+<a id="__codelineno-1-60" name="__codelineno-1-60" href="#__codelineno-1-60"></a>        ├── semantic-edges.json
+<a id="__codelineno-1-61" name="__codelineno-1-61" href="#__codelineno-1-61"></a>        └── GRAPH_SUMMARY.md
 </code></pre></div>
 <h2 id="provider-interface">Provider Interface<a class="headerlink" href="#provider-interface" title="Permanent link">&para;</a></h2>
 <p>Graphize uses a pluggable provider architecture for language extractors. This allows external packages to add support for new languages without modifying the core graphize codebase.</p>
