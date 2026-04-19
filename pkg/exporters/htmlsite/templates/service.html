@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en" {{if .DarkMode}}data-theme="dark"{{end}}>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Service.Name}} - {{.SiteTitle}}</title>
+    <style>{{.CSS}}</style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.28.1/cytoscape.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dagre/0.8.5/dagre.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cytoscape-dagre@2.5.0/cytoscape-dagre.min.js"></script>
+</head>
+<body>
+    <nav class="nav-header">
+        <div class="nav-content">
+            <a href="../../index.html" class="nav-title">{{.SiteTitle}}</a>
+            <ul class="nav-links">
+                <li><a href="../../index.html">Overview</a></li>
+                <li><a href="../../index.html#services" class="active">Services</a></li>
+                {{if .HasCommunities}}
+                <li><a href="../../index.html#communities">Communities</a></li>
+                {{end}}
+            </ul>
+        </div>
+    </nav>
+
+    <div class="breadcrumbs">
+        <div class="breadcrumbs-content">
+            <a href="../../index.html">Home</a>
+            <span class="separator">/</span>
+            <a href="../../index.html#services">Services</a>
+            <span class="separator">/</span>
+            <span>{{.Service.Name}}</span>
+        </div>
+    </div>
+
+    <main class="main-content">
+        <div class="layout-with-sidebar">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="sidebar-title">Service Info</div>
+
+                <div class="sidebar-item">
+                    <div class="sidebar-item-label">Name</div>
+                    <div class="sidebar-item-value">{{.Service.Name}}</div>
+                </div>
+
+                {{if .Service.RepoURL}}
+                <div class="sidebar-item">
+                    <div class="sidebar-item-label">Repository</div>
+                    <div class="sidebar-item-value">
+                        <a href="{{.Service.RepoURL}}" target="_blank" rel="noopener">{{.Service.RepoURL}}</a>
+                    </div>
+                </div>
+                {{end}}
+
+                {{if .Service.LocalPath}}
+                <div class="sidebar-item">
+                    <div class="sidebar-item-label">Local Path</div>
+                    <div class="sidebar-item-value">{{.Service.LocalPath}}</div>
+                </div>
+                {{end}}
+
+                <div class="sidebar-title" style="margin-top: 1.5rem;">Statistics</div>
+
+                <div class="sidebar-item">
+                    <div class="sidebar-item-label">Nodes</div>
+                    <div class="sidebar-item-value">{{.Service.NodeCount}}</div>
+                </div>
+
+                <div class="sidebar-item">
+                    <div class="sidebar-item-label">Edges</div>
+                    <div class="sidebar-item-value">{{.Service.EdgeCount}}</div>
+                </div>
+
+                {{if .NodeTypeCounts}}
+                <div class="sidebar-title" style="margin-top: 1.5rem;">Node Types</div>
+                {{range $type, $count := .NodeTypeCounts}}
+                <div class="sidebar-item">
+                    <div class="sidebar-item-label">{{$type}}</div>
+                    <div class="sidebar-item-value">{{$count}}</div>
+                </div>
+                {{end}}
+                {{end}}
+
+                {{if .EdgeTypeCounts}}
+                <div class="sidebar-title" style="margin-top: 1.5rem;">Edge Types</div>
+                {{range $type, $count := .EdgeTypeCounts}}
+                <div class="sidebar-item">
+                    <div class="sidebar-item-label">{{$type}}</div>
+                    <div class="sidebar-item-value">{{$count}}</div>
+                </div>
+                {{end}}
+                {{end}}
+            </aside>
+
+            <!-- Main content area -->
+            <div>
+                <h1 class="page-title">{{.Service.Name}}</h1>
+                {{if .Service.Description}}
+                <p class="page-description">{{.Service.Description}}</p>
+                {{end}}
+
+                <!-- Graph -->
+                <div class="graph-container">
+                    <div class="graph-header">
+                        <h3>Code Graph</h3>
+                        <div class="graph-controls">
+                            <select id="layout-select">
+                                <option value="dagre">Dagre</option>
+                                <option value="cose">Cose</option>
+                                <option value="circle">Circle</option>
+                                <option value="grid">Grid</option>
+                            </select>
+                            <select id="filter-select">
+                                <option value="">All Types</option>
+                                {{range $type, $count := .NodeTypeCounts}}
+                                <option value="{{$type}}">{{$type}} ({{$count}})</option>
+                                {{end}}
+                            </select>
+                            <button onclick="cy.fit()">Fit</button>
+                            <button onclick="cy.center()">Center</button>
+                            <button onclick="resetFilter()">Reset</button>
+                        </div>
+                    </div>
+                    <div id="cy"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="page-footer">
+        Generated by <a href="https://github.com/plexusone/graphize" target="_blank" rel="noopener">Graphize</a>
+    </footer>
+
+    <script>
+        var allElements = {{.GraphJSON}};
+
+        var cy = cytoscape({
+            container: document.getElementById('cy'),
+            elements: allElements,
+            style: [
+                {
+                    selector: 'node',
+                    style: {
+                        'label': function(ele) { return ele.data('label') || ele.data('id') || ''; },
+                        'background-color': function(ele) {
+                            var type = ele.data('type');
+                            var colors = {
+                                'function': '#06b6d4',
+                                'method': '#14b8a6',
+                                'class': '#ec4899',
+                                'struct': '#84cc16',
+                                'interface': '#f97316',
+                                'file': '#64748b',
+                                'package': '#3b82f6',
+                                'module': '#8b5cf6',
+                                'variable': '#a855f7',
+                                'constant': '#eab308',
+                                'service': '#10b981',
+                                'repository': '#f59e0b'
+                            };
+                            return colors[type] || '#6b7280';
+                        },
+                        'color': '{{if .DarkMode}}#e9ecef{{else}}#212529{{end}}',
+                        'text-valign': 'bottom',
+                        'text-margin-y': 8,
+                        'font-size': '10px',
+                        'width': 25,
+                        'height': 25,
+                        'border-width': 1,
+                        'border-color': '{{if .DarkMode}}#4b5563{{else}}#9ca3af{{end}}'
+                    }
+                },
+                {
+                    selector: 'edge',
+                    style: {
+                        'width': 1,
+                        'line-color': function(ele) {
+                            var confidence = ele.data('confidence');
+                            if (confidence === 'EXTRACTED') return '{{if .DarkMode}}#4b5563{{else}}#9ca3af{{end}}';
+                            if (confidence === 'INFERRED') return '{{if .DarkMode}}#854d0e{{else}}#fbbf24{{end}}';
+                            if (confidence === 'AMBIGUOUS') return '{{if .DarkMode}}#7f1d1d{{else}}#f87171{{end}}';
+                            return '{{if .DarkMode}}#4b5563{{else}}#9ca3af{{end}}';
+                        },
+                        'target-arrow-color': function(ele) {
+                            var confidence = ele.data('confidence');
+                            if (confidence === 'EXTRACTED') return '{{if .DarkMode}}#4b5563{{else}}#9ca3af{{end}}';
+                            if (confidence === 'INFERRED') return '{{if .DarkMode}}#854d0e{{else}}#fbbf24{{end}}';
+                            if (confidence === 'AMBIGUOUS') return '{{if .DarkMode}}#7f1d1d{{else}}#f87171{{end}}';
+                            return '{{if .DarkMode}}#4b5563{{else}}#9ca3af{{end}}';
+                        },
+                        'target-arrow-shape': 'triangle',
+                        'curve-style': 'bezier',
+                        'label': 'data(type)',
+                        'font-size': '8px',
+                        'color': '{{if .DarkMode}}#9ca3af{{else}}#6b7280{{end}}',
+                        'text-rotation': 'autorotate',
+                        'text-margin-y': -8
+                    }
+                },
+                {
+                    selector: 'node:selected',
+                    style: {
+                        'border-width': 3,
+                        'border-color': '#0d6efd'
+                    }
+                },
+                {
+                    selector: 'node.dimmed',
+                    style: {
+                        'opacity': 0.2
+                    }
+                },
+                {
+                    selector: 'edge.dimmed',
+                    style: {
+                        'opacity': 0.1
+                    }
+                }
+            ],
+            layout: {
+                name: 'dagre',
+                rankDir: 'TB',
+                nodeSep: 50,
+                rankSep: 80,
+                animate: true
+            }
+        });
+
+        // Layout selector
+        document.getElementById('layout-select').addEventListener('change', function(e) {
+            var layoutName = e.target.value;
+            var options = { name: layoutName, animate: true };
+            if (layoutName === 'dagre') {
+                options.rankDir = 'TB';
+                options.nodeSep = 50;
+                options.rankSep = 80;
+            }
+            cy.layout(options).run();
+        });
+
+        // Filter by node type
+        document.getElementById('filter-select').addEventListener('change', function(e) {
+            var filterType = e.target.value;
+            if (!filterType) {
+                resetFilter();
+                return;
+            }
+
+            cy.nodes().forEach(function(node) {
+                if (node.data('type') === filterType) {
+                    node.removeClass('dimmed');
+                } else {
+                    node.addClass('dimmed');
+                }
+            });
+
+            cy.edges().forEach(function(edge) {
+                var source = cy.getElementById(edge.data('source'));
+                var target = cy.getElementById(edge.data('target'));
+                if (source.data('type') === filterType || target.data('type') === filterType) {
+                    edge.removeClass('dimmed');
+                } else {
+                    edge.addClass('dimmed');
+                }
+            });
+        });
+
+        function resetFilter() {
+            cy.nodes().removeClass('dimmed');
+            cy.edges().removeClass('dimmed');
+            document.getElementById('filter-select').value = '';
+        }
+
+        // Show node details on click
+        cy.on('tap', 'node', function(evt) {
+            var node = evt.target;
+            var data = node.data();
+            console.log('Node:', data);
+        });
+    </script>
+</body>
+</html>
