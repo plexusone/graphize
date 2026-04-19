@@ -4,13 +4,11 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"reflect"
 
-	"github.com/plexusone/graphfs/pkg/graph"
 	"github.com/plexusone/graphfs/pkg/store"
+	"github.com/plexusone/graphize/pkg/exporters/graphml"
 	"github.com/plexusone/graphize/pkg/metrics"
 	"github.com/spf13/cobra"
-	"github.com/yaricom/goGraphML/graphml"
 )
 
 var exportGraphMLCmd = &cobra.Command{
@@ -71,105 +69,13 @@ func runExportGraphML(cmd *cobra.Command, args []string) error {
 		return fmt.Errorf("no nodes found. Run 'graphize analyze' first")
 	}
 
-	// Create GraphML document
-	gml := graphml.NewGraphML("graphize export")
+	// Generate GraphML
+	gen := graphml.NewGenerator()
+	gen.Directed = graphmlDirected
 
-	// Register node data keys
-	nodeTypeKey, err := gml.RegisterKey(graphml.KeyForNode, "type", "Node type", reflect.String, "")
+	result, err := gen.Generate(nodes, edges)
 	if err != nil {
-		return fmt.Errorf("registering node type key: %w", err)
-	}
-
-	nodeLabelKey, err := gml.RegisterKey(graphml.KeyForNode, "label", "Node label", reflect.String, "")
-	if err != nil {
-		return fmt.Errorf("registering node label key: %w", err)
-	}
-
-	nodePackageKey, err := gml.RegisterKey(graphml.KeyForNode, "package", "Package name", reflect.String, "")
-	if err != nil {
-		return fmt.Errorf("registering node package key: %w", err)
-	}
-
-	nodeSourceFileKey, err := gml.RegisterKey(graphml.KeyForNode, "source_file", "Source file", reflect.String, "")
-	if err != nil {
-		return fmt.Errorf("registering node source_file key: %w", err)
-	}
-
-	// Register edge data keys
-	edgeTypeKey, err := gml.RegisterKey(graphml.KeyForEdge, "type", "Edge type", reflect.String, "")
-	if err != nil {
-		return fmt.Errorf("registering edge type key: %w", err)
-	}
-
-	edgeConfidenceKey, err := gml.RegisterKey(graphml.KeyForEdge, "confidence", "Edge confidence", reflect.String, "")
-	if err != nil {
-		return fmt.Errorf("registering edge confidence key: %w", err)
-	}
-
-	edgeConfidenceScoreKey, err := gml.RegisterKey(graphml.KeyForEdge, "confidence_score", "Confidence score", reflect.Float64, 0.0)
-	if err != nil {
-		return fmt.Errorf("registering edge confidence_score key: %w", err)
-	}
-
-	// Create graph
-	edgeDirection := graphml.EdgeDirectionDirected
-	if !graphmlDirected {
-		edgeDirection = graphml.EdgeDirectionUndirected
-	}
-
-	g, err := gml.AddGraph("code-graph", edgeDirection, nil)
-	if err != nil {
-		return fmt.Errorf("creating graph: %w", err)
-	}
-
-	// Add nodes
-	nodeMap := make(map[string]*graphml.Node)
-	for _, n := range nodes {
-		attrs := make(map[string]interface{})
-		attrs[nodeTypeKey.Name] = n.Type
-		attrs[nodeLabelKey.Name] = n.Label
-
-		if n.Attrs != nil {
-			if pkg := n.Attrs["package"]; pkg != "" {
-				attrs[nodePackageKey.Name] = pkg
-			}
-			if sf := n.Attrs["source_file"]; sf != "" {
-				attrs[nodeSourceFileKey.Name] = sf
-			}
-		}
-
-		gmlNode, err := g.AddNode(attrs, n.ID)
-		if err != nil {
-			return fmt.Errorf("adding node %s: %w", n.ID, err)
-		}
-		nodeMap[n.ID] = gmlNode
-	}
-
-	// Add edges
-	for _, e := range edges {
-		fromNode := nodeMap[e.From]
-		toNode := nodeMap[e.To]
-
-		if fromNode == nil || toNode == nil {
-			// Skip edges with missing nodes
-			continue
-		}
-
-		attrs := make(map[string]interface{})
-		attrs[edgeTypeKey.Name] = e.Type
-
-		if e.Confidence != "" {
-			attrs[edgeConfidenceKey.Name] = string(e.Confidence)
-		}
-		if e.ConfidenceScore > 0 {
-			attrs[edgeConfidenceScoreKey.Name] = e.ConfidenceScore
-		}
-
-		edgeDesc := fmt.Sprintf("%s->%s", e.From, e.To)
-		_, err := g.AddEdge(fromNode, toNode, attrs, graphml.EdgeDirectionDefault, edgeDesc)
-		if err != nil {
-			return fmt.Errorf("adding edge %s: %w", edgeDesc, err)
-		}
+		return fmt.Errorf("generating GraphML: %w", err)
 	}
 
 	// Determine output path
@@ -186,27 +92,18 @@ func runExportGraphML(cmd *cobra.Command, args []string) error {
 	}
 
 	// Write GraphML file
-	f, err := os.Create(output)
-	if err != nil {
-		return fmt.Errorf("creating output file: %w", err)
-	}
-	defer func() { _ = f.Close() }()
-
-	if err := gml.Encode(f, true); err != nil {
-		return fmt.Errorf("encoding GraphML: %w", err)
+	if err := os.WriteFile(output, result.Data, 0600); err != nil {
+		return fmt.Errorf("writing output file: %w", err)
 	}
 
 	// Report stats
-	fi, _ := os.Stat(output)
 	fmt.Printf("Exported graph to %s\n", output)
-	fmt.Printf("  Nodes: %d\n", len(nodes))
-	fmt.Printf("  Edges: %d\n", len(edges))
-	if fi != nil {
-		fmt.Printf("  Size: %s\n", metrics.FormatBytes(fi.Size()))
+	fmt.Printf("  Nodes: %d\n", result.NodeCount)
+	fmt.Printf("  Edges: %d\n", result.EdgeCount)
+	if result.SkippedEdges > 0 {
+		fmt.Printf("  Skipped edges: %d\n", result.SkippedEdges)
 	}
+	fmt.Printf("  Size: %s\n", metrics.FormatBytes(int64(len(result.Data))))
 
 	return nil
 }
-
-// Ensure we're using the graph package (for documentation)
-var _ = graph.NodeTypeFunction
