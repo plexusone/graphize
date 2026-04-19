@@ -15,6 +15,7 @@ import (
 	_ "github.com/plexusone/graphize/pkg/extract/golang"
 	_ "github.com/plexusone/graphize/pkg/extract/java"
 	_ "github.com/plexusone/graphize/pkg/extract/swift"
+	_ "github.com/plexusone/graphize/pkg/extract/systemspec"
 	_ "github.com/plexusone/graphize/pkg/extract/typescript"
 )
 
