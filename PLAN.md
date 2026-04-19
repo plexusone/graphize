@@ -361,13 +361,13 @@ swift:struct_User      # Swift struct
 ## Success Criteria
 
 ### Phase 5
-- [ ] `graphize path A B` shows shortest path
-- [ ] `graphize benchmark` shows token reduction
-- [ ] `--directed` preserves edge direction
-- [ ] Git hooks auto-analyze on commit
-- [ ] Watch mode rebuilds on file change
-- [ ] Obsidian vault has working wikilinks
-- [ ] Neo4j Cypher imports successfully
+- [x] `graphize path A B` shows shortest path
+- [x] `graphize benchmark` shows token reduction
+- [x] `--directed` preserves edge direction
+- [x] Git hooks auto-analyze on commit
+- [x] Watch mode rebuilds on file change
+- [x] Obsidian vault has working wikilinks
+- [x] Neo4j Cypher imports successfully
 
 ### Phase 6
 - [x] Betweenness identifies bridge nodes
