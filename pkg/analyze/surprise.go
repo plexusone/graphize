@@ -123,11 +123,11 @@ func surpriseScore(e *graph.Edge, nodeFile map[string]string, nodeCommunity map[
 		score += 1.0
 	}
 
-	// 2. Cross-file bonus
+	// 2. Cross-file bonus (high weight - cross-file edges are architecturally significant)
 	fromFile := nodeFile[e.From]
 	toFile := nodeFile[e.To]
 	if fromFile != "" && toFile != "" && fromFile != toFile {
-		score += 1.5
+		score += 2.5
 		reasons = append(reasons, "crosses file boundaries")
 	}
 
@@ -143,6 +143,12 @@ func surpriseScore(e *graph.Edge, nodeFile map[string]string, nodeCommunity map[
 	if e.Confidence == graph.ConfidenceInferred && e.ConfidenceScore > 0 && e.ConfidenceScore < 0.7 {
 		score += 1.0
 		reasons = append(reasons, "low confidence score")
+	}
+
+	// 5. Code-doc edge bonus (edges connecting code to documentation/rationale)
+	if isCodeDocEdge(e.Type) {
+		score += 1.5
+		reasons = append(reasons, "code-doc relationship")
 	}
 
 	// Build why string
@@ -162,6 +168,16 @@ func surpriseScore(e *graph.Edge, nodeFile map[string]string, nodeCommunity map[
 func isStructuralEdge(edgeType string) bool {
 	switch edgeType {
 	case graph.EdgeTypeContains, graph.EdgeTypeImports:
+		return true
+	}
+	return false
+}
+
+// isCodeDocEdge returns true for edges that connect code to documentation/rationale.
+// These edges are particularly valuable as they capture design intent.
+func isCodeDocEdge(edgeType string) bool {
+	switch edgeType {
+	case "rationale_for", "documents", "describes", "explains":
 		return true
 	}
 	return false
