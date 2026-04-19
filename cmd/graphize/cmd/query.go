@@ -3,11 +3,11 @@ package cmd
 import (
 	"fmt"
 	"path/filepath"
-	"sort"
 	"strings"
 
-	"github.com/plexusone/graphfs/pkg/query"
+	gquery "github.com/plexusone/graphfs/pkg/query"
 	"github.com/plexusone/graphfs/pkg/store"
+	"github.com/plexusone/graphize/pkg/query"
 	"github.com/spf13/cobra"
 )
 
@@ -79,38 +79,29 @@ func traverseGraph(graphStore *store.FSStore, startNode string) error {
 
 	// Check if start node exists
 	if g.GetNode(startNode) == nil {
-		// Try to find partial match
-		var matches []string
-		for id := range g.Nodes {
-			if strings.Contains(id, startNode) {
-				matches = append(matches, id)
-			}
-		}
-		if len(matches) == 0 {
+		matches := query.FindPartialMatches(g, startNode, 10)
+		if len(matches.Matches) == 0 {
 			return fmt.Errorf("node %q not found", startNode)
-		}
-		if len(matches) > 10 {
-			matches = matches[:10]
 		}
 		result := map[string]any{
 			"error":   "node not found",
 			"query":   startNode,
-			"matches": matches,
-			"message": "Did you mean one of these?",
+			"matches": matches.Matches,
+			"message": matches.Message,
 		}
 		return printOutput(result)
 	}
 
 	// Create traverser
-	traverser := query.NewTraverser(g)
+	traverser := gquery.NewTraverser(g)
 
 	// Determine direction
-	dir := query.Both
+	dir := gquery.Both
 	switch queryDir {
 	case "out", "outgoing":
-		dir = query.Outgoing
+		dir = gquery.Outgoing
 	case "in", "incoming":
-		dir = query.Incoming
+		dir = gquery.Incoming
 	}
 
 	// Parse edge types filter
@@ -120,66 +111,24 @@ func traverseGraph(graphStore *store.FSStore, startNode string) error {
 	}
 
 	// Perform traversal
-	var result *query.TraversalResult
+	var result *gquery.TraversalResult
 	if queryDFS {
 		result = traverser.DFS(startNode, dir, queryDepth, edgeTypes)
 	} else {
 		result = traverser.BFS(startNode, dir, queryDepth, edgeTypes)
 	}
 
-	// Build output
+	// Format output using pkg/query
 	algorithm := "BFS"
 	if queryDFS {
 		algorithm = "DFS"
 	}
 
-	// Group nodes by depth
-	nodesByDepth := make(map[int][]string)
-	for node, depth := range result.Depth {
-		nodesByDepth[depth] = append(nodesByDepth[depth], node)
-	}
-
-	// Build depth layers output
-	var layers []map[string]any
-	for d := 0; d <= queryDepth; d++ {
-		nodes := nodesByDepth[d]
-		if len(nodes) == 0 {
-			continue
-		}
-		sort.Strings(nodes)
-		if queryLimit > 0 && len(nodes) > queryLimit {
-			nodes = nodes[:queryLimit]
-		}
-		layers = append(layers, map[string]any{
-			"depth": d,
-			"count": len(nodesByDepth[d]),
-			"nodes": nodes,
-		})
-	}
-
-	// Build edges output
-	var edgesOut []map[string]any
-	for _, e := range result.Edges {
-		edgesOut = append(edgesOut, map[string]any{
-			"from": e.From,
-			"to":   e.To,
-			"type": e.Type,
-		})
-	}
-	if queryLimit > 0 && len(edgesOut) > queryLimit {
-		edgesOut = edgesOut[:queryLimit]
-	}
-
-	output := map[string]any{
-		"query":       startNode,
-		"algorithm":   algorithm,
-		"direction":   queryDir,
-		"max_depth":   queryDepth,
-		"nodes_found": len(result.Visited),
-		"edges_found": len(result.Edges),
-		"layers":      layers,
-		"edges":       edgesOut,
-	}
+	output := query.FormatTraversal(result, startNode, queryDepth, query.FormatTraversalOptions{
+		Limit:     queryLimit,
+		Algorithm: algorithm,
+		Direction: queryDir,
+	})
 
 	return printOutput(output)
 }
@@ -192,7 +141,7 @@ func findPath(graphStore *store.FSStore, from, to string) error {
 	}
 
 	// Create traverser
-	traverser := query.NewTraverser(g)
+	traverser := gquery.NewTraverser(g)
 
 	// Parse edge types filter
 	var edgeTypes []string
@@ -203,34 +152,8 @@ func findPath(graphStore *store.FSStore, from, to string) error {
 	// Find path
 	result := traverser.FindPath(from, to, edgeTypes)
 
-	if len(result.Visited) == 0 {
-		output := map[string]any{
-			"from":    from,
-			"to":      to,
-			"found":   false,
-			"message": "No path found between nodes",
-		}
-		return printOutput(output)
-	}
-
-	// Build edges output
-	var edgesOut []map[string]any
-	for _, e := range result.Edges {
-		edgesOut = append(edgesOut, map[string]any{
-			"from": e.From,
-			"to":   e.To,
-			"type": e.Type,
-		})
-	}
-
-	output := map[string]any{
-		"from":   from,
-		"to":     to,
-		"found":  true,
-		"length": len(result.Visited) - 1,
-		"path":   result.Visited,
-		"edges":  edgesOut,
-	}
+	// Format output using pkg/query
+	output := query.FormatPath(result, from, to)
 
 	return printOutput(output)
 }
@@ -242,53 +165,20 @@ func listEdges(graphStore *store.FSStore, args []string) error {
 		return fmt.Errorf("loading edges: %w", err)
 	}
 
-	// Filter edges
-	var matches []map[string]any
-	nodeID := ""
+	// Build filter
+	filter := query.EdgeFilter{
+		From:  queryFrom,
+		Type:  queryType,
+		Limit: queryLimit,
+	}
 	if len(args) > 0 {
-		nodeID = args[0]
+		filter.NodeID = args[0]
 	}
 
-	for _, e := range edges {
-		// Filter by node ID
-		if nodeID != "" && e.From != nodeID && e.To != nodeID {
-			continue
-		}
+	// Filter and format using pkg/query
+	output := query.FilterEdges(edges, filter)
 
-		// Filter by --from
-		if queryFrom != "" && e.From != queryFrom {
-			continue
-		}
-
-		// Filter by --type
-		if queryType != "" && e.Type != queryType {
-			continue
-		}
-
-		matches = append(matches, map[string]any{
-			"from":       e.From,
-			"to":         e.To,
-			"type":       e.Type,
-			"confidence": e.Confidence,
-		})
-
-		if queryLimit > 0 && len(matches) >= queryLimit {
-			break
-		}
-	}
-
-	result := map[string]any{
-		"query":   nodeID,
-		"matches": len(matches),
-		"edges":   matches,
-	}
-
-	if queryLimit > 0 && len(matches) >= queryLimit {
-		result["truncated"] = true
-		result["message"] = fmt.Sprintf("Showing first %d matches. Use --limit to increase.", queryLimit)
-	}
-
-	return printOutput(result)
+	return printOutput(output)
 }
 
 func showSummary(graphStore *store.FSStore) error {
@@ -302,61 +192,15 @@ func showSummary(graphStore *store.FSStore) error {
 		return fmt.Errorf("loading edges: %w", err)
 	}
 
-	// Count by type
-	nodeTypes := make(map[string]int)
-	for _, n := range nodes {
-		nodeTypes[n.Type]++
-	}
-
-	edgeTypes := make(map[string]int)
-	for _, e := range edges {
-		edgeTypes[e.Type]++
-	}
-
-	// Find top nodes by edge count
-	edgeCounts := make(map[string]int)
-	for _, e := range edges {
-		edgeCounts[e.From]++
-		edgeCounts[e.To]++
-	}
-
-	type nodeCount struct {
-		ID    string
-		Count int
-	}
-	var topNodes []nodeCount
-	for id, count := range edgeCounts {
-		topNodes = append(topNodes, nodeCount{id, count})
-	}
-	sort.Slice(topNodes, func(i, j int) bool {
-		return topNodes[i].Count > topNodes[j].Count
-	})
-
-	// Take top 10, filtering out less interesting nodes
-	var godNodes []map[string]any
-	for _, n := range topNodes {
-		// Skip external packages and generic types
-		if strings.HasPrefix(n.ID, "pkg_") && strings.Contains(n.ID, "/") {
-			continue
-		}
-		if strings.HasPrefix(n.ID, "call_") {
-			continue
-		}
-		godNodes = append(godNodes, map[string]any{
-			"id":    n.ID,
-			"edges": n.Count,
-		})
-		if len(godNodes) >= 10 {
-			break
-		}
-	}
+	// Compute summary using pkg/query
+	summary := query.ComputeSummaryFromLists(nodes, edges)
 
 	result := map[string]any{
-		"total_nodes": len(nodes),
-		"total_edges": len(edges),
-		"node_types":  nodeTypes,
-		"edge_types":  edgeTypes,
-		"god_nodes":   godNodes,
+		"total_nodes": summary.TotalNodes,
+		"total_edges": summary.TotalEdges,
+		"node_types":  summary.NodeTypes,
+		"edge_types":  summary.EdgeTypes,
+		"god_nodes":   summary.GodNodes,
 		"message":     "Use 'graphize query <node-id> --depth N' to traverse from a node.",
 	}
 
