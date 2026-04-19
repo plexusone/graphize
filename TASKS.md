@@ -353,13 +353,14 @@ See PLAN.md for detailed schedule.
 
 ---
 
-## Phase 6 - Enhanced Analysis 🔶 PLANNED
+## Phase 6 - Enhanced Analysis 🔶 IN PROGRESS
 
 ### Analysis Improvements
 
-- [ ] Betweenness centrality for bridge detection
-  - [ ] Identify critical path nodes
-  - [ ] Use in surprising connections scoring
+- [x] Betweenness centrality for bridge detection ✅
+  - [x] Identify critical path nodes (`pkg/analyze/centrality.go`)
+  - [x] BridgeNode struct with centrality scores and connected communities
+  - [x] Integrated into report generation
 - [ ] Composite surprise scoring
   - [ ] Weight cross-file > cross-community
   - [ ] Weight code-doc edges higher

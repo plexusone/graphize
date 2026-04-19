@@ -370,7 +370,7 @@ swift:struct_User      # Swift struct
 - [ ] Neo4j Cypher imports successfully
 
 ### Phase 6
-- [ ] Betweenness identifies bridge nodes
+- [x] Betweenness identifies bridge nodes
 - [ ] Explain shows useful node context
 - [ ] Platform installers work for top 3 platforms
 
