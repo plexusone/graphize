@@ -10,6 +10,7 @@ require (
 	github.com/plexusone/system-spec v0.1.0
 	github.com/smacker/go-tree-sitter v0.0.0-20240827094217-dd81d9e9be82
 	github.com/spf13/cobra v1.10.2
+	github.com/toon-format/toon-go v0.0.0-20251202084852-7ca0e27c4e8c
 	github.com/yaricom/goGraphML v1.4.3
 	golang.org/x/text v0.36.0
 	gonum.org/v1/gonum v0.17.0
@@ -26,5 +27,3 @@ require (
 	golang.org/x/oauth2 v0.36.0 // indirect
 	golang.org/x/sys v0.43.0 // indirect
 )
-
-// TODO: Add github.com/toon-format/toon-go when it has a release tag
