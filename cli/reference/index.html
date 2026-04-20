@@ -619,6 +619,24 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#graphize-explain" class="md-nav__link">
+    <span class="md-ellipsis">
+      graphize explain
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#graphize-install" class="md-nav__link">
+    <span class="md-ellipsis">
+      graphize install
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#graphize-watch" class="md-nav__link">
     <span class="md-ellipsis">
       graphize watch
@@ -1107,6 +1125,24 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#graphize-explain" class="md-nav__link">
+    <span class="md-ellipsis">
+      graphize explain
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#graphize-install" class="md-nav__link">
+    <span class="md-ellipsis">
+      graphize install
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#graphize-watch" class="md-nav__link">
     <span class="md-ellipsis">
       graphize watch
@@ -1297,6 +1333,26 @@
 <td>Output as JSON</td>
 <td>false</td>
 </tr>
+<tr>
+<td><code>--force</code></td>
+<td>Ignore cache, re-extract all files</td>
+<td>false</td>
+</tr>
+<tr>
+<td><code>--chunk-size</code></td>
+<td>Files per chunk for parallel processing</td>
+<td>25</td>
+</tr>
+<tr>
+<td><code>--include-docs</code></td>
+<td>Include markdown/text documentation files</td>
+<td>false</td>
+</tr>
+<tr>
+<td><code>--docs-only</code></td>
+<td>Only analyze documentation files (skip code)</td>
+<td>false</td>
+</tr>
 </tbody>
 </table>
 <p><strong>Examples:</strong></p>
@@ -1305,6 +1361,12 @@
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
 <a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1"># JSON for scripting</span>
 <a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>graphize<span class="w"> </span>enhance<span class="w"> </span>--json<span class="w"> </span>&gt;<span class="w"> </span>files.json
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="c1"># Include documentation files</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>graphize<span class="w"> </span>enhance<span class="w"> </span>--include-docs
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="c1"># Only documentation files</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>graphize<span class="w"> </span>enhance<span class="w"> </span>--docs-only
 </code></pre></div>
 <h2 id="graphize-merge">graphize merge<a class="headerlink" href="#graphize-merge" title="Permanent link">&para;</a></h2>
 <p>Merge semantic edges from LLM extraction into the graph.</p>
@@ -1502,11 +1564,17 @@
 <td>Output file</td>
 <td>stdout</td>
 </tr>
+<tr>
+<td><code>--health</code></td>
+<td>Include corpus health assessment</td>
+<td>false</td>
+</tr>
 </tbody>
 </table>
 <p><strong>Examples:</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>graphize<span class="w"> </span>report
 <a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>graphize<span class="w"> </span>report<span class="w"> </span>--top<span class="w"> </span><span class="m">20</span><span class="w"> </span>-o<span class="w"> </span>GRAPH_REPORT.md
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>graphize<span class="w"> </span>report<span class="w"> </span>--health
 </code></pre></div>
 <p><strong>Report Sections:</strong></p>
 <ul>
@@ -1517,6 +1585,7 @@
 <li>Isolated Nodes</li>
 <li>Package Statistics</li>
 <li>Suggested Questions</li>
+<li>Corpus Health (with <code>--health</code> flag)</li>
 </ul>
 <h2 id="graphize-summary">graphize summary<a class="headerlink" href="#graphize-summary" title="Permanent link">&para;</a></h2>
 <p>Generate a markdown summary of the graph.</p>
@@ -1835,9 +1904,165 @@
 <li>Compression ratio</li>
 <li>Token estimates (raw vs TOON)</li>
 </ul>
+<h2 id="graphize-explain">graphize explain<a class="headerlink" href="#graphize-explain" title="Permanent link">&para;</a></h2>
+<p>Get comprehensive context about a specific node.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>graphize<span class="w"> </span>explain<span class="w"> </span>&lt;node-id&gt;<span class="w"> </span><span class="o">[</span>flags<span class="o">]</span>
+</code></pre></div>
+<p><strong>Arguments:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>node-id</code></td>
+<td>Node ID to explain (supports partial matching)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Flags:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--depth</code></td>
+<td>Neighbor traversal depth</td>
+<td>1</td>
+</tr>
+<tr>
+<td><code>--max-edges</code></td>
+<td>Maximum edges to display</td>
+<td>20</td>
+</tr>
+<tr>
+<td><code>--json</code></td>
+<td>Output as JSON</td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>graphize<span class="w"> </span>explain<span class="w"> </span>func_main
+<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>graphize<span class="w"> </span>explain<span class="w"> </span>func_main<span class="w"> </span>--depth<span class="w"> </span><span class="m">2</span>
+<a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>graphize<span class="w"> </span>explain<span class="w"> </span>func_main<span class="w"> </span>--json
+<a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a>graphize<span class="w"> </span>explain<span class="w"> </span>Config<span class="w">  </span><span class="c1"># Partial match</span>
+</code></pre></div>
+<p><strong>Output:</strong></p>
+<ul>
+<li>Node info (ID, type, label, attributes)</li>
+<li>Community membership (ID, label, size, bridge status)</li>
+<li>Centrality metrics (betweenness score, rank, hub/bridge status)</li>
+<li>Incoming and outgoing edges with types and confidence</li>
+</ul>
+<h2 id="graphize-install">graphize install<a class="headerlink" href="#graphize-install" title="Permanent link">&para;</a></h2>
+<p>Install integrations with AI assistants.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>graphize<span class="w"> </span>install<span class="w"> </span>&lt;platform&gt;<span class="w"> </span><span class="o">[</span>flags<span class="o">]</span>
+</code></pre></div>
+<p><strong>Platforms:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Platform</th>
+<th>Description</th>
+<th>Config Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>claude</code></td>
+<td>Claude Desktop MCP server</td>
+<td><code>~/Library/.../claude_desktop_config.json</code></td>
+</tr>
+<tr>
+<td><code>cursor</code></td>
+<td>Cursor IDE rules</td>
+<td><code>.cursor/rules/graphize.mdc</code></td>
+</tr>
+<tr>
+<td><code>copilot</code></td>
+<td>GitHub Copilot skills</td>
+<td><code>.github/copilot/skills/graphize.md</code></td>
+</tr>
+<tr>
+<td><code>codex</code></td>
+<td>OpenAI Codex CLI</td>
+<td><code>hooks.json</code></td>
+</tr>
+<tr>
+<td><code>gemini</code></td>
+<td>Google Gemini CLI</td>
+<td><code>.gemini/context/graphize.md</code></td>
+</tr>
+<tr>
+<td><code>aider</code></td>
+<td>Aider/OpenClaw</td>
+<td><code>AGENTS.md</code> section</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Flags:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--status</code></td>
+<td>Check installation status</td>
+<td>false</td>
+</tr>
+<tr>
+<td><code>--uninstall</code></td>
+<td>Remove integration</td>
+<td>false</td>
+</tr>
+<tr>
+<td><code>--force</code></td>
+<td>Overwrite existing configuration</td>
+<td>false</td>
+</tr>
+<tr>
+<td><code>--dry-run</code></td>
+<td>Show what would be changed</td>
+<td>false</td>
+</tr>
+<tr>
+<td><code>--json</code></td>
+<td>Output status as JSON</td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="c1"># Install Claude Desktop integration</span>
+<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>graphize<span class="w"> </span>install<span class="w"> </span>claude
+<a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>
+<a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a><span class="c1"># Check status of all platforms</span>
+<a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a>graphize<span class="w"> </span>install<span class="w"> </span>claude<span class="w"> </span>--status
+<a id="__codelineno-35-6" name="__codelineno-35-6" href="#__codelineno-35-6"></a>graphize<span class="w"> </span>install<span class="w"> </span>cursor<span class="w"> </span>--status
+<a id="__codelineno-35-7" name="__codelineno-35-7" href="#__codelineno-35-7"></a>
+<a id="__codelineno-35-8" name="__codelineno-35-8" href="#__codelineno-35-8"></a><span class="c1"># Remove integration</span>
+<a id="__codelineno-35-9" name="__codelineno-35-9" href="#__codelineno-35-9"></a>graphize<span class="w"> </span>install<span class="w"> </span>aider<span class="w"> </span>--uninstall
+<a id="__codelineno-35-10" name="__codelineno-35-10" href="#__codelineno-35-10"></a>
+<a id="__codelineno-35-11" name="__codelineno-35-11" href="#__codelineno-35-11"></a><span class="c1"># Preview changes</span>
+<a id="__codelineno-35-12" name="__codelineno-35-12" href="#__codelineno-35-12"></a>graphize<span class="w"> </span>install<span class="w"> </span>copilot<span class="w"> </span>--dry-run
+</code></pre></div>
 <h2 id="graphize-watch">graphize watch<a class="headerlink" href="#graphize-watch" title="Permanent link">&para;</a></h2>
 <p>Monitor tracked sources for changes and auto-rebuild the graph.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>graphize<span class="w"> </span>watch<span class="w"> </span><span class="o">[</span>flags<span class="o">]</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>graphize<span class="w"> </span>watch<span class="w"> </span><span class="o">[</span>flags<span class="o">]</span>
 </code></pre></div>
 <p><strong>Flags:</strong></p>
 <table>
@@ -1872,21 +2097,21 @@
 </tbody>
 </table>
 <p><strong>Examples:</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="c1"># Basic watch mode</span>
-<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>graphize<span class="w"> </span>watch
-<a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>
-<a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a><span class="c1"># Also regenerate HTML and report</span>
-<a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a>graphize<span class="w"> </span>watch<span class="w"> </span>--html<span class="w"> </span>--report
-<a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a>
-<a id="__codelineno-33-7" name="__codelineno-33-7" href="#__codelineno-33-7"></a><span class="c1"># Increase debounce for slower systems</span>
-<a id="__codelineno-33-8" name="__codelineno-33-8" href="#__codelineno-33-8"></a>graphize<span class="w"> </span>watch<span class="w"> </span>--debounce<span class="w"> </span>1s
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="c1"># Basic watch mode</span>
+<a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>graphize<span class="w"> </span>watch
+<a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a>
+<a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a><span class="c1"># Also regenerate HTML and report</span>
+<a id="__codelineno-37-5" name="__codelineno-37-5" href="#__codelineno-37-5"></a>graphize<span class="w"> </span>watch<span class="w"> </span>--html<span class="w"> </span>--report
+<a id="__codelineno-37-6" name="__codelineno-37-6" href="#__codelineno-37-6"></a>
+<a id="__codelineno-37-7" name="__codelineno-37-7" href="#__codelineno-37-7"></a><span class="c1"># Increase debounce for slower systems</span>
+<a id="__codelineno-37-8" name="__codelineno-37-8" href="#__codelineno-37-8"></a>graphize<span class="w"> </span>watch<span class="w"> </span>--debounce<span class="w"> </span>1s
 </code></pre></div>
 <p>Press <code>Ctrl+C</code> to stop watching.</p>
 <h2 id="graphize-hook">graphize hook<a class="headerlink" href="#graphize-hook" title="Permanent link">&para;</a></h2>
 <p>Manage git hooks for automatic graph updates.</p>
 <h3 id="graphize-hook-install">graphize hook install<a class="headerlink" href="#graphize-hook-install" title="Permanent link">&para;</a></h3>
 <p>Install git hooks in the repository.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>graphize<span class="w"> </span>hook<span class="w"> </span>install
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>graphize<span class="w"> </span>hook<span class="w"> </span>install
 </code></pre></div>
 <p>Installs:</p>
 <ul>
@@ -1895,25 +2120,25 @@
 </ul>
 <h3 id="graphize-hook-uninstall">graphize hook uninstall<a class="headerlink" href="#graphize-hook-uninstall" title="Permanent link">&para;</a></h3>
 <p>Remove graphize git hooks.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>graphize<span class="w"> </span>hook<span class="w"> </span>uninstall
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>graphize<span class="w"> </span>hook<span class="w"> </span>uninstall
 </code></pre></div>
 <h3 id="graphize-hook-status">graphize hook status<a class="headerlink" href="#graphize-hook-status" title="Permanent link">&para;</a></h3>
 <p>Check git hook installation status.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>graphize<span class="w"> </span>hook<span class="w"> </span>status
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>graphize<span class="w"> </span>hook<span class="w"> </span>status
 </code></pre></div>
 <h2 id="graphize-init-agents">graphize init-agents<a class="headerlink" href="#graphize-init-agents" title="Permanent link">&para;</a></h2>
 <p>Initialize agent framework directories.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>graphize<span class="w"> </span>init-agents
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>graphize<span class="w"> </span>init-agents
 </code></pre></div>
 <p>Creates:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>agents/
-<a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>├── specs/       # multi-agent-spec definitions
-<a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a>├── plugins/     # assistantkit-generated plugins
-<a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a>└── graph/       # Graph artifacts
+<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>agents/
+<a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>├── specs/       # multi-agent-spec definitions
+<a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a>├── plugins/     # assistantkit-generated plugins
+<a id="__codelineno-42-4" name="__codelineno-42-4" href="#__codelineno-42-4"></a>└── graph/       # Graph artifacts
 </code></pre></div>
 <h2 id="graphize-completion">graphize completion<a class="headerlink" href="#graphize-completion" title="Permanent link">&para;</a></h2>
 <p>Generate shell completion scripts.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>graphize<span class="w"> </span>completion<span class="w"> </span>&lt;shell&gt;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>graphize<span class="w"> </span>completion<span class="w"> </span>&lt;shell&gt;
 </code></pre></div>
 <p><strong>Shells:</strong></p>
 <ul>
@@ -1923,14 +2148,14 @@
 <li><code>powershell</code></li>
 </ul>
 <p><strong>Examples:</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="c1"># Bash</span>
-<a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>graphize<span class="w"> </span>completion<span class="w"> </span>bash<span class="w"> </span>&gt;<span class="w"> </span>/etc/bash_completion.d/graphize
-<a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a>
-<a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a><span class="c1"># Zsh</span>
-<a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a>graphize<span class="w"> </span>completion<span class="w"> </span>zsh<span class="w"> </span>&gt;<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">fpath</span><span class="p">[1]</span><span class="si">}</span><span class="s2">/_graphize&quot;</span>
-<a id="__codelineno-40-6" name="__codelineno-40-6" href="#__codelineno-40-6"></a>
-<a id="__codelineno-40-7" name="__codelineno-40-7" href="#__codelineno-40-7"></a><span class="c1"># Fish</span>
-<a id="__codelineno-40-8" name="__codelineno-40-8" href="#__codelineno-40-8"></a>graphize<span class="w"> </span>completion<span class="w"> </span>fish<span class="w"> </span>&gt;<span class="w"> </span>~/.config/fish/completions/graphize.fish
+<div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="c1"># Bash</span>
+<a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>graphize<span class="w"> </span>completion<span class="w"> </span>bash<span class="w"> </span>&gt;<span class="w"> </span>/etc/bash_completion.d/graphize
+<a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a>
+<a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a><span class="c1"># Zsh</span>
+<a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a>graphize<span class="w"> </span>completion<span class="w"> </span>zsh<span class="w"> </span>&gt;<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">fpath</span><span class="p">[1]</span><span class="si">}</span><span class="s2">/_graphize&quot;</span>
+<a id="__codelineno-44-6" name="__codelineno-44-6" href="#__codelineno-44-6"></a>
+<a id="__codelineno-44-7" name="__codelineno-44-7" href="#__codelineno-44-7"></a><span class="c1"># Fish</span>
+<a id="__codelineno-44-8" name="__codelineno-44-8" href="#__codelineno-44-8"></a>graphize<span class="w"> </span>completion<span class="w"> </span>fish<span class="w"> </span>&gt;<span class="w"> </span>~/.config/fish/completions/graphize.fish
 </code></pre></div>
 
 

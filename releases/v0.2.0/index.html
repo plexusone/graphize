@@ -724,6 +724,33 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#graphize-explain" class="md-nav__link">
+    <span class="md-ellipsis">
+      graphize explain
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#graphize-install" class="md-nav__link">
+    <span class="md-ellipsis">
+      graphize install
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#graphize-report-health" class="md-nav__link">
+    <span class="md-ellipsis">
+      graphize report --health
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -790,6 +817,15 @@
   <a href="#export-format-summary" class="md-nav__link">
     <span class="md-ellipsis">
       Export Format Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-extraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation Extraction
     </span>
   </a>
   
@@ -966,6 +1002,33 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#graphize-explain" class="md-nav__link">
+    <span class="md-ellipsis">
+      graphize explain
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#graphize-install" class="md-nav__link">
+    <span class="md-ellipsis">
+      graphize install
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#graphize-report-health" class="md-nav__link">
+    <span class="md-ellipsis">
+      graphize report --health
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1038,6 +1101,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#documentation-extraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation Extraction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#upgrading-from-v010" class="md-nav__link">
     <span class="md-ellipsis">
       Upgrading from v0.1.0
@@ -1075,16 +1147,18 @@
 
 
 <h1 id="v020">v0.2.0<a class="headerlink" href="#v020" title="Permanent link">&para;</a></h1>
-<p><strong>Release Date:</strong> 2026-04-13</p>
-<p>Major release featuring multi-language extraction, external provider interface, automation tools, and new export formats.</p>
+<p><strong>Release Date:</strong> 2026-04-19</p>
+<p>Major release featuring multi-language extraction, enhanced analysis, platform integrations, and new export formats.</p>
 <h2 id="highlights">Highlights<a class="headerlink" href="#highlights" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>Multi-language extraction</strong>: Go, Java, TypeScript, Swift</li>
 <li><strong>External provider interface</strong> for adding language support without modifying graphize core</li>
+<li><strong>Node explanation</strong> with community membership and centrality context</li>
+<li><strong>Platform installers</strong> for Claude, Cursor, Copilot, Codex, Gemini, and Aider</li>
+<li><strong>Corpus health check</strong> for assessing graph value</li>
 <li>Watch mode for auto-rebuild on file changes</li>
 <li>Git hooks for automatic analysis on commit/checkout</li>
 <li>Neo4j Cypher and Obsidian vault export formats</li>
-<li>Path finding and token benchmark commands</li>
 </ul>
 <h2 id="multi-language-extraction">Multi-Language Extraction<a class="headerlink" href="#multi-language-extraction" title="Permanent link">&para;</a></h2>
 <p>Graphize now supports multiple programming languages through its provider architecture:</p>
@@ -1188,10 +1262,51 @@
 <li><strong>post-commit</strong>: Auto-run <code>graphize analyze</code> after commits</li>
 <li><strong>post-checkout</strong>: Check if graph is stale after checkout</li>
 </ul>
+<h3 id="graphize-explain">graphize explain<a class="headerlink" href="#graphize-explain" title="Permanent link">&para;</a></h3>
+<p>Get comprehensive context about a node:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>graphize<span class="w"> </span>explain<span class="w"> </span>func_main
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>graphize<span class="w"> </span>explain<span class="w"> </span>func_main<span class="w"> </span>--depth<span class="w"> </span><span class="m">2</span><span class="w">    </span><span class="c1"># Include 2 levels of neighbors</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>graphize<span class="w"> </span>explain<span class="w"> </span>func_main<span class="w"> </span>--json<span class="w">       </span><span class="c1"># JSON output</span>
+</code></pre></div>
+<p>Output includes:</p>
+<ul>
+<li>Node attributes (type, label, source file)</li>
+<li>Community membership and size</li>
+<li>Betweenness centrality rank</li>
+<li>Incoming and outgoing edges</li>
+</ul>
+<h3 id="graphize-install">graphize install<a class="headerlink" href="#graphize-install" title="Permanent link">&para;</a></h3>
+<p>Install integrations with AI assistants:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>graphize<span class="w"> </span>install<span class="w"> </span>claude<span class="w">    </span><span class="c1"># Claude Desktop MCP server config</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>graphize<span class="w"> </span>install<span class="w"> </span>cursor<span class="w">    </span><span class="c1"># .cursor/rules/graphize.mdc</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>graphize<span class="w"> </span>install<span class="w"> </span>copilot<span class="w">   </span><span class="c1"># .github/copilot/skills/graphize.md</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>graphize<span class="w"> </span>install<span class="w"> </span>codex<span class="w">     </span><span class="c1"># hooks.json</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>graphize<span class="w"> </span>install<span class="w"> </span>gemini<span class="w">    </span><span class="c1"># .gemini/context/graphize.md</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>graphize<span class="w"> </span>install<span class="w"> </span>aider<span class="w">     </span><span class="c1"># AGENTS.md section</span>
+</code></pre></div>
+<p>Flags:</p>
+<ul>
+<li><code>--status</code> - Check installation status</li>
+<li><code>--uninstall</code> - Remove integration</li>
+<li><code>--force</code> - Overwrite existing configuration</li>
+<li><code>--dry-run</code> - Show what would be changed</li>
+</ul>
+<h3 id="graphize-report-health">graphize report --health<a class="headerlink" href="#graphize-report-health" title="Permanent link">&para;</a></h3>
+<p>Assess corpus health and graph value:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>graphize<span class="w"> </span>report<span class="w"> </span>--health
+</code></pre></div>
+<p>Output includes:</p>
+<ul>
+<li>File count and word count</li>
+<li>Estimated token count</li>
+<li>Graph nodes and edges</li>
+<li>Token reduction percentage</li>
+<li>Verdict: "valuable", "marginal", or "limited"</li>
+</ul>
 <h2 id="new-export-formats">New Export Formats<a class="headerlink" href="#new-export-formats" title="Permanent link">&para;</a></h2>
 <h3 id="neo4j-cypher">Neo4j Cypher<a class="headerlink" href="#neo4j-cypher" title="Permanent link">&para;</a></h3>
 <p>Export graph as Neo4j CREATE statements:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>graphize<span class="w"> </span><span class="nb">export</span><span class="w"> </span>cypher<span class="w"> </span>-o<span class="w"> </span>graph.cypher
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>graphize<span class="w"> </span><span class="nb">export</span><span class="w"> </span>cypher<span class="w"> </span>-o<span class="w"> </span>graph.cypher
 </code></pre></div>
 <p>Generates:</p>
 <ul>
@@ -1201,24 +1316,24 @@
 </ul>
 <h3 id="obsidian-vault">Obsidian Vault<a class="headerlink" href="#obsidian-vault" title="Permanent link">&para;</a></h3>
 <p>Export graph as wiki-style Obsidian vault:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>graphize<span class="w"> </span><span class="nb">export</span><span class="w"> </span>obsidian<span class="w"> </span>-o<span class="w"> </span>./vault
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>graphize<span class="w"> </span><span class="nb">export</span><span class="w"> </span>obsidian<span class="w"> </span>-o<span class="w"> </span>./vault
 </code></pre></div>
 <p>Creates:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>vault/
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>├── index.md           # Entry point with god nodes
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>├── communities/       # One page per community
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>│   ├── community-0.md
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>│   └── community-1.md
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>└── nodes/             # One page per significant node
-<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>    ├── func_main.md
-<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>    └── type_Config.md
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>vault/
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>├── index.md           # Entry point with god nodes
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>├── communities/       # One page per community
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>│   ├── community-0.md
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>│   └── community-1.md
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>└── nodes/             # One page per significant node
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>    ├── func_main.md
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>    └── type_Config.md
 </code></pre></div>
 <p>Pages interconnected with <code>[[wikilinks]]</code> for Obsidian navigation.</p>
 <h2 id="new-flags">New Flags<a class="headerlink" href="#new-flags" title="Permanent link">&para;</a></h2>
 <h3 id="-directed-analyze">--directed (analyze)<a class="headerlink" href="#-directed-analyze" title="Permanent link">&para;</a></h3>
 <p>Control graph directionality:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>graphize<span class="w"> </span>analyze<span class="w"> </span>--directed<span class="o">=</span><span class="nb">false</span><span class="w">   </span><span class="c1"># Undirected graph</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>graphize<span class="w"> </span>analyze<span class="w"> </span>--directed<span class="o">=</span><span class="nb">true</span><span class="w">    </span><span class="c1"># Directed graph (default)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>graphize<span class="w"> </span>analyze<span class="w"> </span>--directed<span class="o">=</span><span class="nb">false</span><span class="w">   </span><span class="c1"># Undirected graph</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>graphize<span class="w"> </span>analyze<span class="w"> </span>--directed<span class="o">=</span><span class="nb">true</span><span class="w">    </span><span class="c1"># Directed graph (default)</span>
 </code></pre></div>
 <p>Setting is persisted in <code>manifest.json</code> for consistent handling.</p>
 <h2 id="export-format-summary">Export Format Summary<a class="headerlink" href="#export-format-summary" title="Permanent link">&para;</a></h2>
@@ -1263,12 +1378,27 @@
 </tr>
 </tbody>
 </table>
+<h2 id="documentation-extraction">Documentation Extraction<a class="headerlink" href="#documentation-extraction" title="Permanent link">&para;</a></h2>
+<p>Include markdown and text files in the knowledge graph:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>graphize<span class="w"> </span>enhance<span class="w"> </span>--include-docs<span class="w">    </span><span class="c1"># Include markdown/text files</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>graphize<span class="w"> </span>enhance<span class="w"> </span>--docs-only<span class="w">       </span><span class="c1"># Only documentation files</span>
+</code></pre></div>
+<p>Supported extensions: <code>.md</code>, <code>.markdown</code>, <code>.txt</code>, <code>.rst</code></p>
+<p>The extractor:</p>
+<ul>
+<li>Creates concept nodes from headings</li>
+<li>Links code references to code entities</li>
+<li>Generates <code>documents</code>, <code>describes</code>, and <code>explains</code> edges</li>
+</ul>
 <h2 id="upgrading-from-v010">Upgrading from v0.1.0<a class="headerlink" href="#upgrading-from-v010" title="Permanent link">&para;</a></h2>
 <p>No breaking changes. All existing commands work as before.</p>
 <p>New features are additive:</p>
 <ol>
 <li>Run <code>graphize hook install</code> to enable automatic analysis</li>
 <li>Use <code>graphize watch</code> during development for live updates</li>
+<li>Try <code>graphize explain</code> to understand node context</li>
+<li>Use <code>graphize install</code> for AI assistant integrations</li>
+<li>Add <code>--health</code> to <code>graphize report</code> for corpus assessment</li>
 <li>Try new export formats for Neo4j or Obsidian workflows</li>
 </ol>
 <h2 id="links">Links<a class="headerlink" href="#links" title="Permanent link">&para;</a></h2>
