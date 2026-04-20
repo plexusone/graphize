@@ -2,13 +2,18 @@
 
 ## Current Status
 
-**Version:** v0.1.0 (released 2026-04-11)
+**Version:** v0.2.0 (released 2026-04-19)
 
-Phases 1-4 are complete:
+Phases 1-6 are complete:
+
 - ✅ Phase 1: MVP (source tracking, AST extraction, query, export)
 - ✅ Phase 2: LLM Semantic Extraction (caching, enhance, merge)
 - ✅ Phase 3: Analysis & Reports (community detection, god nodes, surprises)
 - ✅ Phase 4: Agent Integration (MCP server, AGENTS folder)
+- ✅ Phase 5: Quick Wins (path, benchmark, watch, hooks, obsidian, cypher)
+- ✅ Phase 6: Enhanced Analysis (explain, install, health, markdown extraction)
+
+See [docs/plans/v0.2.0-plan.md](docs/plans/v0.2.0-plan.md) for Phase 5-6 implementation details.
 
 ## Implementation Strategy
 
@@ -371,8 +376,10 @@ swift:struct_User      # Swift struct
 
 ### Phase 6
 - [x] Betweenness identifies bridge nodes
-- [ ] Explain shows useful node context
-- [ ] Platform installers work for top 3 platforms
+- [x] Explain shows useful node context
+- [x] Platform installers work for all 6 platforms
+- [x] Corpus health check provides actionable verdicts
+- [x] Markdown extraction links docs to code
 
 ### Phase 7
 - [ ] TypeScript extraction matches Go quality

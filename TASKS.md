@@ -71,7 +71,7 @@ Reviewed against [safishamsi/graphify](https://github.com/safishamsi/graphify):
 | **Suggested Questions** | ✅ | ✅ | ✅ Done |
 | **Hyperedges** | ✅ 3+ node groups | ❌ | ⬜ Phase 7 |
 | **Betweenness Centrality** | ✅ For bridges | ✅ Bridges in report | ✅ Done |
-| **Corpus Health Check** | ✅ Word count, verdict | ❌ | ⬜ Phase 6 |
+| **Corpus Health Check** | ✅ Word count, verdict | ✅ `report --health` | ✅ Done |
 
 ### Export Formats
 
@@ -96,7 +96,7 @@ Reviewed against [safishamsi/graphify](https://github.com/safishamsi/graphify):
 | **Git Hooks** | ✅ post-commit/checkout | ✅ | ✅ Done |
 | **Directed Graphs** | ✅ `--directed` flag | ✅ | ✅ Done |
 | **Path Command** | ✅ `path "A" "B"` | ✅ | ✅ Done |
-| **Explain Command** | ✅ `explain "Node"` | ❌ | ⬜ Phase 6 |
+| **Explain Command** | ✅ `explain "Node"` | ✅ | ✅ Done |
 | **Token Benchmark** | ✅ `benchmark` | ✅ | ✅ Done |
 | **URL Ingestion** | ✅ `add <url>` | ❌ | ⬜ Phase 7 |
 
@@ -106,7 +106,7 @@ Reviewed against [safishamsi/graphify](https://github.com/safishamsi/graphify):
 |---------|----------|----------|--------|
 | **Go Code** | ✅ tree-sitter | ✅ go/ast | ✅ Done |
 | **Multi-language** | ✅ 20 langs | ❌ Go only | ⬜ Phase 7 |
-| **Markdown/Text** | ✅ Claude extraction | ❌ | ⬜ Phase 6 |
+| **Markdown/Text** | ✅ Claude extraction | ✅ extractor | ✅ Done |
 | **PDF Papers** | ✅ Citation mining | ❌ | ⬜ Phase 7 |
 | **Images** | ✅ Claude vision | ❌ | ⬜ Phase 7 |
 | **Video/Audio** | ✅ Whisper transcription | ❌ | ⬜ Phase 7 |
@@ -117,11 +117,11 @@ Reviewed against [safishamsi/graphify](https://github.com/safishamsi/graphify):
 | Feature | Graphify | Graphize | Status |
 |---------|----------|----------|--------|
 | **Claude Code** | ✅ PreToolUse hook | ✅ MCP server | ✅ Done |
-| **Codex** | ✅ hooks.json | ❌ | ⬜ Phase 6 |
-| **Cursor** | ✅ .cursor/rules | ❌ | ⬜ Phase 6 |
-| **Gemini CLI** | ✅ BeforeTool hook | ❌ | ⬜ Phase 6 |
-| **GitHub Copilot** | ✅ skills/ folder | ❌ | ⬜ Phase 6 |
-| **Aider/OpenClaw** | ✅ AGENTS.md | ❌ | ⬜ Phase 6 |
+| **Codex** | ✅ hooks.json | ✅ `install codex` | ✅ Done |
+| **Cursor** | ✅ .cursor/rules | ✅ `install cursor` | ✅ Done |
+| **Gemini CLI** | ✅ BeforeTool hook | ✅ `install gemini` | ✅ Done |
+| **GitHub Copilot** | ✅ skills/ folder | ✅ `install copilot` | ✅ Done |
+| **Aider/OpenClaw** | ✅ AGENTS.md | ✅ `install aider` | ✅ Done |
 
 ### Graphize Advantages
 
@@ -353,47 +353,42 @@ See PLAN.md for detailed schedule.
 
 ---
 
-## Phase 6 - Enhanced Analysis 🔶 IN PROGRESS
+## Phase 6 - Enhanced Analysis ✅ COMPLETE
+
+See [docs/plans/v0.2.0-tasks.md](docs/plans/v0.2.0-tasks.md) for detailed task tracking.
 
 ### Analysis Improvements
 
 - [x] Betweenness centrality for bridge detection ✅
-  - [x] Identify critical path nodes (`pkg/analyze/centrality.go`)
-  - [x] BridgeNode struct with centrality scores and connected communities
-  - [x] Integrated into report generation
-- [ ] Composite surprise scoring
-  - [ ] Weight cross-file > cross-community
-  - [ ] Weight code-doc edges higher
-- [ ] Corpus health check
-  - [ ] File count, word count statistics
-  - [ ] Verdict on whether graph adds value
-  - [ ] Token reduction percentage
+- [x] Composite surprise scoring ✅
+  - [x] Weight cross-file > cross-community (2.5x)
+  - [x] Weight code-doc edges higher (+1.5 bonus)
+- [x] Corpus health check ✅
+  - [x] `graphize report --health` flag
+  - [x] Verdict on whether graph adds value
 
 ### New Commands
 
-- [ ] `graphize explain "NodeName"` - Explain a node in context
-  - [ ] Show node attributes
-  - [ ] Show immediate neighbors
-  - [ ] Show community membership
-  - [ ] Summarize relationships
+- [x] `graphize explain "NodeName"` - Explain a node in context ✅
+  - [x] Show node attributes, neighbors, community, centrality
+  - [x] `--depth` and `--json` flags
+- [x] `graphize install <platform>` - Platform installer command ✅
 
 ### Documentation Extraction
 
-- [ ] Markdown/text extraction via LLM
-  - [ ] Extract concepts and relationships
-  - [ ] Link to code nodes
-  - [ ] Support for README, docs/ folders
+- [x] Markdown/text extraction ✅
+  - [x] `graphize enhance --include-docs` flag
+  - [x] `graphize enhance --docs-only` flag
+  - [x] Extract concepts and link to code nodes
 
 ### Platform Installers
 
-- [ ] `graphize install claude` - Install Claude Code integration
-  - [ ] Add PreToolUse hook to settings.json
-  - [ ] Add graphize section to CLAUDE.md
-- [ ] `graphize install codex` - Codex hooks.json
-- [ ] `graphize install cursor` - .cursor/rules/graphize.mdc
-- [ ] `graphize install gemini` - Gemini CLI BeforeTool hook
-- [ ] `graphize install copilot` - GitHub Copilot skills folder
-- [ ] `graphize install aider` - AGENTS.md section
+- [x] `graphize install claude` - Claude Desktop MCP ✅
+- [x] `graphize install codex` - Codex hooks.json ✅
+- [x] `graphize install cursor` - .cursor/rules/graphize.mdc ✅
+- [x] `graphize install gemini` - Gemini CLI context ✅
+- [x] `graphize install copilot` - GitHub Copilot skills ✅
+- [x] `graphize install aider` - AGENTS.md section ✅
 
 ---
 
