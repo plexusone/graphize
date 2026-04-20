@@ -114,7 +114,8 @@ func findLocalPathForRepo(repoURL string, manifest *source.Manifest) string {
 
 	// Try to find a source path that contains this repo name
 	for _, s := range manifest.Sources {
-		if strings.HasSuffix(s.Path, "/"+repoName) || filepath.Base(s.Path) == repoName {
+		normalizedPath := normalizePath(s.Path)
+		if strings.HasSuffix(normalizedPath, "/"+repoName) || filepath.Base(s.Path) == repoName {
 			return s.Path
 		}
 	}
@@ -129,8 +130,8 @@ func FilterGraphByPath(nodes []*graph.Node, edges []*graph.Edge, localPath strin
 		return nodes, edges
 	}
 
-	// Normalize path for comparison
-	localPath = filepath.Clean(localPath)
+	// Normalize path for comparison using forward slashes (cross-platform)
+	localPath = normalizePath(localPath)
 	if !strings.HasSuffix(localPath, "/") {
 		localPath += "/"
 	}
@@ -142,7 +143,8 @@ func FilterGraphByPath(nodes []*graph.Node, edges []*graph.Edge, localPath strin
 	for _, n := range nodes {
 		// Check if node belongs to this path via source_file attribute
 		if sourceFile, ok := n.Attrs["source_file"]; ok {
-			if strings.HasPrefix(sourceFile, localPath) || strings.HasPrefix(sourceFile, strings.TrimSuffix(localPath, "/")) {
+			normalizedFile := normalizePath(sourceFile)
+			if strings.HasPrefix(normalizedFile, localPath) || strings.HasPrefix(normalizedFile, strings.TrimSuffix(localPath, "/")) {
 				nodeIDs[n.ID] = true
 				filteredNodes = append(filteredNodes, n)
 				continue
@@ -150,7 +152,9 @@ func FilterGraphByPath(nodes []*graph.Node, edges []*graph.Edge, localPath strin
 		}
 
 		// Check if node ID contains the path
-		if strings.Contains(n.ID, localPath) || strings.Contains(n.ID, strings.TrimSuffix(localPath, "/")) {
+		normalizedID := normalizePath(n.ID)
+		normalizedPathNoSlash := strings.TrimSuffix(localPath, "/")
+		if strings.Contains(normalizedID, localPath) || strings.Contains(normalizedID, normalizedPathNoSlash) {
 			nodeIDs[n.ID] = true
 			filteredNodes = append(filteredNodes, n)
 		}
@@ -239,4 +243,14 @@ func slugify(s string) string {
 	}
 
 	return result.String()
+}
+
+// normalizePath converts a file path to use forward slashes for consistent
+// cross-platform comparison. This is necessary because source_file attributes
+// may contain Unix-style paths even on Windows systems.
+func normalizePath(p string) string {
+	// Clean the path first (removes redundant separators, etc.)
+	p = filepath.Clean(p)
+	// Convert to forward slashes for consistent comparison
+	return strings.ReplaceAll(p, "\\", "/")
 }
