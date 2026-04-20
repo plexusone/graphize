@@ -93,6 +93,10 @@ graphize enhance [flags]
 | Flag | Description | Default |
 |------|-------------|---------|
 | `--json` | Output as JSON | false |
+| `--force` | Ignore cache, re-extract all files | false |
+| `--chunk-size` | Files per chunk for parallel processing | 25 |
+| `--include-docs` | Include markdown/text documentation files | false |
+| `--docs-only` | Only analyze documentation files (skip code) | false |
 
 **Examples:**
 
@@ -102,6 +106,12 @@ graphize enhance
 
 # JSON for scripting
 graphize enhance --json > files.json
+
+# Include documentation files
+graphize enhance --include-docs
+
+# Only documentation files
+graphize enhance --docs-only
 ```
 
 ## graphize merge
@@ -251,12 +261,14 @@ graphize report [flags]
 |------|-------------|---------|
 | `--top` | Number of top items to show | 10 |
 | `-o, --output` | Output file | stdout |
+| `--health` | Include corpus health assessment | false |
 
 **Examples:**
 
 ```bash
 graphize report
 graphize report --top 20 -o GRAPH_REPORT.md
+graphize report --health
 ```
 
 **Report Sections:**
@@ -268,6 +280,7 @@ graphize report --top 20 -o GRAPH_REPORT.md
 - Isolated Nodes
 - Package Statistics
 - Suggested Questions
+- Corpus Health (with `--health` flag)
 
 ## graphize summary
 
@@ -493,6 +506,90 @@ graphize benchmark
 - TOON output size (compressed graph representation)
 - Compression ratio
 - Token estimates (raw vs TOON)
+
+## graphize explain
+
+Get comprehensive context about a specific node.
+
+```bash
+graphize explain <node-id> [flags]
+```
+
+**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `node-id` | Node ID to explain (supports partial matching) |
+
+**Flags:**
+
+| Flag | Description | Default |
+|------|-------------|---------|
+| `--depth` | Neighbor traversal depth | 1 |
+| `--max-edges` | Maximum edges to display | 20 |
+| `--json` | Output as JSON | false |
+
+**Examples:**
+
+```bash
+graphize explain func_main
+graphize explain func_main --depth 2
+graphize explain func_main --json
+graphize explain Config  # Partial match
+```
+
+**Output:**
+
+- Node info (ID, type, label, attributes)
+- Community membership (ID, label, size, bridge status)
+- Centrality metrics (betweenness score, rank, hub/bridge status)
+- Incoming and outgoing edges with types and confidence
+
+## graphize install
+
+Install integrations with AI assistants.
+
+```bash
+graphize install <platform> [flags]
+```
+
+**Platforms:**
+
+| Platform | Description | Config Location |
+|----------|-------------|-----------------|
+| `claude` | Claude Desktop MCP server | `~/Library/.../claude_desktop_config.json` |
+| `cursor` | Cursor IDE rules | `.cursor/rules/graphize.mdc` |
+| `copilot` | GitHub Copilot skills | `.github/copilot/skills/graphize.md` |
+| `codex` | OpenAI Codex CLI | `hooks.json` |
+| `gemini` | Google Gemini CLI | `.gemini/context/graphize.md` |
+| `aider` | Aider/OpenClaw | `AGENTS.md` section |
+
+**Flags:**
+
+| Flag | Description | Default |
+|------|-------------|---------|
+| `--status` | Check installation status | false |
+| `--uninstall` | Remove integration | false |
+| `--force` | Overwrite existing configuration | false |
+| `--dry-run` | Show what would be changed | false |
+| `--json` | Output status as JSON | false |
+
+**Examples:**
+
+```bash
+# Install Claude Desktop integration
+graphize install claude
+
+# Check status of all platforms
+graphize install claude --status
+graphize install cursor --status
+
+# Remove integration
+graphize install aider --uninstall
+
+# Preview changes
+graphize install copilot --dry-run
+```
 
 ## graphize watch
 
