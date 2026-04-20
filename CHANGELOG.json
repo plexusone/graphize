@@ -7,13 +7,15 @@
   "releases": [
     {
       "version": "v0.2.0",
-      "date": "2026-04-13",
+      "date": "2026-04-19",
       "highlights": [
         { "description": "Multi-language extraction: Go, Java, TypeScript, Swift" },
         { "description": "External provider interface for adding language support" },
         { "description": "Watch mode for auto-rebuild on file changes" },
         { "description": "Git hooks for automatic analysis on commit/checkout" },
-        { "description": "Neo4j Cypher and Obsidian vault export formats" }
+        { "description": "Neo4j Cypher and Obsidian vault export formats" },
+        { "description": "Node explanation with community and centrality context" },
+        { "description": "Platform installers for Claude, Cursor, Copilot, Codex, Gemini, Aider" }
       ],
       "added": [
         { "description": "`provider` package with `LanguageExtractor` interface for external language support", "commit": "aea79bf" },
@@ -33,16 +35,26 @@
         { "description": "`--html` and `--report` flags for watch mode to auto-regenerate outputs" },
         { "description": "`--debounce` flag for watch mode to configure delay (default 500ms)" },
         { "description": "post-commit hook: auto-run `graphize analyze` after commits" },
-        { "description": "post-checkout hook: check if graph is stale after checkout" }
+        { "description": "post-checkout hook: check if graph is stale after checkout" },
+        { "description": "`graphize explain <node>` command with community membership, centrality scores, and neighbor details" },
+        { "description": "`graphize install <platform>` command for 6 AI assistant integrations (claude, cursor, copilot, codex, gemini, aider)" },
+        { "description": "`graphize report --health` flag for corpus health assessment with actionable verdicts" },
+        { "description": "`graphize enhance --include-docs` and `--docs-only` flags for markdown/text extraction" },
+        { "description": "Markdown extractor in `pkg/extract/markdown/` for documentation-to-code linking" },
+        { "description": "Platform installers in `pkg/platform/` for Claude Desktop, Cursor, Copilot, Codex, Gemini CLI, and Aider" },
+        { "description": "Corpus health check in `pkg/analyze/health.go` with token reduction metrics" },
+        { "description": "Node explanation in `pkg/query/explain.go` with community and centrality context" }
       ],
       "changed": [
         { "description": "`extract` package now uses `provider` types with backward compatibility aliases", "commit": "12d8c52" },
-        { "description": "CLI commands use `NewMultiExtractor(DefaultRegistry)` pattern", "commit": "38f92f6" }
+        { "description": "CLI commands use `NewMultiExtractor(DefaultRegistry)` pattern", "commit": "38f92f6" },
+        { "description": "Composite surprise scoring weights cross-file edges higher (2.5x) and adds code-doc bonus (+1.5)" }
       ],
       "documentation": [
-        { "description": "CLI reference updated with all new commands" },
+        { "description": "CLI reference updated with explain and install commands" },
         { "description": "Getting started guide with watch mode and git hooks" },
-        { "description": "Export formats table updated with Cypher and Obsidian" }
+        { "description": "Export formats table updated with Cypher and Obsidian" },
+        { "description": "Phase 6 implementation archived in docs/plans/v0.2.0-plan.md" }
       ]
     },
     {
