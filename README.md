@@ -36,11 +36,14 @@ LLM-powered CLI for transforming polyglot codebases into queryable knowledge gra
 - 📊 **AST Extraction** - Fast, deterministic extraction of functions, types, and relationships
 - 🤖 **LLM Enhancement** - Optional semantic analysis to discover implicit dependencies
 - 🔍 **Graph Queries** - BFS/DFS traversal, path finding, community detection
-- 📈 **Analysis Reports** - God nodes, surprising connections, suggested questions
+- 📈 **Analysis Reports** - God nodes, surprising connections, corpus health, suggested questions
+- 💡 **Node Explanation** - Get context with community membership and centrality metrics
 - 🌐 **MCP Server** - Integrate with Claude Desktop and Claude Code
+- 🔌 **Platform Installers** - One-command setup for Claude, Cursor, Copilot, Codex, Gemini, Aider
 - 📤 **Multiple Exports** - HTML, TOON, JSON, GraphML, Neo4j Cypher, Obsidian vault
 - 👁️ **Watch Mode** - Auto-rebuild graph on file changes
 - 🔗 **Git Hooks** - Automatic analysis on commit/checkout
+- 📝 **Doc Extraction** - Link markdown/text documentation to code entities
 
 ## Quick Start
 
@@ -94,10 +97,13 @@ graphize merge -i agents/graph/semantic-edges.json
 | `graphize merge` | Merge semantic edges |
 | `graphize query` | Query the graph |
 | `graphize path <A> <B>` | Find shortest path between nodes |
+| `graphize explain <node>` | Get node context with community and centrality |
 | `graphize report` | Generate analysis report |
+| `graphize report --health` | Assess corpus health and graph value |
 | `graphize benchmark` | Show token reduction statistics |
 | `graphize watch` | Auto-rebuild on file changes |
 | `graphize hook install` | Install git hooks |
+| `graphize install <platform>` | Install AI assistant integrations |
 | `graphize export html` | Cytoscape.js visualization |
 | `graphize export htmlsite` | Multi-page documentation site |
 | `graphize export obsidian` | Obsidian vault with wikilinks |

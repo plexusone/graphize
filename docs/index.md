@@ -23,11 +23,14 @@ External extractors can be added via the [provider interface](architecture.md#pr
 - **📊 AST Extraction** - Fast, deterministic extraction of functions, types, and relationships
 - **🤖 LLM Enhancement** - Optional semantic analysis to discover implicit dependencies
 - **🔍 Graph Queries** - BFS/DFS traversal, path finding, community detection
-- **📈 Analysis Reports** - God nodes, surprising connections, suggested questions
+- **📈 Analysis Reports** - God nodes, surprising connections, corpus health, suggested questions
+- **💡 Node Explanation** - Get context with community membership and centrality metrics
 - **🌐 MCP Server** - Integrate with Claude Desktop and Claude Code
+- **🔌 Platform Installers** - One-command setup for Claude, Cursor, Copilot, Codex, Gemini, Aider
 - **📤 Multiple Exports** - HTML, TOON, JSON, GraphML, Neo4j Cypher, Obsidian vault
 - **👁️ Watch Mode** - Auto-rebuild graph on file changes
 - **🔗 Git Hooks** - Automatic analysis on commit/checkout
+- **📝 Doc Extraction** - Link markdown/text documentation to code entities
 
 ## Quick Start
 
