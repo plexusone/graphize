@@ -28,6 +28,3 @@ require (
 )
 
 // TODO: Add github.com/toon-format/toon-go when it has a release tag
-
-// Local development: use local system-spec until v0.1.0 is tagged
-replace github.com/plexusone/system-spec => ../system-spec
