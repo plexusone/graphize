@@ -3,7 +3,7 @@ module github.com/plexusone/graphize
 go 1.26.0
 
 require (
-	github.com/fsnotify/fsnotify v1.9.0
+	github.com/fsnotify/fsnotify v1.10.0
 	github.com/grokify/cytoscape-go v0.1.1
 	github.com/grokify/mogo v0.74.2
 	github.com/modelcontextprotocol/go-sdk v1.6.0
