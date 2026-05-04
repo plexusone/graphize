@@ -5,7 +5,7 @@ go 1.26.0
 require (
 	github.com/fsnotify/fsnotify v1.10.0
 	github.com/grokify/cytoscape-go v0.1.1
-	github.com/grokify/mogo v0.74.2
+	github.com/grokify/mogo v0.74.4
 	github.com/modelcontextprotocol/go-sdk v1.6.0
 	github.com/plexusone/graphfs v0.2.0
 	github.com/plexusone/system-spec v0.1.0
