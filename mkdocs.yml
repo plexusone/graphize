@@ -50,6 +50,11 @@ nav:
       - Overview: cli/index.md
       - Workflow: cli/workflow.md
       - Command Reference: cli/reference.md
+  - Analyzers:
+      - Overview: analyzers/index.md
+      - Creating Analyzers: analyzers/creating-analyzers.md
+      - Go Analyzer: analyzers/go-analyzer.md
+      - Semantic Analysis: analyzers/semantic-analysis.md
   - MCP Server: mcp-server.md
   - Team Workflow: team-workflow.md
   - Semantic Extraction: semantic-extraction.md
