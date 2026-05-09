@@ -1,5 +1,5 @@
 site_name: Graphize
-site_description: LLM-powered CLI for transforming Go codebases into queryable knowledge graphs
+site_description: LLM-powered CLI for transforming polyglot codebases into queryable knowledge graphs
 site_url: https://plexusone.github.io/graphize
 repo_url: https://github.com/plexusone/graphize
 repo_name: plexusone/graphize

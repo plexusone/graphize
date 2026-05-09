@@ -34,6 +34,7 @@ LLM-powered CLI for transforming polyglot codebases into queryable knowledge gra
 
 - 🌍 **Multi-Language Support** - Go, Java, TypeScript, and Swift with extensible provider interface
 - 📊 **AST Extraction** - Fast, deterministic extraction of functions, types, and relationships
+- 🔬 **Semantic Go Analysis** - Type-resolved call graphs, interface detection, framework detection (Gin, Echo, Chi, Fiber)
 - 🤖 **LLM Enhancement** - Optional semantic analysis to discover implicit dependencies
 - 🔍 **Graph Queries** - BFS/DFS traversal, path finding, community detection
 - 📈 **Analysis Reports** - God nodes, surprising connections, corpus health, suggested questions
@@ -155,6 +156,7 @@ Full documentation at [plexusone.github.io/graphize](https://plexusone.github.io
 
 - [Getting Started](https://plexusone.github.io/graphize/getting-started/)
 - [CLI Reference](https://plexusone.github.io/graphize/cli/reference/)
+- [Analyzers](https://plexusone.github.io/graphize/analyzers/)
 - [MCP Server](https://plexusone.github.io/graphize/mcp-server/)
 - [Architecture](https://plexusone.github.io/graphize/architecture/)
 
