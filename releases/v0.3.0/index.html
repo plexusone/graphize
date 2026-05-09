@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://plexusone.github.io/graphize/releases/changelog/">
+        <link rel="canonical" href="https://plexusone.github.io/graphize/releases/v0.3.0/">
       
       
-        <link rel="prev" href="../../architecture/">
+        <link rel="prev" href="../changelog/">
       
       
-        <link rel="next" href="../v0.3.0/">
+        <link rel="next" href="../v0.2.0/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Changelog - Graphize</title>
+        <title>v0.3.0 - Graphize</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#changelog" class="md-skip">
+        <a href="#v030" class="md-skip">
           Skip to content
         </a>
       
@@ -119,7 +119,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Changelog
+              v0.3.0
             
           </span>
         </div>
@@ -705,6 +705,29 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Changelog
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -722,7 +745,7 @@
   
   
   <span class="md-ellipsis">
-    Changelog
+    v0.3.0
     
   </span>
   
@@ -735,7 +758,7 @@
   
   
   <span class="md-ellipsis">
-    Changelog
+    v0.3.0
     
   </span>
   
@@ -758,25 +781,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#unreleased" class="md-nav__link">
-    <span class="md-ellipsis">
-      Unreleased
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#v030-2026-05-09" class="md-nav__link">
-    <span class="md-ellipsis">
-      [v0.3.0] - 2026-05-09
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="[v0.3.0] - 2026-05-09">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#highlights" class="md-nav__link">
     <span class="md-ellipsis">
       Highlights
@@ -784,21 +788,48 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#added" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#semantic-go-analysis" class="md-nav__link">
     <span class="md-ellipsis">
-      Added
+      Semantic Go Analysis
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Added">
+    <nav class="md-nav" aria-label="Semantic Go Analysis">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#semantic-go-extractor" class="md-nav__link">
+  <a href="#type-resolved-call-graphs" class="md-nav__link">
     <span class="md-ellipsis">
-      Semantic Go Extractor
+      Type-Resolved Call Graphs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interface-implementation-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Interface Implementation Detection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#framework-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Framework Detection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#http-handler-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      HTTP Handler Detection
     </span>
   </a>
   
@@ -808,17 +839,74 @@
     </nav>
   
 </li>
+      
+        <li class="md-nav__item">
+  <a href="#using-the-semantic-extractor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using the Semantic Extractor
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using the Semantic Extractor">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#documentation" class="md-nav__link">
+  <a href="#edge-types" class="md-nav__link">
     <span class="md-ellipsis">
-      Documentation
+      Edge Types
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
+  <a href="#node-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Node Attributes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#analyzer-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Analyzer Documentation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Analyzer Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#documentation-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation Structure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-custom-analyzer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating a Custom Analyzer
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#dependencies" class="md-nav__link">
     <span class="md-ellipsis">
       Dependencies
@@ -826,195 +914,31 @@
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#upgrading-from-v020" class="md-nav__link">
+    <span class="md-ellipsis">
+      Upgrading from v0.2.0
+    </span>
+  </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#v020-2026-04-19" class="md-nav__link">
+  <a href="#performance-considerations" class="md-nav__link">
     <span class="md-ellipsis">
-      v0.2.0 - 2026-04-19
+      Performance Considerations
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="v0.2.0 - 2026-04-19">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#highlights_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      Highlights
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#added_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      Added
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Added">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#new-commands" class="md-nav__link">
-    <span class="md-ellipsis">
-      New Commands
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#new-export-formats" class="md-nav__link">
-    <span class="md-ellipsis">
-      New Export Formats
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#new-flags" class="md-nav__link">
-    <span class="md-ellipsis">
-      New Flags
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#git-hooks" class="md-nav__link">
-    <span class="md-ellipsis">
-      Git Hooks
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#documentation_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      Documentation
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#v010-2026-04-09" class="md-nav__link">
+  <a href="#links" class="md-nav__link">
     <span class="md-ellipsis">
-      v0.1.0 - 2026-04-09
+      Links
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="v0.1.0 - 2026-04-09">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#highlights_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      Highlights
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#added_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      Added
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Added">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#cli-commands" class="md-nav__link">
-    <span class="md-ellipsis">
-      CLI Commands
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ast-extraction" class="md-nav__link">
-    <span class="md-ellipsis">
-      AST Extraction
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#analysis" class="md-nav__link">
-    <span class="md-ellipsis">
-      Analysis
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#semantic-extraction" class="md-nav__link">
-    <span class="md-ellipsis">
-      Semantic Extraction
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#mcp-server" class="md-nav__link">
-    <span class="md-ellipsis">
-      MCP Server
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#analysis-insights" class="md-nav__link">
-    <span class="md-ellipsis">
-      Analysis Insights
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#documentation_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      Documentation
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1022,29 +946,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../v0.3.0/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    v0.3.0
-    
-  </span>
-  
-
-      </a>
     </li>
   
 
@@ -1130,25 +1031,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#unreleased" class="md-nav__link">
-    <span class="md-ellipsis">
-      Unreleased
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#v030-2026-05-09" class="md-nav__link">
-    <span class="md-ellipsis">
-      [v0.3.0] - 2026-05-09
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="[v0.3.0] - 2026-05-09">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#highlights" class="md-nav__link">
     <span class="md-ellipsis">
       Highlights
@@ -1156,21 +1038,48 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#added" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#semantic-go-analysis" class="md-nav__link">
     <span class="md-ellipsis">
-      Added
+      Semantic Go Analysis
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Added">
+    <nav class="md-nav" aria-label="Semantic Go Analysis">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#semantic-go-extractor" class="md-nav__link">
+  <a href="#type-resolved-call-graphs" class="md-nav__link">
     <span class="md-ellipsis">
-      Semantic Go Extractor
+      Type-Resolved Call Graphs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interface-implementation-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Interface Implementation Detection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#framework-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Framework Detection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#http-handler-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      HTTP Handler Detection
     </span>
   </a>
   
@@ -1180,17 +1089,74 @@
     </nav>
   
 </li>
+      
+        <li class="md-nav__item">
+  <a href="#using-the-semantic-extractor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using the Semantic Extractor
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using the Semantic Extractor">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#documentation" class="md-nav__link">
+  <a href="#edge-types" class="md-nav__link">
     <span class="md-ellipsis">
-      Documentation
+      Edge Types
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
+  <a href="#node-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Node Attributes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#analyzer-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Analyzer Documentation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Analyzer Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#documentation-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation Structure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-custom-analyzer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating a Custom Analyzer
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#dependencies" class="md-nav__link">
     <span class="md-ellipsis">
       Dependencies
@@ -1198,195 +1164,31 @@
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#upgrading-from-v020" class="md-nav__link">
+    <span class="md-ellipsis">
+      Upgrading from v0.2.0
+    </span>
+  </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#v020-2026-04-19" class="md-nav__link">
+  <a href="#performance-considerations" class="md-nav__link">
     <span class="md-ellipsis">
-      v0.2.0 - 2026-04-19
+      Performance Considerations
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="v0.2.0 - 2026-04-19">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#highlights_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      Highlights
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#added_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      Added
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Added">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#new-commands" class="md-nav__link">
-    <span class="md-ellipsis">
-      New Commands
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#new-export-formats" class="md-nav__link">
-    <span class="md-ellipsis">
-      New Export Formats
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#new-flags" class="md-nav__link">
-    <span class="md-ellipsis">
-      New Flags
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#git-hooks" class="md-nav__link">
-    <span class="md-ellipsis">
-      Git Hooks
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#documentation_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      Documentation
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#v010-2026-04-09" class="md-nav__link">
+  <a href="#links" class="md-nav__link">
     <span class="md-ellipsis">
-      v0.1.0 - 2026-04-09
+      Links
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="v0.1.0 - 2026-04-09">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#highlights_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      Highlights
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#added_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      Added
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Added">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#cli-commands" class="md-nav__link">
-    <span class="md-ellipsis">
-      CLI Commands
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ast-extraction" class="md-nav__link">
-    <span class="md-ellipsis">
-      AST Extraction
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#analysis" class="md-nav__link">
-    <span class="md-ellipsis">
-      Analysis
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#semantic-extraction" class="md-nav__link">
-    <span class="md-ellipsis">
-      Semantic Extraction
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#mcp-server" class="md-nav__link">
-    <span class="md-ellipsis">
-      MCP Server
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#analysis-insights" class="md-nav__link">
-    <span class="md-ellipsis">
-      Analysis Insights
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#documentation_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      Documentation
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1409,152 +1211,232 @@
   
 
 
-<h1 id="changelog">Changelog<a class="headerlink" href="#changelog" title="Permanent link">&para;</a></h1>
-<p>All notable changes to this project will be documented in this file.</p>
-<p>The format is based on <a href="https://keepachangelog.com/en/1.1.0/">Keep a Changelog</a>,
-this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semantic Versioning</a>,
-commits follow <a href="https://www.conventionalcommits.org/en/v1.0.0/">Conventional Commits</a>,
-and this changelog is generated by <a href="https://github.com/grokify/structured-changelog">Structured Changelog</a>.</p>
-<h2 id="unreleased"><a href="https://github.com/plexusone/graphize/compare/v0.2.0...HEAD">Unreleased</a><a class="headerlink" href="#unreleased" title="Permanent link">&para;</a></h2>
-<h2 id="v030-2026-05-09">[v0.3.0] - 2026-05-09<a class="headerlink" href="#v030-2026-05-09" title="Permanent link">&para;</a></h2>
-<h3 id="highlights">Highlights<a class="headerlink" href="#highlights" title="Permanent link">&para;</a></h3>
+<h1 id="v030">v0.3.0<a class="headerlink" href="#v030" title="Permanent link">&para;</a></h1>
+<p><strong>Release Date:</strong> 2026-05-09</p>
+<p>Release featuring semantic Go analysis with type resolution, interface detection, and comprehensive analyzer documentation.</p>
+<h2 id="highlights">Highlights<a class="headerlink" href="#highlights" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Semantic Go analysis with go/types for type-resolved call graphs</li>
-<li>Interface implementation detection across packages</li>
-<li>Framework detection for Gin, Echo, Chi, Fiber, and more</li>
-<li>Comprehensive analyzer development documentation</li>
+<li><strong>Semantic Go extractor</strong> using <code>go/types</code> for type-resolved call graphs</li>
+<li><strong>Interface implementation detection</strong> across packages</li>
+<li><strong>Framework detection</strong> for Gin, Echo, Chi, Fiber, Gorilla, and httprouter</li>
+<li><strong>HTTP handler detection</strong> for entry point identification</li>
+<li><strong>Analyzer documentation</strong> with step-by-step implementation guides</li>
 </ul>
-<h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">&para;</a></h3>
-<h4 id="semantic-go-extractor">Semantic Go Extractor<a class="headerlink" href="#semantic-go-extractor" title="Permanent link">&para;</a></h4>
+<h2 id="semantic-go-analysis">Semantic Go Analysis<a class="headerlink" href="#semantic-go-analysis" title="Permanent link">&para;</a></h2>
+<p>The new <code>SemanticExtractor</code> complements the existing AST-based Go extractor by adding type information from <code>golang.org/x/tools/go/packages</code>.</p>
+<h3 id="type-resolved-call-graphs">Type-Resolved Call Graphs<a class="headerlink" href="#type-resolved-call-graphs" title="Permanent link">&para;</a></h3>
+<p>Unlike AST-based extraction which only sees syntactic function calls, semantic analysis resolves actual types:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">// AST sees: variable.Method()</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1">// Semantic sees: (*http.Client).Do() -&gt; resolves to net/http.(*Client).Do</span>
+</code></pre></div>
+<p>This enables:</p>
 <ul>
-<li><code>SemanticExtractor</code> in <code>pkg/extract/golang/semantic.go</code> using <code>golang.org/x/tools/go/packages</code></li>
-<li>Type-resolved call graph extraction via <code>go/types</code></li>
-<li>Interface implementation detection (<code>implements</code> edges)</li>
-<li>Framework detection for Gin, Echo, Chi, Fiber, Gorilla, httprouter</li>
-<li>HTTP handler detection for entry point identification</li>
-<li>Method receiver tracking with type information</li>
+<li>Accurate cross-package call tracking</li>
+<li>Virtual method resolution</li>
+<li>Generic instantiation tracking</li>
 </ul>
-<h3 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">&para;</a></h3>
+<h3 id="interface-implementation-detection">Interface Implementation Detection<a class="headerlink" href="#interface-implementation-detection" title="Permanent link">&para;</a></h3>
+<p>Automatically detects which types implement which interfaces:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kd">type</span><span class="w"> </span><span class="nx">Handler</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="nx">ServeHTTP</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="p">}</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="kd">type</span><span class="w"> </span><span class="nx">MyHandler</span><span class="w"> </span><span class="kd">struct</span><span class="p">{}</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">h</span><span class="w"> </span><span class="o">*</span><span class="nx">MyHandler</span><span class="p">)</span><span class="w"> </span><span class="nx">ServeHTTP</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="c1">// Creates edge: type_MyHandler --[implements]--&gt; type_Handler</span>
+</code></pre></div>
+<h3 id="framework-detection">Framework Detection<a class="headerlink" href="#framework-detection" title="Permanent link">&para;</a></h3>
+<p>The semantic extractor identifies Go web framework usage:</p>
+<table>
+<thead>
+<tr>
+<th>Framework</th>
+<th>Detection Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gin</td>
+<td><code>*gin.Engine</code>, <code>*gin.Context</code></td>
+</tr>
+<tr>
+<td>Echo</td>
+<td><code>*echo.Echo</code>, <code>echo.Context</code></td>
+</tr>
+<tr>
+<td>Chi</td>
+<td><code>chi.Router</code>, <code>chi.Mux</code></td>
+</tr>
+<tr>
+<td>Fiber</td>
+<td><code>*fiber.App</code>, <code>*fiber.Ctx</code></td>
+</tr>
+<tr>
+<td>Gorilla Mux</td>
+<td><code>*mux.Router</code></td>
+</tr>
+<tr>
+<td>httprouter</td>
+<td><code>*httprouter.Router</code></td>
+</tr>
+</tbody>
+</table>
+<p>Framework info is attached to handler nodes:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>func_handleLogin
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  framework: gin
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>  layer: handler
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  http_method: POST
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>  route_pattern: /api/login
+</code></pre></div>
+<h3 id="http-handler-detection">HTTP Handler Detection<a class="headerlink" href="#http-handler-detection" title="Permanent link">&para;</a></h3>
+<p>Entry points are identified by analyzing function signatures:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">// Detected as HTTP handler (stdlib)</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kd">func</span><span class="w"> </span><span class="nx">myHandler</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1">// Detected as Gin handler</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="kd">func</span><span class="w"> </span><span class="nx">ginHandler</span><span class="p">(</span><span class="nx">c</span><span class="w"> </span><span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c1">// Detected as Echo handler</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="kd">func</span><span class="w"> </span><span class="nx">echoHandler</span><span class="p">(</span><span class="nx">c</span><span class="w"> </span><span class="nx">echo</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
+</code></pre></div>
+<h2 id="using-the-semantic-extractor">Using the Semantic Extractor<a class="headerlink" href="#using-the-semantic-extractor" title="Permanent link">&para;</a></h2>
+<p>The semantic extractor runs alongside the AST extractor:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="s">&quot;github.com/plexusone/graphize/pkg/extract/golang&quot;</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="p">)</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="c1">// Create semantic extractor for a directory</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="nx">extractor</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">golang</span><span class="p">.</span><span class="nx">NewSemanticExtractor</span><span class="p">(</span><span class="s">&quot;/path/to/project&quot;</span><span class="p">)</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="c1">// Load packages with type information</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">extractor</span><span class="p">.</span><span class="nx">LoadPackage</span><span class="p">(</span><span class="s">&quot;.&quot;</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">    </span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="p">}</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="c1">// Extract with type resolution</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="nx">nodes</span><span class="p">,</span><span class="w"> </span><span class="nx">edges</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">extractor</span><span class="p">.</span><span class="nx">ExtractFile</span><span class="p">(</span><span class="s">&quot;main.go&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/path/to/project&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="edge-types">Edge Types<a class="headerlink" href="#edge-types" title="Permanent link">&para;</a></h3>
+<p>The semantic extractor produces these edge types:</p>
+<table>
+<thead>
+<tr>
+<th>Edge Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>calls</code></td>
+<td>Type-resolved function/method calls</td>
+</tr>
+<tr>
+<td><code>implements</code></td>
+<td>Interface implementation</td>
+</tr>
+<tr>
+<td><code>embeds</code></td>
+<td>Struct embedding</td>
+</tr>
+<tr>
+<td><code>uses_type</code></td>
+<td>Type references in signatures</td>
+</tr>
+</tbody>
+</table>
+<h3 id="node-attributes">Node Attributes<a class="headerlink" href="#node-attributes" title="Permanent link">&para;</a></h3>
+<p>Enhanced nodes include:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">function</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">handleRequest</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="nt">attrs</span><span class="p">:</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="nt">signature</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;func(ctx</span><span class="nv"> </span><span class="s">context.Context,</span><span class="nv"> </span><span class="s">req</span><span class="nv"> </span><span class="s">*Request)</span><span class="nv"> </span><span class="s">(*Response,</span><span class="nv"> </span><span class="s">error)&quot;</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">  </span><span class="nt">receiver</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;*Server&quot;</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">  </span><span class="nt">is_handler</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">  </span><span class="nt">framework</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gin</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">  </span><span class="nt">http_method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">POST</span>
+</code></pre></div>
+<h2 id="analyzer-documentation">Analyzer Documentation<a class="headerlink" href="#analyzer-documentation" title="Permanent link">&para;</a></h2>
+<p>New documentation for creating custom language analyzers:</p>
+<h3 id="documentation-structure">Documentation Structure<a class="headerlink" href="#documentation-structure" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>docs/analyzers/
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>├── index.md              # Architecture overview
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>├── creating-analyzers.md # Step-by-step guide
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>├── go-analyzer.md        # Go analyzer reference
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>└── semantic-analysis.md  # Type analysis guide
+</code></pre></div>
+<h3 id="creating-a-custom-analyzer">Creating a Custom Analyzer<a class="headerlink" href="#creating-a-custom-analyzer" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Implement the <code>LanguageExtractor</code> interface</li>
+<li>Register with the provider registry</li>
+<li>Handle file detection and extraction</li>
+<li>Optionally detect frameworks</li>
+</ol>
+<p>See <a href="../../analyzers/creating-analyzers/">Creating Analyzers</a> for the full guide.</p>
+<h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
+<p>New dependencies for semantic analysis:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>golang.org/x/tools    # go/packages for type checking
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>golang.org/x/mod      # Module resolution (indirect)
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>golang.org/x/sync     # Concurrent loading (indirect)
+</code></pre></div>
+<h2 id="upgrading-from-v020">Upgrading from v0.2.0<a class="headerlink" href="#upgrading-from-v020" title="Permanent link">&para;</a></h2>
+<p>No breaking changes. The semantic extractor is additive.</p>
+<p>To use semantic analysis in your workflow:</p>
+<ol>
+<li>The semantic extractor is available but not yet integrated into the CLI</li>
+<li>Use it programmatically via <code>pkg/extract/golang.SemanticExtractor</code></li>
+<li>Future releases will add <code>--semantic</code> flag to <code>graphize analyze</code></li>
+</ol>
+<h2 id="performance-considerations">Performance Considerations<a class="headerlink" href="#performance-considerations" title="Permanent link">&para;</a></h2>
+<p>Semantic analysis is more expensive than AST parsing:</p>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>AST</th>
+<th>Semantic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Single file</td>
+<td>~1ms</td>
+<td>~50ms</td>
+</tr>
+<tr>
+<td>100 files</td>
+<td>~100ms</td>
+<td>~2s</td>
+</tr>
+<tr>
+<td>Type resolution</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Cross-package</td>
+<td>Limited</td>
+<td>Full</td>
+</tr>
+</tbody>
+</table>
+<p>Use semantic analysis when you need:</p>
 <ul>
-<li><code>docs/analyzers/index.md</code> - Architecture overview and built-in analyzers</li>
-<li><code>docs/analyzers/creating-analyzers.md</code> - Step-by-step implementation guide</li>
-<li><code>docs/analyzers/go-analyzer.md</code> - Go analyzer reference (basic + semantic)</li>
-<li><code>docs/analyzers/semantic-analysis.md</code> - Adding type information to analysis</li>
-<li>Analyzers section added to MkDocs navigation</li>
+<li>Accurate interface relationships</li>
+<li>Cross-package call resolution</li>
+<li>Framework-aware analysis</li>
 </ul>
-<h3 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h3>
+<p>Use AST analysis for:</p>
 <ul>
-<li><code>golang.org/x/tools</code> for go/packages type checking</li>
-<li><code>golang.org/x/mod</code> and <code>golang.org/x/sync</code> (indirect)</li>
+<li>Fast incremental updates</li>
+<li>Large codebases</li>
+<li>Basic structure extraction</li>
 </ul>
-<h2 id="v020-2026-04-19"><a href="https://github.com/plexusone/graphize/compare/v0.1.0...v0.2.0">v0.2.0</a> - 2026-04-19<a class="headerlink" href="#v020-2026-04-19" title="Permanent link">&para;</a></h2>
-<h3 id="highlights_1">Highlights<a class="headerlink" href="#highlights_1" title="Permanent link">&para;</a></h3>
+<h2 id="links">Links<a class="headerlink" href="#links" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Watch mode for auto-rebuild on file changes</li>
-<li>Git hooks for automatic analysis on commit/checkout</li>
-<li>Neo4j Cypher and Obsidian vault export formats</li>
-<li>Path finding and token benchmark commands</li>
-</ul>
-<h3 id="added_1">Added<a class="headerlink" href="#added_1" title="Permanent link">&para;</a></h3>
-<h4 id="new-commands">New Commands<a class="headerlink" href="#new-commands" title="Permanent link">&para;</a></h4>
-<ul>
-<li><code>graphize path &lt;from&gt; &lt;to&gt;</code> - Find shortest path between nodes using BFS</li>
-<li><code>graphize benchmark</code> - Show token reduction statistics (raw vs TOON)</li>
-<li><code>graphize watch</code> - Auto-rebuild on file changes with debouncing</li>
-<li><code>graphize hook install/uninstall/status</code> - Git hook management</li>
-</ul>
-<h4 id="new-export-formats">New Export Formats<a class="headerlink" href="#new-export-formats" title="Permanent link">&para;</a></h4>
-<ul>
-<li><code>graphize export cypher</code> - Neo4j CREATE statements</li>
-<li><code>graphize export obsidian</code> - Wiki-style vault with wikilinks</li>
-</ul>
-<h4 id="new-flags">New Flags<a class="headerlink" href="#new-flags" title="Permanent link">&para;</a></h4>
-<ul>
-<li><code>--directed</code> flag for <code>graphize analyze</code> to control edge directionality</li>
-<li><code>--html</code> and <code>--report</code> flags for watch mode to auto-regenerate outputs</li>
-<li><code>--debounce</code> flag for watch mode (default 500ms)</li>
-</ul>
-<h4 id="git-hooks">Git Hooks<a class="headerlink" href="#git-hooks" title="Permanent link">&para;</a></h4>
-<ul>
-<li>post-commit: auto-run <code>graphize analyze</code> after commits</li>
-<li>post-checkout: check if graph is stale after checkout</li>
-</ul>
-<h3 id="documentation_1">Documentation<a class="headerlink" href="#documentation_1" title="Permanent link">&para;</a></h3>
-<ul>
-<li>CLI reference updated with all new commands</li>
-<li>Getting started guide with watch mode and git hooks</li>
-<li>Export formats table updated with Cypher and Obsidian</li>
-</ul>
-<h2 id="v010-2026-04-09"><a href="https://github.com/plexusone/graphize/releases/tag/v0.1.0">v0.1.0</a> - 2026-04-09<a class="headerlink" href="#v010-2026-04-09" title="Permanent link">&para;</a></h2>
-<h3 id="highlights_2">Highlights<a class="headerlink" href="#highlights_2" title="Permanent link">&para;</a></h3>
-<ul>
-<li>LLM-powered tool to turn Go codebases into queryable knowledge graphs</li>
-<li>Two-step extraction: deterministic AST + optional LLM semantic analysis</li>
-<li>TOON export format with 98% token reduction vs JSON for AI agents</li>
-<li>MCP server for AI agent integration with 5 graph query tools</li>
-</ul>
-<h3 id="added_2">Added<a class="headerlink" href="#added_2" title="Permanent link">&para;</a></h3>
-<h4 id="cli-commands">CLI Commands<a class="headerlink" href="#cli-commands" title="Permanent link">&para;</a></h4>
-<ul>
-<li><code>graphize init</code> - Create graph database directory structure</li>
-<li><code>graphize add &lt;repo&gt;</code> - Track repositories with git commit hashes</li>
-<li><code>graphize status</code> - Show sources with staleness detection</li>
-<li><code>graphize analyze</code> - Extract AST graph from Go sources</li>
-<li><code>graphize query</code> - BFS/DFS traversal with depth control and edge filters</li>
-<li><code>graphize export html</code> - Cytoscape.js interactive visualization</li>
-<li><code>graphize export json</code> - Cytoscape JSON format</li>
-<li><code>graphize export toon</code> - Token-efficient agent output</li>
-<li><code>graphize summary</code> - Markdown summary for agents</li>
-<li><code>graphize report</code> - God nodes, communities, surprises analysis</li>
-<li><code>graphize enhance</code> - Prepare files for LLM semantic extraction</li>
-<li><code>graphize merge</code> - Merge LLM-extracted semantic edges</li>
-<li><code>graphize serve</code> - MCP server for AI agent integration</li>
-</ul>
-<h4 id="ast-extraction">AST Extraction<a class="headerlink" href="#ast-extraction" title="Permanent link">&para;</a></h4>
-<ul>
-<li>Go AST extraction: packages, files, functions, methods, types, imports, calls</li>
-<li>SHA256-based per-file caching</li>
-<li><code>--no-cache</code> flag to bypass cache</li>
-<li>Cache hit/miss statistics</li>
-</ul>
-<h4 id="analysis">Analysis<a class="headerlink" href="#analysis" title="Permanent link">&para;</a></h4>
-<ul>
-<li>God nodes: most connected entities (excluding file-level hubs)</li>
-<li>Community detection: Louvain algorithm with cohesion scores</li>
-<li>Surprising connections: cross-file, cross-community edges</li>
-<li>Isolated nodes: potential documentation gaps</li>
-<li>Package statistics: files, functions, types, imports per package</li>
-<li>Edge confidence breakdown: EXTRACTED, INFERRED, AMBIGUOUS</li>
-</ul>
-<h4 id="semantic-extraction">Semantic Extraction<a class="headerlink" href="#semantic-extraction" title="Permanent link">&para;</a></h4>
-<ul>
-<li>Edge types: <code>inferred_depends</code>, <code>rationale_for</code>, <code>similar_to</code>, <code>implements_pattern</code>, <code>shared_concern</code></li>
-<li>LLM output parsing and validation</li>
-<li>Claude Code skill for extraction workflow</li>
-</ul>
-<h4 id="mcp-server">MCP Server<a class="headerlink" href="#mcp-server" title="Permanent link">&para;</a></h4>
-<ul>
-<li><code>query_graph</code> - BFS/DFS traversal from search terms</li>
-<li><code>get_node</code> - Node details by ID or label</li>
-<li><code>get_neighbors</code> - Adjacent nodes with edge info</li>
-<li><code>get_community</code> - List community members</li>
-<li><code>graph_summary</code> - Stats, god nodes, suggested questions</li>
-</ul>
-<h4 id="analysis-insights">Analysis Insights<a class="headerlink" href="#analysis-insights" title="Permanent link">&para;</a></h4>
-<ul>
-<li>Suggested questions generation:</li>
-<li>Ambiguous edges needing verification</li>
-<li>Bridge nodes connecting communities</li>
-<li>Inferred relationships to verify</li>
-<li>Isolated nodes (documentation gaps)</li>
-<li>Low cohesion communities</li>
-</ul>
-<h3 id="documentation_2">Documentation<a class="headerlink" href="#documentation_2" title="Permanent link">&para;</a></h3>
-<ul>
-<li>PRD.md: Product requirements</li>
-<li>TRD.md: Technical requirements</li>
-<li>TASKS.md: Implementation tracking</li>
-<li>PLAN.md: Architecture decisions</li>
+<li><a href="../changelog/">Full Changelog</a></li>
+<li><a href="../../analyzers/">Analyzer Documentation</a></li>
+<li><a href="https://github.com/plexusone/graphize/releases/tag/v0.3.0">GitHub Release</a></li>
 </ul>
 
 

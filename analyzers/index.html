@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://plexusone.github.io/graphize/cli/">
+        <link rel="canonical" href="https://plexusone.github.io/graphize/analyzers/">
       
       
-        <link rel="prev" href="../getting-started/">
+        <link rel="prev" href="../cli/reference/">
       
       
-        <link rel="next" href="workflow/">
+        <link rel="next" href="creating-analyzers/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#cli-overview" class="md-skip">
+        <a href="#language-analyzers" class="md-skip">
           Skip to content
         </a>
       
@@ -307,6 +307,127 @@
       
   
   
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    CLI
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            CLI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Workflow
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Command Reference
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -325,15 +446,15 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
             
   
   
   <span class="md-ellipsis">
-    CLI
+    Analyzers
     
   </span>
   
@@ -341,10 +462,10 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_3">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
-            CLI
+            Analyzers
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -405,82 +526,82 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#command-categories" class="md-nav__link">
+  <a href="#architecture-overview" class="md-nav__link">
     <span class="md-ellipsis">
-      Command Categories
+      Architecture Overview
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Command Categories">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#built-in-analyzers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Built-in Analyzers
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#external-analyzers" class="md-nav__link">
+    <span class="md-ellipsis">
+      External Analyzers
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#provider-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Provider Interface
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#priority-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Priority System
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extraction-levels" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extraction Levels
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Extraction Levels">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#setup-commands" class="md-nav__link">
+  <a href="#level-1-structural-tree-sitter" class="md-nav__link">
     <span class="md-ellipsis">
-      Setup Commands
+      Level 1: Structural (Tree-sitter)
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#extraction-commands" class="md-nav__link">
+  <a href="#level-2-semantic-gotypes-typescript-api" class="md-nav__link">
     <span class="md-ellipsis">
-      Extraction Commands
+      Level 2: Semantic (go/types, TypeScript API)
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#query-commands" class="md-nav__link">
+  <a href="#level-3-data-flow-ssa-taint-analysis" class="md-nav__link">
     <span class="md-ellipsis">
-      Query Commands
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#analysis-commands" class="md-nav__link">
-    <span class="md-ellipsis">
-      Analysis Commands
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#export-commands" class="md-nav__link">
-    <span class="md-ellipsis">
-      Export Commands
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#automation-commands" class="md-nav__link">
-    <span class="md-ellipsis">
-      Automation Commands
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#server-commands" class="md-nav__link">
-    <span class="md-ellipsis">
-      Server Commands
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#agent-commands" class="md-nav__link">
-    <span class="md-ellipsis">
-      Agent Commands
+      Level 3: Data Flow (SSA, taint analysis)
     </span>
   </a>
   
@@ -488,75 +609,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#global-flags" class="md-nav__link">
-    <span class="md-ellipsis">
-      Global Flags
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#output-formats" class="md-nav__link">
-    <span class="md-ellipsis">
-      Output Formats
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Output Formats">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#toon-default" class="md-nav__link">
-    <span class="md-ellipsis">
-      TOON (Default)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#json" class="md-nav__link">
-    <span class="md-ellipsis">
-      JSON
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#yaml" class="md-nav__link">
-    <span class="md-ellipsis">
-      YAML
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#exit-codes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Exit Codes
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#environment-variables" class="md-nav__link">
-    <span class="md-ellipsis">
-      Environment Variables
-    </span>
-  </a>
   
 </li>
       
@@ -585,128 +637,7 @@
   
   
     <li class="md-nav__item">
-      <a href="workflow/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Workflow
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="reference/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Command Reference
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
-        
-          
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
-            
-  
-  
-  <span class="md-ellipsis">
-    Analyzers
-    
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4">
-            <span class="md-nav__icon md-icon"></span>
-            Analyzers
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../analyzers/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Overview
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../analyzers/creating-analyzers/" class="md-nav__link">
+      <a href="creating-analyzers/" class="md-nav__link">
         
   
   
@@ -729,7 +660,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../analyzers/go-analyzer/" class="md-nav__link">
+      <a href="go-analyzer/" class="md-nav__link">
         
   
   
@@ -752,7 +683,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../analyzers/semantic-analysis/" class="md-nav__link">
+      <a href="semantic-analysis/" class="md-nav__link">
         
   
   
@@ -1034,82 +965,82 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#command-categories" class="md-nav__link">
+  <a href="#architecture-overview" class="md-nav__link">
     <span class="md-ellipsis">
-      Command Categories
+      Architecture Overview
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Command Categories">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#built-in-analyzers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Built-in Analyzers
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#external-analyzers" class="md-nav__link">
+    <span class="md-ellipsis">
+      External Analyzers
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#provider-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Provider Interface
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#priority-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Priority System
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extraction-levels" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extraction Levels
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Extraction Levels">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#setup-commands" class="md-nav__link">
+  <a href="#level-1-structural-tree-sitter" class="md-nav__link">
     <span class="md-ellipsis">
-      Setup Commands
+      Level 1: Structural (Tree-sitter)
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#extraction-commands" class="md-nav__link">
+  <a href="#level-2-semantic-gotypes-typescript-api" class="md-nav__link">
     <span class="md-ellipsis">
-      Extraction Commands
+      Level 2: Semantic (go/types, TypeScript API)
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#query-commands" class="md-nav__link">
+  <a href="#level-3-data-flow-ssa-taint-analysis" class="md-nav__link">
     <span class="md-ellipsis">
-      Query Commands
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#analysis-commands" class="md-nav__link">
-    <span class="md-ellipsis">
-      Analysis Commands
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#export-commands" class="md-nav__link">
-    <span class="md-ellipsis">
-      Export Commands
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#automation-commands" class="md-nav__link">
-    <span class="md-ellipsis">
-      Automation Commands
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#server-commands" class="md-nav__link">
-    <span class="md-ellipsis">
-      Server Commands
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#agent-commands" class="md-nav__link">
-    <span class="md-ellipsis">
-      Agent Commands
+      Level 3: Data Flow (SSA, taint analysis)
     </span>
   </a>
   
@@ -1117,75 +1048,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#global-flags" class="md-nav__link">
-    <span class="md-ellipsis">
-      Global Flags
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#output-formats" class="md-nav__link">
-    <span class="md-ellipsis">
-      Output Formats
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Output Formats">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#toon-default" class="md-nav__link">
-    <span class="md-ellipsis">
-      TOON (Default)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#json" class="md-nav__link">
-    <span class="md-ellipsis">
-      JSON
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#yaml" class="md-nav__link">
-    <span class="md-ellipsis">
-      YAML
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#exit-codes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Exit Codes
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#environment-variables" class="md-nav__link">
-    <span class="md-ellipsis">
-      Environment Variables
-    </span>
-  </a>
   
 </li>
       
@@ -1217,263 +1079,172 @@
   
 
 
-<h1 id="cli-overview">CLI Overview<a class="headerlink" href="#cli-overview" title="Permanent link">&para;</a></h1>
-<p>Graphize provides a comprehensive CLI for extracting, querying, and exporting knowledge graphs from Go codebases.</p>
-<h2 id="command-categories">Command Categories<a class="headerlink" href="#command-categories" title="Permanent link">&para;</a></h2>
-<h3 id="setup-commands">Setup Commands<a class="headerlink" href="#setup-commands" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Command</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>graphize init</code></td>
-<td>Initialize a new graph database</td>
-</tr>
-<tr>
-<td><code>graphize add &lt;path&gt;</code></td>
-<td>Add a repository to track</td>
-</tr>
-<tr>
-<td><code>graphize status</code></td>
-<td>Show tracked sources and their status</td>
-</tr>
-</tbody>
-</table>
-<h3 id="extraction-commands">Extraction Commands<a class="headerlink" href="#extraction-commands" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Command</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>graphize analyze</code></td>
-<td>Extract graph from tracked sources (AST)</td>
-</tr>
-<tr>
-<td><code>graphize enhance</code></td>
-<td>Prepare files for LLM semantic extraction</td>
-</tr>
-<tr>
-<td><code>graphize merge</code></td>
-<td>Merge semantic edges into the graph</td>
-</tr>
-<tr>
-<td><code>graphize rebuild</code></td>
-<td>Rebuild graph and merge semantic edges</td>
-</tr>
-</tbody>
-</table>
-<h3 id="query-commands">Query Commands<a class="headerlink" href="#query-commands" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Command</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>graphize query</code></td>
-<td>Query the knowledge graph</td>
-</tr>
-<tr>
-<td><code>graphize path &lt;A&gt; &lt;B&gt;</code></td>
-<td>Find shortest path between nodes</td>
-</tr>
-<tr>
-<td><code>graphize diff</code></td>
-<td>Compare two graph snapshots</td>
-</tr>
-</tbody>
-</table>
-<h3 id="analysis-commands">Analysis Commands<a class="headerlink" href="#analysis-commands" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Command</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>graphize report</code></td>
-<td>Generate analysis report</td>
-</tr>
-<tr>
-<td><code>graphize summary</code></td>
-<td>Generate markdown summary</td>
-</tr>
-<tr>
-<td><code>graphize benchmark</code></td>
-<td>Show token reduction statistics</td>
-</tr>
-</tbody>
-</table>
-<h3 id="export-commands">Export Commands<a class="headerlink" href="#export-commands" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Command</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>graphize export html</code></td>
-<td>Export to interactive HTML (Cytoscape.js)</td>
-</tr>
-<tr>
-<td><code>graphize export toon</code></td>
-<td>Export to TOON format</td>
-</tr>
-<tr>
-<td><code>graphize export json</code></td>
-<td>Export to JSON</td>
-</tr>
-<tr>
-<td><code>graphize export graphml</code></td>
-<td>Export to GraphML (Gephi, yEd)</td>
-</tr>
-<tr>
-<td><code>graphize export cypher</code></td>
-<td>Export to Neo4j Cypher</td>
-</tr>
-<tr>
-<td><code>graphize export obsidian</code></td>
-<td>Export to Obsidian vault</td>
-</tr>
-</tbody>
-</table>
-<h3 id="automation-commands">Automation Commands<a class="headerlink" href="#automation-commands" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Command</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>graphize watch</code></td>
-<td>Auto-rebuild on file changes</td>
-</tr>
-<tr>
-<td><code>graphize hook install</code></td>
-<td>Install git hooks</td>
-</tr>
-<tr>
-<td><code>graphize hook uninstall</code></td>
-<td>Remove git hooks</td>
-</tr>
-<tr>
-<td><code>graphize hook status</code></td>
-<td>Check hook status</td>
-</tr>
-</tbody>
-</table>
-<h3 id="server-commands">Server Commands<a class="headerlink" href="#server-commands" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Command</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>graphize serve</code></td>
-<td>Start MCP server for graph queries</td>
-</tr>
-</tbody>
-</table>
-<h3 id="agent-commands">Agent Commands<a class="headerlink" href="#agent-commands" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Command</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>graphize init-agents</code></td>
-<td>Initialize agent framework directories</td>
-</tr>
-</tbody>
-</table>
-<h2 id="global-flags">Global Flags<a class="headerlink" href="#global-flags" title="Permanent link">&para;</a></h2>
-<p>All commands support these flags:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>-g,<span class="w"> </span>--graph<span class="w"> </span>string<span class="w">    </span>Path<span class="w"> </span>to<span class="w"> </span>graph<span class="w"> </span>database<span class="w"> </span><span class="o">(</span>default<span class="w"> </span><span class="s2">&quot;.graphize&quot;</span><span class="o">)</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>-f,<span class="w"> </span>--format<span class="w"> </span>string<span class="w">   </span>Output<span class="w"> </span>format:<span class="w"> </span>toon,<span class="w"> </span>json,<span class="w"> </span>yaml<span class="w"> </span><span class="o">(</span>default<span class="w"> </span><span class="s2">&quot;toon&quot;</span><span class="o">)</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>-h,<span class="w"> </span>--help<span class="w">            </span>Help<span class="w"> </span><span class="k">for</span><span class="w"> </span>the<span class="w"> </span><span class="nb">command</span>
+<h1 id="language-analyzers">Language Analyzers<a class="headerlink" href="#language-analyzers" title="Permanent link">&para;</a></h1>
+<p>Graphize uses a pluggable analyzer architecture to support multiple programming languages. Each analyzer extracts nodes and edges from source code to build a unified knowledge graph.</p>
+<h2 id="architecture-overview">Architecture Overview<a class="headerlink" href="#architecture-overview" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>┌─────────────────────────────────────────────────────────────────┐
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│                     ANALYZER ARCHITECTURE                        │
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├─────────────────────────────────────────────────────────────────┤
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│                                                                  │
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│  ┌──────────────┐    ┌──────────────┐    ┌──────────────┐       │
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│  │ Go Analyzer  │    │ Java Analyzer│    │ TS Analyzer  │       │
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│  │ (go/ast)     │    │ (tree-sitter)│    │ (tree-sitter)│       │
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│  └──────┬───────┘    └──────┬───────┘    └──────┬───────┘       │
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>│         │                   │                   │                │
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>│         └───────────────────┼───────────────────┘                │
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>│                             ▼                                    │
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>│                   ┌──────────────────┐                          │
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>│                   │ Provider Registry│                          │
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>│                   │ (priority-based) │                          │
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>│                   └────────┬─────────┘                          │
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>│                            │                                     │
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>│                            ▼                                     │
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>│                   ┌──────────────────┐                          │
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>│                   │ MultiExtractor   │                          │
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>│                   │ (orchestrator)   │                          │
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>│                   └────────┬─────────┘                          │
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>│                            │                                     │
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>│                            ▼                                     │
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>│                   ┌──────────────────┐                          │
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>│                   │ GraphFS Store    │                          │
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>│                   │ (nodes + edges)  │                          │
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>│                   └──────────────────┘                          │
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>└─────────────────────────────────────────────────────────────────┘
 </code></pre></div>
-<h2 id="output-formats">Output Formats<a class="headerlink" href="#output-formats" title="Permanent link">&para;</a></h2>
-<p>Graphize supports multiple output formats:</p>
-<h3 id="toon-default">TOON (Default)<a class="headerlink" href="#toon-default" title="Permanent link">&para;</a></h3>
-<p>Token-optimized notation for AI agents. Compact and efficient.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>graphize<span class="w"> </span>query<span class="w"> </span>--format<span class="w"> </span>toon
-</code></pre></div>
-<h3 id="json">JSON<a class="headerlink" href="#json" title="Permanent link">&para;</a></h3>
-<p>Full-fidelity machine-readable format.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>graphize<span class="w"> </span>query<span class="w"> </span>--format<span class="w"> </span>json
-</code></pre></div>
-<h3 id="yaml">YAML<a class="headerlink" href="#yaml" title="Permanent link">&para;</a></h3>
-<p>Human-readable format for configuration and debugging.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>graphize<span class="w"> </span>query<span class="w"> </span>--format<span class="w"> </span>yaml
-</code></pre></div>
-<h2 id="exit-codes">Exit Codes<a class="headerlink" href="#exit-codes" title="Permanent link">&para;</a></h2>
+<h2 id="built-in-analyzers">Built-in Analyzers<a class="headerlink" href="#built-in-analyzers" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>Code</th>
-<th>Meaning</th>
+<th>Language</th>
+<th>Parser</th>
+<th>Semantic Depth</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Go</strong></td>
+<td><code>go/ast</code> + <code>go/types</code></td>
+<td>Full (types, interfaces, SSA)</td>
+<td>Production</td>
+</tr>
+<tr>
+<td><strong>Java</strong></td>
+<td>Tree-sitter</td>
+<td>Structural</td>
+<td>Production</td>
+</tr>
+<tr>
+<td><strong>TypeScript</strong></td>
+<td>Tree-sitter</td>
+<td>Structural</td>
+<td>Production</td>
+</tr>
+<tr>
+<td><strong>Swift</strong></td>
+<td>Tree-sitter</td>
+<td>Structural</td>
+<td>Production</td>
+</tr>
+<tr>
+<td><strong>Markdown</strong></td>
+<td>Regex/text</td>
+<td>Documentation</td>
+<td>Production</td>
+</tr>
+</tbody>
+</table>
+<h2 id="external-analyzers">External Analyzers<a class="headerlink" href="#external-analyzers" title="Permanent link">&para;</a></h2>
+<p>External analyzers can be created as separate Go modules:</p>
+<table>
+<thead>
+<tr>
+<th>Analyzer</th>
+<th>Language</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/plexusone/graphize-groovy">graphize-groovy</a></td>
+<td>Groovy/Grails</td>
+<td>Planned</td>
+</tr>
+</tbody>
+</table>
+<h2 id="provider-interface">Provider Interface<a class="headerlink" href="#provider-interface" title="Permanent link">&para;</a></h2>
+<p>All analyzers implement the <code>LanguageExtractor</code> interface:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kd">type</span><span class="w"> </span><span class="nx">LanguageExtractor</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="c1">// Language returns the canonical language name</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="nx">Language</span><span class="p">()</span><span class="w"> </span><span class="kt">string</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="c1">// Extensions returns file extensions handled</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="nx">Extensions</span><span class="p">()</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="c1">// CanExtract returns true if this extractor handles the file</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="nx">CanExtract</span><span class="p">(</span><span class="nx">path</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">bool</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="c1">// ExtractFile extracts nodes and edges from a source file</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">    </span><span class="nx">ExtractFile</span><span class="p">(</span><span class="nx">path</span><span class="p">,</span><span class="w"> </span><span class="nx">baseDir</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">([]</span><span class="o">*</span><span class="nx">graph</span><span class="p">.</span><span class="nx">Node</span><span class="p">,</span><span class="w"> </span><span class="p">[]</span><span class="o">*</span><span class="nx">graph</span><span class="p">.</span><span class="nx">Edge</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">    </span><span class="c1">// DetectFramework returns detected framework info</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">    </span><span class="nx">DetectFramework</span><span class="p">(</span><span class="nx">path</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="nx">FrameworkInfo</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="p">}</span>
+</code></pre></div>
+<h2 id="priority-system">Priority System<a class="headerlink" href="#priority-system" title="Permanent link">&para;</a></h2>
+<p>Analyzers register with a priority level. Higher priority analyzers override lower ones for the same file extension:</p>
+<table>
+<thead>
+<tr>
+<th>Priority</th>
+<th>Constant</th>
+<th>Use Case</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>0</td>
-<td>Success</td>
+<td><code>PriorityDefault</code></td>
+<td>Built-in analyzers</td>
 </tr>
 <tr>
-<td>1</td>
-<td>General error</td>
+<td>10</td>
+<td><code>PriorityThick</code></td>
+<td>SDK-based analyzers (richer extraction)</td>
 </tr>
 <tr>
-<td>2</td>
-<td>Invalid arguments</td>
+<td>100</td>
+<td><code>PriorityCustom</code></td>
+<td>User-provided custom analyzers</td>
 </tr>
 </tbody>
 </table>
-<h2 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Variable</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>GRAPHIZE_PATH</code></td>
-<td>Default graph database path</td>
-</tr>
-<tr>
-<td><code>GRAPHIZE_FORMAT</code></td>
-<td>Default output format</td>
-</tr>
-</tbody>
-</table>
+<h2 id="extraction-levels">Extraction Levels<a class="headerlink" href="#extraction-levels" title="Permanent link">&para;</a></h2>
+<h3 id="level-1-structural-tree-sitter">Level 1: Structural (Tree-sitter)<a class="headerlink" href="#level-1-structural-tree-sitter" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Fast, incremental parsing</li>
+<li>Syntax tree only (no types)</li>
+<li>Good for: code navigation, basic call graphs</li>
+</ul>
+<h3 id="level-2-semantic-gotypes-typescript-api">Level 2: Semantic (go/types, TypeScript API)<a class="headerlink" href="#level-2-semantic-gotypes-typescript-api" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Type resolution</li>
+<li>Interface implementation detection</li>
+<li>Framework detection</li>
+<li>Good for: security analysis, reachability</li>
+</ul>
+<h3 id="level-3-data-flow-ssa-taint-analysis">Level 3: Data Flow (SSA, taint analysis)<a class="headerlink" href="#level-3-data-flow-ssa-taint-analysis" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Control flow graphs</li>
+<li>Data flow tracking</li>
+<li>Taint propagation</li>
+<li>Good for: vulnerability detection</li>
+</ul>
 <h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="workflow/">Workflow Guide</a> - The analyze → enhance → merge flow</li>
-<li><a href="reference/">Command Reference</a> - Detailed command documentation</li>
+<li><a href="creating-analyzers/">Creating Analyzers</a> - Build your own analyzer</li>
+<li><a href="go-analyzer/">Go Analyzer Reference</a> - Deep dive into Go analysis</li>
+<li><a href="semantic-analysis/">Semantic Analysis</a> - Adding type information</li>
 </ul>
 
 
