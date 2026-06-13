@@ -6,6 +6,43 @@
   "commitConvention": "conventional",
   "releases": [
     {
+      "version": "v0.4.0",
+      "date": "2026-06-13",
+      "highlights": [
+        { "description": "Full-text search using bleve with fuzzy matching and faceted results" },
+        { "description": "Code reuse tracking to identify refactoring opportunities" },
+        { "description": "Architectural pattern detection with anti-pattern warnings" }
+      ],
+      "added": [
+        { "description": "`graphize search <query>` command for full-text search across node labels, docstrings, packages, and signatures", "commit": "dc283f5" },
+        { "description": "Fuzzy matching with configurable edit distance (`--fuzzy 1-2`)", "commit": "dc283f5" },
+        { "description": "Type filtering for search results (`--type function,class,struct`)", "commit": "dc283f5" },
+        { "description": "Highlighted search fragments and faceted results by node type", "commit": "dc283f5" },
+        { "description": "Search index statistics and reindex capability (`--stats`, `--reindex`)", "commit": "dc283f5" },
+        { "description": "`graphize reuse` command to identify code reuse patterns and refactoring opportunities", "commit": "4343efe" },
+        { "description": "Similar function signature detection for interface extraction candidates", "commit": "4343efe" },
+        { "description": "Duplicate name detection across packages", "commit": "4343efe" },
+        { "description": "Shared dependency analysis for service extraction candidates", "commit": "4343efe" },
+        { "description": "`graphize patterns` command for architectural pattern detection", "commit": "106ce11" },
+        { "description": "Architectural patterns: factory, singleton, handler, repository, builder", "commit": "106ce11" },
+        { "description": "Structural patterns: hub nodes, layered architecture, clusters", "commit": "106ce11" },
+        { "description": "Anti-pattern detection: god objects, circular dependencies, dead code", "commit": "106ce11" },
+        { "description": "Health score calculation based on anti-pattern severity", "commit": "106ce11" },
+        { "description": "`pkg/search/` package using bleve v2.6.0 for full-text indexing", "commit": "dc283f5" },
+        { "description": "`pkg/reuse/` package for code similarity analysis", "commit": "4343efe" },
+        { "description": "`pkg/patterns/` package for pattern detection algorithms", "commit": "106ce11" }
+      ],
+      "changed": [
+        { "description": "TOON formatter now properly handles struct types via JSON marshaling", "commit": "dc283f5" }
+      ],
+      "dependencies": [
+        { "description": "`github.com/blevesearch/bleve/v2` v2.6.0 for full-text search", "commit": "dc283f5" },
+        { "description": "`golang.org/x/tools` bumped to v0.46.0", "commit": "d8480e2" },
+        { "description": "`golang.org/x/text` bumped to v0.38.0", "commit": "3adbf80" },
+        { "description": "`github.com/grokify/mogo` bumped to v0.74.6", "commit": "0d6c88c" }
+      ]
+    },
+    {
       "version": "v0.3.0",
       "date": "2026-05-09",
       "highlights": [

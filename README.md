@@ -36,8 +36,9 @@ LLM-powered CLI for transforming polyglot codebases into queryable knowledge gra
 - 📊 **AST Extraction** - Fast, deterministic extraction of functions, types, and relationships
 - 🔬 **Semantic Go Analysis** - Type-resolved call graphs, interface detection, framework detection (Gin, Echo, Chi, Fiber)
 - 🤖 **LLM Enhancement** - Optional semantic analysis to discover implicit dependencies
-- 🔍 **Graph Queries** - BFS/DFS traversal, path finding, community detection
+- 🔍 **Graph Queries** - BFS/DFS traversal, path finding, full-text search
 - 📈 **Analysis Reports** - God nodes, surprising connections, corpus health, suggested questions
+- 🔎 **Code Analysis** - Reuse tracking, architectural patterns, anti-pattern detection
 - 💡 **Node Explanation** - Get context with community membership and centrality metrics
 - 🌐 **MCP Server** - Integrate with Claude Desktop and Claude Code
 - 🔌 **Platform Installers** - One-command setup for Claude, Cursor, Copilot, Codex, Gemini, Aider
@@ -97,8 +98,11 @@ graphize merge -i agents/graph/semantic-edges.json
 | `graphize enhance` | Prepare for LLM extraction |
 | `graphize merge` | Merge semantic edges |
 | `graphize query` | Query the graph |
+| `graphize search <query>` | Full-text search with fuzzy matching |
 | `graphize path <A> <B>` | Find shortest path between nodes |
 | `graphize explain <node>` | Get node context with community and centrality |
+| `graphize reuse` | Identify code reuse and refactoring opportunities |
+| `graphize patterns` | Detect architectural patterns and anti-patterns |
 | `graphize report` | Generate analysis report |
 | `graphize report --health` | Assess corpus health and graph value |
 | `graphize benchmark` | Show token reduction statistics |
