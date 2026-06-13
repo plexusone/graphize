@@ -78,9 +78,25 @@ func formatTOON(v any, indent int) ([]byte, error) {
 		return formatTOONMap(val, indent)
 	case []any:
 		return formatTOONSlice(val, indent)
-	default:
+	case string, int, int64, float64, bool:
 		// Primitive values
 		return []byte(fmt.Sprintf("%v", v)), nil
+	default:
+		// For structs and other complex types, convert to map via JSON
+		data, err := json.Marshal(val)
+		if err != nil {
+			return []byte(fmt.Sprintf("%v", v)), nil
+		}
+		var m map[string]any
+		if err := json.Unmarshal(data, &m); err != nil {
+			// Try as slice
+			var s []any
+			if err := json.Unmarshal(data, &s); err != nil {
+				return []byte(fmt.Sprintf("%v", v)), nil
+			}
+			return formatTOONSlice(s, indent)
+		}
+		return formatTOONMap(m, indent)
 	}
 }
 
