@@ -3,7 +3,10 @@ package cmd
 
 import (
 	"fmt"
+	"path/filepath"
 
+	"github.com/plexusone/graphfs/pkg/graph"
+	"github.com/plexusone/graphfs/pkg/store"
 	"github.com/plexusone/graphize/pkg/output"
 	"github.com/spf13/cobra"
 )
@@ -56,4 +59,39 @@ func printOutput(v any) error {
 	}
 	fmt.Println(string(data))
 	return nil
+}
+
+// GraphData holds loaded graph nodes and edges.
+type GraphData struct {
+	Nodes []*graph.Node
+	Edges []*graph.Edge
+}
+
+// loadGraph loads nodes and edges from the graph store.
+func loadGraph() (*GraphData, error) {
+	absGraphPath, err := filepath.Abs(graphPath)
+	if err != nil {
+		return nil, fmt.Errorf("resolving graph path: %w", err)
+	}
+
+	graphStore, err := store.NewFSStore(absGraphPath)
+	if err != nil {
+		return nil, fmt.Errorf("opening graph store: %w", err)
+	}
+
+	nodes, err := graphStore.ListNodes()
+	if err != nil {
+		return nil, fmt.Errorf("loading nodes: %w", err)
+	}
+
+	edges, err := graphStore.ListEdges()
+	if err != nil {
+		return nil, fmt.Errorf("loading edges: %w", err)
+	}
+
+	if len(nodes) == 0 {
+		return nil, fmt.Errorf("no nodes found in graph at %s", absGraphPath)
+	}
+
+	return &GraphData{Nodes: nodes, Edges: edges}, nil
 }

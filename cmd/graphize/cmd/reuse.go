@@ -1,10 +1,6 @@
 package cmd
 
 import (
-	"fmt"
-	"path/filepath"
-
-	"github.com/plexusone/graphfs/pkg/store"
 	"github.com/plexusone/graphize/pkg/reuse"
 	"github.com/spf13/cobra"
 )
@@ -25,34 +21,12 @@ Examples:
   graphize reuse --format json      # Output as JSON
 `,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		// Resolve graph path
-		absGraphPath, err := filepath.Abs(graphPath)
+		data, err := loadGraph()
 		if err != nil {
-			return fmt.Errorf("resolving graph path: %w", err)
+			return err
 		}
 
-		// Load graph
-		graphStore, err := store.NewFSStore(absGraphPath)
-		if err != nil {
-			return fmt.Errorf("opening graph store: %w", err)
-		}
-
-		nodes, err := graphStore.ListNodes()
-		if err != nil {
-			return fmt.Errorf("loading nodes: %w", err)
-		}
-
-		edges, err := graphStore.ListEdges()
-		if err != nil {
-			return fmt.Errorf("loading edges: %w", err)
-		}
-
-		if len(nodes) == 0 {
-			return fmt.Errorf("no nodes found in graph at %s", absGraphPath)
-		}
-
-		// Run analysis
-		tracker := reuse.NewTracker(nodes, edges)
+		tracker := reuse.NewTracker(data.Nodes, data.Edges)
 		report := tracker.Analyze()
 
 		return printOutput(report)
