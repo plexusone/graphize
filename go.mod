@@ -21,11 +21,11 @@ require (
 )
 
 require (
-	github.com/RoaringBitmap/roaring/v2 v2.18.2 // indirect
+	github.com/RoaringBitmap/roaring/v2 v2.19.0 // indirect
 	github.com/bits-and-blooms/bitset v1.24.5 // indirect
-	github.com/blevesearch/bleve_index_api v1.3.12 // indirect
+	github.com/blevesearch/bleve_index_api v1.4.0 // indirect
 	github.com/blevesearch/geo v0.2.5 // indirect
-	github.com/blevesearch/go-faiss v1.1.4 // indirect
+	github.com/blevesearch/go-faiss v1.1.5 // indirect
 	github.com/blevesearch/go-porterstemmer v1.0.3 // indirect
 	github.com/blevesearch/gtreap v0.1.1 // indirect
 	github.com/blevesearch/mmap-go v1.2.0 // indirect
@@ -40,7 +40,7 @@ require (
 	github.com/blevesearch/zapx/v14 v14.4.3 // indirect
 	github.com/blevesearch/zapx/v15 v15.4.3 // indirect
 	github.com/blevesearch/zapx/v16 v16.3.4 // indirect
-	github.com/blevesearch/zapx/v17 v17.1.6 // indirect
+	github.com/blevesearch/zapx/v17 v17.1.9 // indirect
 	github.com/golang/snappy v1.0.0 // indirect
 	github.com/google/jsonschema-go v0.4.3 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
@@ -52,7 +52,7 @@ require (
 	github.com/segmentio/encoding v0.5.4 // indirect
 	github.com/spf13/pflag v1.0.10 // indirect
 	github.com/yosida95/uritemplate/v3 v3.0.2 // indirect
-	go.etcd.io/bbolt v1.4.3 // indirect
+	go.etcd.io/bbolt v1.5.0 // indirect
 	golang.org/x/mod v0.37.0 // indirect
 	golang.org/x/oauth2 v0.36.0 // indirect
 	golang.org/x/sync v0.21.0 // indirect
