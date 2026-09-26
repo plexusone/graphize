@@ -6,7 +6,7 @@ require (
 	github.com/blevesearch/bleve/v2 v2.6.1
 	github.com/fsnotify/fsnotify v1.10.1
 	github.com/grokify/cytoscape-go v0.1.1
-	github.com/grokify/mogo v0.74.8
+	github.com/grokify/mogo v0.74.9
 	github.com/modelcontextprotocol/go-sdk v1.7.0
 	github.com/plexusone/graphfs v0.2.0
 	github.com/plexusone/system-spec v0.1.0
@@ -56,7 +56,7 @@ require (
 	golang.org/x/mod v0.41.0 // indirect
 	golang.org/x/oauth2 v0.36.0 // indirect
 	golang.org/x/sync v0.23.0 // indirect
-	golang.org/x/sys v0.47.0 // indirect
+	golang.org/x/sys v0.48.0 // indirect
 	golang.org/x/time v0.15.0 // indirect
 	google.golang.org/protobuf v1.36.12 // indirect
 )
